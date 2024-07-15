@@ -17,11 +17,17 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->date('date_of_birth');
+            $table->string('ghana_card_id')->unique();
+            $table->string('ghana_card_image_path');
+            $table->unsignedBigInteger('region_id');
             $table->unsignedBigInteger('constituency_id');
-            $table->enum('role', ['user', 'mp', 'admin'])->default('user');
-            $table->integer('points')->default(0);
+            $table->enum('role', ['user', 'constituency_admin', 'regional_admin', 'national_admin', 'super_admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('constituency_id')->references('id')->on('constituencies');
+            $table->foreign('region_id')->references('id')->on('regions');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

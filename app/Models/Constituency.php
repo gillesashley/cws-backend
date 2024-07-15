@@ -9,7 +9,12 @@ class Constituency extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'region'];
+    protected $fillable = ['name', 'region_id'];
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
 
     public function users()
     {

@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('constituencies', function (Blueprint $table) {
+        Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('region_id');
+            $table->string('title');
+            $table->text('content');
+            $table->string('type'); // 'google_adsense' or 'private'
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
-
-            $table->foreign('region_id')->references('id')->on('regions');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('constituencies');
+        Schema::dropIfExists('advertisements');
     }
 };

@@ -10,7 +10,7 @@ class CampaignMessage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'constituency_id', 'title', 'content', 'likes', 'shares', 'reads'
+        'user_id', 'constituency_id', 'title', 'content', 'reads'
     ];
 
     public function user()
@@ -21,6 +21,16 @@ class CampaignMessage extends Model
     public function constituency()
     {
         return $this->belongsTo(Constituency::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function shares()
+    {
+        return $this->hasMany(Share::class);
     }
 
     public function userActions()

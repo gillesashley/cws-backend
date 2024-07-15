@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedBigInteger('constituency_id');
+            $table->enum('role', ['user', 'mp', 'admin'])->default('user');
+            $table->integer('points')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

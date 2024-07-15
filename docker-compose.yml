@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: laravel-api-app
-    container_name: laravel_api_app
+    image: cws-api-app
+    container_name: cws_api_app
     restart: unless-stopped
     working_dir: /var/www
     volumes:
@@ -28,7 +28,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: laravel_api_db
+    container_name: cws_api_db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -42,7 +42,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: laravel_api_nginx
+    container_name: cws_api_nginx
     restart: unless-stopped
     ports:
       - "8080:80"

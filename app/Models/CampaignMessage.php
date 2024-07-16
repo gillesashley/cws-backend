@@ -10,7 +10,7 @@ class CampaignMessage extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'constituency_id', 'title', 'content', 'reads'
+        'user_id', 'constituency_id', 'title', 'content', 'reads', 'likes_count', 'shares_count'
     ];
 
     public function user()
@@ -51,5 +51,20 @@ class CampaignMessage extends Model
     public function feedback()
     {
         return $this->hasMany(Feedback::class);
+    }
+
+    public function incrementLikesCount()
+    {
+        $this->increment('likes_count');
+    }
+
+    public function decrementLikesCount()
+    {
+        $this->decrement('likes_count');
+    }
+
+    public function incrementSharesCount()
+    {
+        $this->increment('shares_count');
     }
 }

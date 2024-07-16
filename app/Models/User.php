@@ -99,6 +99,16 @@ class User extends Authenticatable
         return $this->hasMany(PointTransaction::class);
     }
 
+    public function analytics()
+    {
+        return $this->morphMany(Analytics::class, 'entity');
+    }
+
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class);
+    }
+
     public function isConstituencyAdmin()
     {
         return $this->role === 'constituency_admin';

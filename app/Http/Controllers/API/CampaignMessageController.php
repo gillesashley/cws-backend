@@ -75,4 +75,10 @@ class CampaignMessageController extends Controller
         $campaignMessage->delete();
         return response()->json(null, 204);
     }
+
+    public function incrementReadCount(CampaignMessage $campaignMessage)
+    {
+        $campaignMessage->increment('reads');
+        return response()->json(['reads' => $campaignMessage->reads]);
+    }
 }

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->integer('reads')->default(0);
+            $table->unsignedInteger('likes_count')->default(0);
+            $table->unsignedInteger('shares_count')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

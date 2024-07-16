@@ -29,6 +29,14 @@ class DatabaseSeeder extends Seeder
         $constituencies = Constituency::all();
         $regions = Region::all();
 
+        // Create a Super Admin user
+        User::factory()->create([
+            'name' => 'Super Admin',
+            'email' => 'admin@example.com',
+            'role' => 'super_admin',
+            'constituency_id' => $constituencies->random()->id,
+        ]);
+
         // Create users
         $users = User::factory(100)->create()->each(function ($user) use ($constituencies) {
             $constituency = $constituencies->random();
@@ -87,14 +95,6 @@ class DatabaseSeeder extends Seeder
         Feedback::factory(100)->create([
             'user_id' => $users->random()->id,
             'campaign_message_id' => $campaignMessages->random()->id,
-        ]);
-
-        // Create a Super Admin user
-        User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@example.com',
-            'role' => 'super_admin',
-            'constituency_id' => $constituencies->random()->id,
         ]);
     }
 }

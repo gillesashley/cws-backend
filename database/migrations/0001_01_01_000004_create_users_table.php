@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone')->unique();
             $table->date('date_of_birth');
             $table->string('ghana_card_id')->unique();
             $table->string('ghana_card_image_path');
@@ -26,8 +27,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('constituency_id')->references('id')->on('constituencies');
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('constituency_id')->references('id')->on('constituencies')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

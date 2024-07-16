@@ -17,7 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('region_id');
             $table->timestamps();
 
-            $table->foreign('region_id')->references('id')->on('regions');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+            $table->unique(['name', 'region_id']); // Add unique constraint to avoid duplicate constituency names within the same region
         });
     }
 

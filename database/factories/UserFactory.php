@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Constituency;
 use App\Models\Region;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -17,6 +18,9 @@ class UserFactory extends Factory
      * The current password being used by the factory.
      */
     protected static ?string $password;
+    protected $model = User::class;
+
+
 
     /**
      * Define the model's default state.
@@ -25,18 +29,22 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        static $emailCounter = 1;
+        static $phoneCounter = 1;
+        static $ghanaCardCounter = 1;
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone' => $this->faker->unique()->phoneNumber,
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone' => $this->faker->unique()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'date_of_birth' => $this->faker->date('Y-m-d', '-18 years'),
-            'ghana_card_id' => $this->faker->unique()->numerify('GHA-############-#'),
+            'ghana_card_id' => $this->faker->unique()->regexify('GHA-[0-9]{12}-1'),
             'ghana_card_image_path' => $this->faker->imageUrl(640, 480, 'people'),
             'constituency_id' => Constituency::factory(),
             'region_id' => Region::factory(),
-            'role' => $this->faker->randomElement(['user', 'constituency_admin', 'regional_admin', 'national_admin']),
+            'role' => $this->faker->randomElement(['user', 'constituency_admin', 'regional_admin', 'national_admin', 'super_admin']),
             'remember_token' => Str::random(10),
         ];
     }

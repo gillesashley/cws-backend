@@ -2,22 +2,22 @@
 
 namespace App\Providers;
 
-use App\Models\Advertisement;
+use App\Models\User;
 use App\Models\CampaignMessage;
 use App\Models\Constituency;
-use App\Models\Notification;
-use App\Models\PointTransaction;
-use App\Models\Region;
 use App\Models\RewardWithdrawal;
-use App\Models\User;
-use App\Policies\AdvertisementPolicy;
+use App\Models\Region;
+use App\Models\PointTransaction;
+use App\Models\Notification;
+use App\Models\Advertisement;
+use App\Policies\UserPolicy;
 use App\Policies\CampaignMessagePolicy;
 use App\Policies\ConstituencyPolicy;
-use App\Policies\NotificationPolicy;
-use App\Policies\PointTransactionPolicy;
-use App\Policies\RegionPolicy;
 use App\Policies\RewardWithdrawalPolicy;
-use App\Policies\UserPolicy;
+use App\Policies\RegionPolicy;
+use App\Policies\PointTransactionPolicy;
+use App\Policies\NotificationPolicy;
+use App\Policies\AdvertisementPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 

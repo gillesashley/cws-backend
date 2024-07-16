@@ -42,4 +42,14 @@ class CampaignMessage extends Model
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function analytics()
+    {
+        return $this->morphMany(Analytics::class, 'entity');
+    }
+
+    public function feedback()
+    {
+        return $this->hasMany(Feedback::class);
+    }
 }

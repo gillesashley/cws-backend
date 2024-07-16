@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('point_transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('point_id')->after('user_id');
+            $table->string('transaction_type');
+            $table->unsignedBigInteger('related_id')->nullable();
+            $table->string('related_type')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('point_id')->references('id')->on('points');
         });
     }
 

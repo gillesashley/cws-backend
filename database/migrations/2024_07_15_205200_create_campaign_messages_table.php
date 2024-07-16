@@ -17,10 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('constituency_id');
             $table->string('title');
             $table->text('content');
-            $table->integer('likes')->default(0);
-            $table->integer('shares')->default(0);
             $table->integer('reads')->default(0);
             $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('constituency_id')->references('id')->on('constituencies');
         });

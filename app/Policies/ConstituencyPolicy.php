@@ -47,20 +47,4 @@ class ConstituencyPolicy
     {
         return $user->isConstituencyAdmin() && $user->constituency_id === $constituency->id;
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Constituency $constituency): bool
-    {
-        return $user->isSuperAdmin();
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Constituency $constituency): bool
-    {
-        return $user->isSuperAdmin();
-    }
 }

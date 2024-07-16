@@ -18,6 +18,10 @@ class AuthController extends Controller
             'phone' => 'required|string|max:20|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'constituency_id' => 'nullable|exists:constituencies,id',
+            'region_id' => 'nullable|exists:regions,id',
+            'date_of_birth' => 'required|date|before:-18 years',
+            'ghana_card_id' => 'required|string|unique:users',
+            'ghana_card_image_path' => 'required|string',
         ]);
 
         $user = User::create([
@@ -26,8 +30,11 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'constituency_id' => $request->constituency_id,
+            'region_id' => $request->region_id,
+            'date_of_birth' => $request->date_of_birth,
+            'ghana_card_id' => $request->ghana_card_id,
+            'ghana_card_image_path' => $request->ghana_card_image_path,
         ]);
-
         // TODO: Implement email and phone verification logic
 
         $token = $user->createToken('auth_token')->plainTextToken;

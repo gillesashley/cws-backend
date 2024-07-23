@@ -28,7 +28,9 @@ class StoreUserRequest extends FormRequest
             'password' => 'required|string|min:8',
             'date_of_birth' => 'required|date',
             'ghana_card_id' => 'required|string|unique:users',
+            'ghana_card_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Add this line
             'constituency_id' => 'required|exists:constituencies,id',
+            'region_id' => 'required|exists:regions,id', // Add this line
             'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
         ];
     }

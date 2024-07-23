@@ -7,42 +7,56 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:20|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'constituency_id' => 'nullable|exists:constituencies,id',
-            'region_id' => 'nullable|exists:regions,id',
-            'date_of_birth' => 'required|date|before:-18 years',
+            'password' => 'required|string|min:8',
+            'date_of_birth' => 'required|date',
             'ghana_card_id' => 'required|string|unique:users',
-            'ghana_card_image_path' => 'required|string',
+            'ghana_card_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'constituency_id' => 'required|exists:constituencies,id',
+            'region_id' => 'required|exists:regions,id',
+            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-            'constituency_id' => $request->constituency_id,
-            'region_id' => $request->region_id,
-            'date_of_birth' => $request->date_of_birth,
-            'ghana_card_id' => $request->ghana_card_id,
-            'ghana_card_image_path' => $request->ghana_card_image_path,
-        ]);
-        // TODO: Implement email and phone verification logic
+        // Handle file upload
+        if ($request->hasFile('ghana_card_image')) {
+            $path = $request->file('ghana_card_image')->store('ghana_cards', 'public');
+            $validated['ghana_card_image_path'] = $path;
+        } else {
+            return response()->json(['message' => 'Ghana Card image is required'], 422);
+        }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // Hash the password
+        $validated['password'] = Hash::make($validated['password']);
 
-        return response()->json([
-            'user' => $user,
-            'token' => $token,
-        ], 201);
+        // Remove ghana_card_image from validated data as it's not a column in the users table
+        unset($validated['ghana_card_image']);
+
+        try {
+            $user = User::create($validated);
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'user' => $user,
+                'token' => $token,
+            ], 201);
+        } catch (\Exception $e) {
+            // If user creation fails, delete the uploaded image
+            if (isset($validated['ghana_card_image_path'])) {
+                Storage::disk('public')->delete($validated['ghana_card_image_path']);
+            }
+
+            return response()->json(['message' => 'Registration failed: ' . $e->getMessage()], 500);
+        }
     }
 
     public function login(Request $request)

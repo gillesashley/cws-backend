@@ -24,12 +24,15 @@ Route::get('/', function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::apiResource('regions', RegionController::class)->only(['index', 'show']);
+Route::apiResource('constituencies', ConstituencyController::class);
+Route::get('regions/{region}/constituencies', [ConstituencyController::class, 'getByRegion']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/users', UserController::class);
     Route::post('change-password', [UserController::class, 'changePassword']);
 
-    Route::apiResource('/constituencies', ConstituencyController::class);
 
     Route::apiResource('campaign-messages', CampaignMessageController::class);
 
@@ -42,5 +45,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('notifications', NotificationController::class)->only(['index', 'show']);
     Route::patch('notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead']);
 
-    Route::apiResource('regions', RegionController::class)->only(['index', 'show']);
+    Route::post('/validate-registration', [AuthController::class, 'validateRegistration']);
 });

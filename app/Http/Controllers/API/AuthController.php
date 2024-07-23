@@ -20,7 +20,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
             'date_of_birth' => 'required|date',
             'ghana_card_id' => 'required|string|unique:users',
-            'ghana_card_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'ghana_card_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'constituency_id' => 'required|exists:constituencies,id',
             'region_id' => 'required|exists:regions,id',
             'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
@@ -80,6 +80,13 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ]);
+    }
+
+    public function checkPhoneAvailability(Request $request)
+    {
+        $request->validate(['phone' => 'required|string']);
+        $exists = User::where('phone', $request->phone)->exists();
+        return response()->json(['available' => !$exists]);
     }
 
     public function logout(Request $request)

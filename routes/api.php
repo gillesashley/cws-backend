@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/check-phone', [AuthController::class, 'checkPhoneAvailability']);
 
 Route::apiResource('regions', RegionController::class)->only(['index', 'show']);
 Route::apiResource('constituencies', ConstituencyController::class);

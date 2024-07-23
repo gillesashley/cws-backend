@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/users', UserController::class);
     Route::post('change-password', [UserController::class, 'changePassword']);
-
+    Route::get('/user-profile', [UserController::class, 'profile']);
 
     Route::apiResource('campaign-messages', CampaignMessageController::class);
 

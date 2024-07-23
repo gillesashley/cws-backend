@@ -90,4 +90,10 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Password changed successfully']);
     }
+
+    public function profile(Request $request)
+    {
+        $user = $request->user()->load('constituency', 'region');
+        return new UserResource($user);
+    }
 }

@@ -13,9 +13,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class CampaignMessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $messages = QueryBuilder::for(CampaignMessage::class)

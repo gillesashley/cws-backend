@@ -11,6 +11,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class NotificationController extends Controller
 {
+    
     public function index(Request $request)
     {
         $notifications = QueryBuilder::for(Notification::class)

@@ -13,6 +13,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class RewardWithdrawalController extends Controller
 {
+
     public function index(Request $request)
     {
         if ($request->user()->cannot('viewAny', RewardWithdrawal::class)) {

@@ -14,9 +14,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $users = QueryBuilder::for(User::class)

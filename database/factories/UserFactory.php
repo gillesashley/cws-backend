@@ -30,6 +30,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $constituency = Constituency::inRandomOrder()->first();
+
+        if (!$constituency) {
+            throw new \Exception('No constituencies found. Make sure GhanaRegionsAndConstituenciesSeeder ran successfully.');
+        }
+
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),

@@ -16,6 +16,7 @@ use App\Models\Share;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,15 +34,24 @@ class DatabaseSeeder extends Seeder
             throw new \Exception('No constituencies or regions found. Make sure GhanaRegionsAndConstituenciesSeeder ran successfully.');
         }
 
-        // Create users
-        $users = User::factory(100)->create()->each(function ($user) use ($constituencies) {
-            $constituency = $constituencies->random();
-            $user->constituency_id = $constituency->id;
-            $user->region_id = $constituency->region_id;
-            $user->save();
+        Log::info("Constituencies count: " . $constituencies->count());
+        Log::info("Regions count: " . $regions->count());
 
-            Point::factory()->create(['user_id' => $user->id]);
-        });
+        // Create users
+        try {
+            $users = User::factory(100)->create()->each(function ($user) use ($constituencies) {
+                Log::info("Creating user. Constituencies count: " . $constituencies->count());
+                $constituency = $constituencies->random();
+                $user->constituency_id = $constituency->id;
+                $user->region_id = $constituency->region_id;
+                $user->save();
+
+                Point::factory()->create(['user_id' => $user->id]);
+            });
+        } catch (\Exception $e) {
+            Log::error('Error in DatabaseSeeder: ' . $e->getMessage());
+            throw $e;
+        }
 
         // Create campaign messages
         $campaignMessages = CampaignMessage::factory(200)->create()->each(function ($message) use ($constituencies, $users) {

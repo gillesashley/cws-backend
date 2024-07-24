@@ -18,6 +18,10 @@ class AdminUsersSeeder extends Seeder
         $constituency = Constituency::inRandomOrder()->first();
         $region = Region::inRandomOrder()->first();
 
+        if (!$constituency || !$region) {
+            throw new \Exception('No constituencies or regions found. Make sure GhanaRegionsAndConstituenciesSeeder ran successfully.');
+        }
+
         // Create a Constituency Admin
         User::firstOrCreate(
             ['email' => 'constituency_admin@example.com'],

@@ -9,7 +9,19 @@ class PointTransaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['point_id', 'points', 'transaction_type', 'related_id', 'related_type'];
+    protected $fillable = [
+        'user_id',
+        'point_id',
+        'points',
+        'transaction_type',
+        'related_id',
+        'related_type'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function point()
     {

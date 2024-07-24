@@ -104,16 +104,24 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create point transactions, reward withdrawals, notifications, advertisements, and feedback
-        PointTransaction::factory(500)->create(['user_id' => $users->random()->id]);
-        RewardWithdrawal::factory(50)->create(['user_id' => $users->random()->id]);
-        Notification::factory(300)->create([
-            'user_id' => $users->random()->id,
-            'campaign_message_id' => $campaignMessages->random()->id,
-        ]);
+        $users->each(function ($user) use ($campaignMessages) {
+            PointTransaction::factory(5)->create(['user_id' => $user->id]);
+            if (rand(0, 1)) {
+                RewardWithdrawal::factory()->create(['user_id' => $user->id]);
+            }
+            Notification::factory(3)->create([
+                'user_id' => $user->id,
+                'campaign_message_id' => $campaignMessages->random()->id,
+            ]);
+        });
+
         Advertisement::factory(20)->create();
-        Feedback::factory(100)->create([
-            'user_id' => $users->random()->id,
-            'campaign_message_id' => $campaignMessages->random()->id,
-        ]);
+
+        $users->take(20)->each(function ($user) use ($campaignMessages) {
+            Feedback::factory()->create([
+                'user_id' => $user->id,
+                'campaign_message_id' => $campaignMessages->random()->id,
+            ]);
+        });
     }
 }

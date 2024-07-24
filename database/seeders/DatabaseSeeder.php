@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        /*$this->call([
+        $this->call([
             GhanaRegionsAndConstituenciesSeeder::class,
             AdminUsersSeeder::class,
-        ]);*/
+        ]);
 
         $constituencies = Constituency::all();
         $regions = Region::all();
@@ -32,15 +32,6 @@ class DatabaseSeeder extends Seeder
         if ($constituencies->isEmpty() || $regions->isEmpty()) {
             throw new \Exception('No constituencies or regions found. Make sure GhanaRegionsAndConstituenciesSeeder ran successfully.');
         }
-
-        // Create a Super Admin user
-        /*User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@example.com',
-            'role' => 'super_admin',
-            'constituency_id' => $constituencies->random()->id,
-            'region_id' => $regions->random()->id,
-        ]);*/
 
         // Create users
         $users = User::factory(100)->create()->each(function ($user) use ($constituencies) {

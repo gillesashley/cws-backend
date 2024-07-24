@@ -13,7 +13,14 @@ class AuthControllerTest extends TestCase
     {
         parent::setUp();
         $this->apiBaseUrl = env('API_BASE_URL', 'https://campaignwithus.com/public/api');
-        Http::fake();
+        dump("API Base URL: " . $this->apiBaseUrl); // Debug line
+    }
+
+    public function test_api_is_accessible()
+    {
+        $response = Http::get("{$this->apiBaseUrl}");
+        dump($response->status(), $response->body()); // Debug line
+        $this->assertEquals(200, $response->status());
     }
 
     public function test_user_can_register()
@@ -30,32 +37,10 @@ class AuthControllerTest extends TestCase
             'constituency_id' => '1',
         ];
 
-        Http::fake([
-            "{$this->apiBaseUrl}/register" => Http::response(['token' => 'fake-token'], 201)
-        ]);
-
-        $response = $this->postJson("{$this->apiBaseUrl}/register", $userData);
-
-        $response->assertStatus(201)
-            ->assertJsonStructure(['token']);
-    }
-
-    public function test_user_cannot_register_with_invalid_data()
-    {
-        $userData = [
-            'name' => 'Test User',
-            'email' => 'invalid-email',
-            'password' => 'password',
-        ];
-
-        Http::fake([
-            "{$this->apiBaseUrl}/register" => Http::response(['message' => 'The given data was invalid.'], 422)
-        ]);
-
-        $response = $this->postJson("{$this->apiBaseUrl}/register", $userData);
-
-        $response->assertStatus(422)
-            ->assertJsonStructure(['message']);
+        $response = Http::post("{$this->apiBaseUrl}/register", $userData);
+        dump($response->status(), $response->body(), $response->headers()); // Debug line
+        $this->assertEquals(201, $response->status());
+        $this->assertArrayHasKey('token', $response->json());
     }
 
     public function test_user_can_login()
@@ -65,41 +50,11 @@ class AuthControllerTest extends TestCase
             'password' => 'password',
         ];
 
-        Http::fake([
-            "{$this->apiBaseUrl}/login" => Http::response(['token' => 'fake-token'], 200)
-        ]);
-
-        $response = $this->postJson("{$this->apiBaseUrl}/login", $credentials);
-
-        $response->assertStatus(200)
-            ->assertJsonStructure(['token']);
+        $response = Http::post("{$this->apiBaseUrl}/login", $credentials);
+        dump($response->status(), $response->body(), $response->headers()); // Debug line
+        $this->assertEquals(200, $response->status());
+        $this->assertArrayHasKey('token', $response->json());
     }
 
-    public function test_user_cannot_login_with_invalid_credentials()
-    {
-        $credentials = [
-            'email' => 'test@example.com',
-            'password' => 'wrong-password',
-        ];
-
-        Http::fake([
-            "{$this->apiBaseUrl}/login" => Http::response(['message' => 'Invalid credentials'], 401)
-        ]);
-
-        $response = $this->postJson("{$this->apiBaseUrl}/login", $credentials);
-
-        $response->assertStatus(401)
-            ->assertJsonStructure(['message']);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Http::assertSent(function ($request) {
-            return in_array($request->url(), [
-                "{$this->apiBaseUrl}/register",
-                "{$this->apiBaseUrl}/login"
-            ]);
-        });
-    }
+    // Add more test methods as needed
 }

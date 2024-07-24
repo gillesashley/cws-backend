@@ -57,7 +57,14 @@ class DatabaseSeeder extends Seeder
         try {
             $campaignMessages = CampaignMessage::factory(200)->create()->each(function ($message) use ($constituencies, $users) {
                 $constituency = $constituencies->random();
-                $user = $users->where('constituency_id', $constituency->id)->random();
+                $usersInConstituency = $users->where('constituency_id', $constituency->id);
+
+                if ($usersInConstituency->isEmpty()) {
+                    Log::warning("No users found for constituency {$constituency->id}. Skipping this campaign message.");
+                    return; // Skip this iteration
+                }
+
+                $user = $usersInConstituency->random();
                 $message->user_id = $user->id;
                 $message->constituency_id = $constituency->id;
                 $message->save();

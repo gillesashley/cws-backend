@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call([
-            // GhanaRegionsAndConstituenciesSeeder::class,
+        /*$this->call([
+            GhanaRegionsAndConstituenciesSeeder::class,
             AdminUsersSeeder::class,
-        ]);
+        ]);*/
 
         $constituencies = Constituency::all();
         $regions = Region::all();

@@ -28,6 +28,7 @@ class UpdateUserRequest extends FormRequest
             'phone' => ['sometimes', 'string', 'max:20', Rule::unique('users')->ignore($this->user->id)],
             'date_of_birth' => 'sometimes|date',
             'constituency_id' => 'sometimes|exists:constituencies,id',
+            'area' => 'sometimes|string|max:255',
             'role' => 'sometimes|in:user,constituency_admin,regional_admin,national_admin,super_admin',
         ];
     }

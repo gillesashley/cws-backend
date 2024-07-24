@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('points');
             $table->foreign('point_id')->references('id')->on('points');
         });
     }

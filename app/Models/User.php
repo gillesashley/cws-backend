@@ -27,6 +27,7 @@ class User extends Authenticatable
         'ghana_card_image_path',
         'constituency_id',
         'region_id',
+        'area',
         'role',
         'points'
     ];

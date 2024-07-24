@@ -23,6 +23,7 @@ class AuthController extends Controller
             'ghana_card_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'constituency_id' => 'required|exists:constituencies,id',
             'region_id' => 'required|exists:regions,id',
+            'area' => 'required|string|max:255',
             'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
         ]);
 

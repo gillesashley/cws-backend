@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
                 $constituency = $constituencies->random();
                 $user->constituency_id = $constituency->id;
                 $user->region_id = $constituency->region_id;
+                $user->area = fake()->streetAddress();
                 $user->save();
 
                 Point::factory()->create(['user_id' => $user->id]);

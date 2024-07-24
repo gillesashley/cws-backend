@@ -46,6 +46,7 @@ class UserFactory extends Factory
             'ghana_card_image_path' => $this->faker->imageUrl(640, 480, 'people'),
             'constituency_id' => $constituency->id,
             'region_id' => $constituency->region_id,
+            'area' => $this->faker->streetAddress,
             'role' => $this->faker->randomElement(['user', 'constituency_admin', 'regional_admin', 'national_admin', 'super_admin']),
             'remember_token' => Str::random(10),
         ];

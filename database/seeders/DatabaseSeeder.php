@@ -34,13 +34,13 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create a Super Admin user
-        User::factory()->create([
+        /*User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'admin@example.com',
             'role' => 'super_admin',
             'constituency_id' => $constituencies->random()->id,
             'region_id' => $regions->random()->id,
-        ]);
+        ]);*/
 
         // Create users
         $users = User::factory(100)->create()->each(function ($user) use ($constituencies) {

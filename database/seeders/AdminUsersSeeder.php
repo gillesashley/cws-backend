@@ -74,7 +74,7 @@ class AdminUsersSeeder extends Seeder
                 'role' => 'super_admin',
                 'constituency_id' => Constituency::inRandomOrder()->first()->id,
                 'region_id' => Region::inRandomOrder()->first()->id,
-                'phone' => '1234567890',
+                'phone' => '0247648200',
                 'password' => bcrypt('password'),
                 'date_of_birth' => now()->subYears(45),
                 'ghana_card_id' => 'GHA-' . str_pad(rand(0, 999999999999), 12, '0', STR_PAD_LEFT) . '-2',

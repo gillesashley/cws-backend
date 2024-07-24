@@ -29,10 +29,7 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        static $emailCounter = 1;
-        static $phoneCounter = 1;
-        static $ghanaCardCounter = 1;
-
+        $constituency = Constituency::inRandomOrder()->first();
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
@@ -42,8 +39,8 @@ class UserFactory extends Factory
             'date_of_birth' => $this->faker->date('Y-m-d', '-18 years'),
             'ghana_card_id' => $this->faker->unique()->regexify('GHA-[0-9]{12}-1'),
             'ghana_card_image_path' => $this->faker->imageUrl(640, 480, 'people'),
-            'constituency_id' => Constituency::factory(),
-            'region_id' => Region::factory(),
+            'constituency_id' => $constituency->id,
+            'region_id' => $constituency->region_id,
             'role' => $this->faker->randomElement(['user', 'constituency_admin', 'regional_admin', 'national_admin', 'super_admin']),
             'remember_token' => Str::random(10),
         ];

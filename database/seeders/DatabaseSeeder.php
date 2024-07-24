@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'role' => 'super_admin',
             'constituency_id' => $constituencies->random()->id,
+            'region_id' => $regions->random()->id,
         ]);
 
         // Create users

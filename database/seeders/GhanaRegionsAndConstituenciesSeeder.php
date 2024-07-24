@@ -131,5 +131,9 @@ class GhanaRegionsAndConstituenciesSeeder extends Seeder
             Log::error('Error seeding Ghana regions and constituencies: ' . $e->getMessage());
             throw $e;
         }
+
+        $regionsCount = Region::count();
+        $constituenciesCount = Constituency::count();
+        Log::info("Seeded $regionsCount regions and $constituenciesCount constituencies.");
     }
 }

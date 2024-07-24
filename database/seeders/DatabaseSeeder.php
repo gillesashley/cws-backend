@@ -29,6 +29,10 @@ class DatabaseSeeder extends Seeder
         $constituencies = Constituency::all();
         $regions = Region::all();
 
+        if ($constituencies->isEmpty() || $regions->isEmpty()) {
+            throw new \Exception('No constituencies or regions found. Make sure GhanaRegionsAndConstituenciesSeeder ran successfully.');
+        }
+
         // Create a Super Admin user
         User::factory()->create([
             'name' => 'Super Admin',

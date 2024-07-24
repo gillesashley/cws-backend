@@ -54,13 +54,18 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create campaign messages
-        $campaignMessages = CampaignMessage::factory(200)->create()->each(function ($message) use ($constituencies, $users) {
-            $constituency = $constituencies->random();
-            $user = $users->where('constituency_id', $constituency->id)->random();
-            $message->user_id = $user->id;
-            $message->constituency_id = $constituency->id;
-            $message->save();
-        });
+        try {
+            $campaignMessages = CampaignMessage::factory(200)->create()->each(function ($message) use ($constituencies, $users) {
+                $constituency = $constituencies->random();
+                $user = $users->where('constituency_id', $constituency->id)->random();
+                $message->user_id = $user->id;
+                $message->constituency_id = $constituency->id;
+                $message->save();
+            });
+        } catch (\Exception $e) {
+            Log::error('Error in DatabaseSeeder: ' . $e->getMessage());
+            throw $e;
+        }
 
         // Create likes and shares
         foreach ($campaignMessages as $message) {

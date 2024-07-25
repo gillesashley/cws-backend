@@ -7,7 +7,9 @@ use App\Http\Requests\StoreCampaignMessageRequest;
 use App\Http\Requests\UpdateCampaignMessageRequest;
 use App\Http\Resources\CampaignMessageResource;
 use App\Models\CampaignMessage;
+use App\Models\UserAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -41,6 +43,14 @@ class CampaignMessageController extends Controller
      */
     public function show(CampaignMessage $campaignMessage)
     {
+        $campaignMessage->increment('reads');
+
+        UserAction::create([
+            'user_id' => Auth::id(),
+            'campaign_message_id' => $campaignMessage->id,
+            'action_type' => 'read',
+        ]);
+
         return new CampaignMessageResource(
             QueryBuilder::for(CampaignMessage::where('id', $campaignMessage->id))
                 ->allowedIncludes(['user', 'constituency'])

@@ -10,7 +10,10 @@ class UserAction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'campaign_message_id', 'action_type', 'points_earned'
+        'user_id',
+        'campaign_message_id',
+        'action_type',
+        'points_earned'
     ];
 
     public function user()

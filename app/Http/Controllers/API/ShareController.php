@@ -66,6 +66,7 @@ class ShareController extends Controller
                 'message' => 'Shared successfully',
                 'points_awarded' => $pointsAwarded,
                 'new_total_points' => $point->balance,
+                'shareable_url' => $campaignMessage->shareable_url,
             ], 201);
         } catch (\Exception $e) {
             DB::rollBack();

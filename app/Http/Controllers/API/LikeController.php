@@ -19,20 +19,10 @@ class LikeController extends Controller
 
             $user = $request->user();
 
-            Log::info('Like attempt', [
-                'user_id' => $user->id,
-                'campaign_message_id' => $campaignMessage->id,
-                'user' => $user->toArray(),
-                'campaign_message' => $campaignMessage->toArray()
-            ]);
-
-            $user = $request->user();
-
             // Check if the user has already liked the message
             $existingLike = $campaignMessage->likes()->where('user_id', $user->id)->first();
 
             if ($existingLike) {
-                Log::info('User already liked the message', ['user_id' => $user->id, 'campaign_message_id' => $campaignMessage->id]);
                 DB::rollBack();
                 return response()->json(['message' => 'You have already liked this message'], 400);
             }
@@ -47,15 +37,8 @@ class LikeController extends Controller
             $campaignMessage->increment('likes_count');
 
             // Award points to the user
-            $pointsAwarded = 5; // As per the project requirements
+            $pointsAwarded = 5;
             $user->increment('points', $pointsAwarded);
-
-            // Record the point transaction
-            $user->pointTransactions()->create([
-                'amount' => $pointsAwarded,
-                'type' => 'like',
-                'description' => "Liked campaign message ID: {$campaignMessage->id}"
-            ]);
 
             // Record the point transaction
             PointTransaction::create([
@@ -67,12 +50,6 @@ class LikeController extends Controller
             ]);
 
             DB::commit();
-
-            Log::info('Like successful', [
-                'user_id' => $user->id,
-                'campaign_message_id' => $campaignMessage->id,
-                'points_awarded' => $pointsAwarded
-            ]);
 
             return response()->json([
                 'message' => 'Liked successfully',
@@ -90,6 +67,7 @@ class LikeController extends Controller
             return response()->json(['message' => 'An error occurred while processing your request'], 500);
         }
     }
+
 
     public function getLikeStatus(Request $request, CampaignMessage $campaignMessage)
     {

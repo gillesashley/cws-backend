@@ -17,7 +17,14 @@ class LikeController extends Controller
         try {
             DB::beginTransaction();
 
-            Log::info('Like attempt', ['user_id' => $request->user()->id, 'campaign_message_id' => $campaignMessage->id]);
+            $user = $request->user();
+
+            Log::info('Like attempt', [
+                'user_id' => $user->id,
+                'campaign_message_id' => $campaignMessage->id,
+                'user' => $user->toArray(),
+                'campaign_message' => $campaignMessage->toArray()
+            ]);
 
             $user = $request->user();
 

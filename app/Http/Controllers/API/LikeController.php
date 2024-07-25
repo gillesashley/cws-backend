@@ -75,4 +75,14 @@ class LikeController extends Controller
             return response()->json(['message' => 'Failed to like the post: ' . $e->getMessage()], 500);
         }
     }
+
+    public function getLikeStatus(Request $request, CampaignMessage $campaignMessage)
+    {
+        $user = $request->user();
+        $isLiked = $campaignMessage->likes()->where('user_id', $user->id)->exists();
+
+        return response()->json([
+            'is_liked' => $isLiked
+        ]);
+    }
 }

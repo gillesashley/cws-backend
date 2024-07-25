@@ -4,46 +4,79 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\CampaignMessage;
+use App\Models\Like;
 use App\Models\PointTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class LikeController extends Controller
 {
     public function store(Request $request, CampaignMessage $campaignMessage)
     {
-        $user = $request->user();
+        try {
+            Log::info('Like attempt', ['user_id' => $request->user()->id, 'campaign_message_id' => $campaignMessage->id]);
 
-        // Check if the user has already liked the message
-        $existingLike = $campaignMessage->likes()->where('user_id', $user->id)->first();
+            $user = $request->user();
 
-        if ($existingLike) {
-            return response()->json(['message' => 'You have already liked this message'], 400);
+            // Check if the user has already liked the message
+            $existingLike = $campaignMessage->likes()->where('user_id', $user->id)->first();
+
+            if ($existingLike) {
+                Log::info('User already liked the message', ['user_id' => $user->id, 'campaign_message_id' => $campaignMessage->id]);
+                return response()->json(['message' => 'You have already liked this message'], 400);
+            }
+
+            // Create the like
+            $like = new Like();
+            $like->user_id = $user->id;
+            $like->campaign_message_id = $campaignMessage->id;
+            $like->save();
+
+            // Increment the likes count
+            $campaignMessage->increment('likes_count');
+
+            // Award points to the user
+            $pointsAwarded = 5; // As per the project requirements
+            $user->increment('points', $pointsAwarded);
+
+            // Record the point transaction
+            PointTransaction::create([
+                'user_id' => $user->id,
+                'points' => $pointsAwarded,
+                'transaction_type' => 'like',
+                'related_id' => $campaignMessage->id,
+                'related_type' => CampaignMessage::class,
+            ]);
+
+            Log::info('Like successful', [
+                'user_id' => $user->id,
+                'campaign_message_id' => $campaignMessage->id,
+                'points_awarded' => $pointsAwarded
+            ]);
+
+            return response()->json([
+                'message' => 'Liked successfully',
+                'points_awarded' => $pointsAwarded,
+                'new_total_points' => $user->points,
+            ], 201);
+        } catch (\Exception $e) {
+            Log::error('Error in like process', [
+                'user_id' => $request->user()->id,
+                'campaign_message_id' => $campaignMessage->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return response()->json(['message' => 'An error occurred while processing your request'], 500);
         }
+    }
 
-        // Create the like
-        $like = $campaignMessage->likes()->create([
-            'user_id' => $user->id,
-        ]);
-
-        // Increment the likes count
-        $campaignMessage->increment('likes_count');
-
-        // Award points to the user
-        $pointsAwarded = 5; // As per the project requirements
-        $user->increment('points', $pointsAwarded);
-
-        // Record the point transaction
-        PointTransaction::create([
-            'user_id' => $user->id,
-            'points' => $pointsAwarded,
-            'type' => 'like',
-            'description' => 'Liked a campaign message',
-        ]);
+    public function getLikeStatus(Request $request, CampaignMessage $campaignMessage)
+    {
+        $user = $request->user();
+        $isLiked = $campaignMessage->likes()->where('user_id', $user->id)->exists();
 
         return response()->json([
-            'message' => 'Liked successfully',
-            'points_awarded' => $pointsAwarded,
-            'new_total_points' => $user->points,
-        ], 201);
+            'is_liked' => $isLiked
+        ]);
     }
 }

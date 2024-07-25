@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('campaign-messages', CampaignMessageController::class);
 
     Route::post('campaign-messages/{campaignMessage}/like', [LikeController::class, 'store']);
+    Route::get('campaign-messages/{campaignMessage}/like-status', [LikeController::class, 'getLikeStatus']);
     Route::delete('campaign-messages/{campaignMessage}/like', [LikeController::class, 'destroy']);
     Route::post('campaign-messages/{campaignMessage}/share', [ShareController::class, 'store']);
 

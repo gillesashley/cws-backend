@@ -8,6 +8,7 @@ use App\Models\Point;
 use App\Models\PointTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ShareController extends Controller
 {
@@ -22,12 +23,17 @@ class ShareController extends Controller
         DB::beginTransaction();
 
         try {
+            Log::info('Starting share creation process', ['user_id' => $user->id, 'campaign_message_id' => $campaignMessage->id]);
+
             $share = $campaignMessage->shares()->create([
                 'user_id' => $user->id,
                 'platform' => $request->platform,
             ]);
 
+            Log::info('Share created', ['share_id' => $share->id]);
+
             $campaignMessage->increment('shares_count');
+            Log::info('Campaign message shares count incremented');
 
             // Award points to the user
             $pointsAwarded = 10; // As per the project requirements
@@ -38,8 +44,10 @@ class ShareController extends Controller
             );
             $point->increment('balance', $pointsAwarded);
 
+            Log::info('Points awarded to user', ['points_awarded' => $pointsAwarded, 'new_balance' => $point->balance]);
+
             // Record the point transaction
-            PointTransaction::create([
+            $pointTransaction = PointTransaction::create([
                 'user_id' => $user->id,
                 'points' => $pointsAwarded,
                 'transaction_type' => 'share',
@@ -47,7 +55,11 @@ class ShareController extends Controller
                 'related_type' => 'App\Models\Share',
             ]);
 
+            Log::info('Point transaction created', ['transaction_id' => $pointTransaction->id]);
+
             DB::commit();
+
+            Log::info('Share process completed successfully');
 
             return response()->json([
                 'message' => 'Shared successfully',
@@ -56,7 +68,13 @@ class ShareController extends Controller
             ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => 'Failed to share the post'], 500);
+            Log::error('Share creation failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => $user->id,
+                'campaign_message_id' => $campaignMessage->id,
+            ]);
+            return response()->json(['message' => 'Failed to share the post: ' . $e->getMessage()], 500);
         }
     }
 }

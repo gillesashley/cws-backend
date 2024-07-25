@@ -5,27 +5,85 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\CampaignMessage;
 use App\Models\Like;
+use App\Models\Point;
 use App\Models\PointTransaction;
 use App\Models\Region;
 use App\Models\Share;
 use App\Models\User;
+use App\Models\UserAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnalyticsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $userEngagement = $this->getUserEngagementData();
-        $campaignPerformance = $this->getCampaignPerformanceData();
-        $pointsDistribution = $this->getPointsDistributionData();
-        $regionalBreakdown = $this->getRegionalBreakdownData();
+        $user = Auth::user();
+        $currentWeekStart = now()->startOfWeek();
+        $lastWeekStart = now()->subWeek()->startOfWeek();
+
+        $postsShared = Share::where('user_id', $user->id)->count();
+        $postsSharedLastWeek = Share::where('user_id', $user->id)
+            ->whereBetween('created_at', [$lastWeekStart, $currentWeekStart])
+            ->count();
+
+        $postLikes = Like::where('user_id', $user->id)->count();
+        $postLikesLastWeek = Like::where('user_id', $user->id)
+            ->whereBetween('created_at', [$lastWeekStart, $currentWeekStart])
+            ->count();
+
+        $postsRead = UserAction::where('user_id', $user->id)
+            ->where('action_type', 'read')
+            ->count();
+        $postsReadLastWeek = UserAction::where('user_id', $user->id)
+            ->where('action_type', 'read')
+            ->whereBetween('created_at', [$lastWeekStart, $currentWeekStart])
+            ->count();
+
+        $totalPoints = Point::where('user_id', $user->id)->sum('balance');
+        $totalPointsLastWeek = Point::where('user_id', $user->id)
+            ->whereBetween('created_at', [$lastWeekStart, $currentWeekStart])
+            ->sum('balance');
+
+        $popularPost = CampaignMessage::withCount(['likes', 'shares'])
+            ->orderByDesc('likes_count')
+            ->orderByDesc('shares_count')
+            ->first();
+
+        $overviewData = UserAction::where('user_id', $user->id)
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->limit(5)
+            ->pluck('count')
+            ->toArray();
 
         return response()->json([
-            'userEngagement' => $userEngagement,
-            'campaignPerformance' => $campaignPerformance,
-            'pointsDistribution' => $pointsDistribution,
-            'regionalBreakdown' => $regionalBreakdown,
+            'postsShared' => $postsShared,
+            'postsSharedChange' => $this->calculatePercentageChange($postsSharedLastWeek, $postsShared),
+            'postLikes' => $postLikes,
+            'postLikesChange' => $this->calculatePercentageChange($postLikesLastWeek, $postLikes),
+            'postsRead' => $postsRead,
+            'postsReadChange' => $this->calculatePercentageChange($postsReadLastWeek, $postsRead),
+            'totalPoints' => $totalPoints,
+            'totalPointsChange' => $this->calculatePercentageChange($totalPointsLastWeek, $totalPoints),
+            'popularPost' => [
+                'title' => $popularPost->title,
+                'reads' => $popularPost->reads,
+                'likes' => $popularPost->likes_count,
+                'shares' => $popularPost->shares_count,
+                'imageUrl' => $popularPost->image_url,
+            ],
+            'overviewData' => $overviewData,
         ]);
+    }
+
+    private function calculatePercentageChange($oldValue, $newValue)
+    {
+        if ($oldValue == 0) {
+            return $newValue > 0 ? 100 : 0;
+        }
+        return (($newValue - $oldValue) / $oldValue) * 100;
     }
 
     private function getUserEngagementData()

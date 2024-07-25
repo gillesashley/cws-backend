@@ -49,6 +49,7 @@ class ShareController extends Controller
             // Record the point transaction
             $pointTransaction = PointTransaction::create([
                 'user_id' => $user->id,
+                'point_id' => $point->id,
                 'points' => $pointsAwarded,
                 'transaction_type' => 'share',
                 'related_id' => $share->id,

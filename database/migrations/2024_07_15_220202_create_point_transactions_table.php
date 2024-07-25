@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Point;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,16 +15,13 @@ return new class extends Migration
     {
         Schema::create('point_transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('point_id');
             $table->string('transaction_type');
             $table->unsignedBigInteger('related_id')->nullable();
             $table->string('related_type')->nullable();
-            $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('point_id')->constrained()->onDelete('cascade');
             $table->integer('points');
-            $table->foreign('point_id')->references('id')->on('points');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

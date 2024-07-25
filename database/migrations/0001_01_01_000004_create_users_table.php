@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('ghana_card_image_path');
             $table->unsignedBigInteger('region_id');
             $table->unsignedBigInteger('constituency_id');
+            $table->integer('points')->default(0);
             $table->string('area');
             $table->enum('role', ['user', 'constituency_admin', 'regional_admin', 'national_admin', 'super_admin'])->default('user');
             $table->rememberToken();

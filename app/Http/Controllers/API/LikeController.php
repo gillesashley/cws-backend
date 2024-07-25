@@ -51,6 +51,13 @@ class LikeController extends Controller
             $user->increment('points', $pointsAwarded);
 
             // Record the point transaction
+            $user->pointTransactions()->create([
+                'amount' => $pointsAwarded,
+                'type' => 'like',
+                'description' => "Liked campaign message ID: {$campaignMessage->id}"
+            ]);
+
+            // Record the point transaction
             PointTransaction::create([
                 'user_id' => $user->id,
                 'points' => $pointsAwarded,

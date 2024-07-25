@@ -15,7 +15,6 @@ use App\Models\RewardWithdrawal;
 use App\Models\Share;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder

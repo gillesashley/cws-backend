@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('campaign_messages', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('constituency_id');
             $table->string('title');
@@ -20,10 +21,9 @@ return new class extends Migration
             $table->integer('reads')->default(0);
             $table->unsignedInteger('likes_count')->default(0);
             $table->unsignedInteger('shares_count')->default(0);
-            $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('constituency_id')->references('id')->on('constituencies');
+            $table->timestamps();
         });
     }
 

@@ -4,14 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class CampaignMessage extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'constituency_id', 'title', 'content', 'reads', 'likes_count', 'shares_count'
+        'user_id',
+        'constituency_id',
+        'title',
+        'content',
+        'reads',
+        'likes_count',
+        'shares_count',
+        'slug',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($campaignMessage) {
+            $campaignMessage->slug = Str::slug($campaignMessage->title) . '-' . Str::random(8);
+        });
+    }
+
+    public function getShareableUrlAttribute()
+    {
+        return config('app.url') . '/campaign/' . $this->slug;
+    }
 
     public function user()
     {

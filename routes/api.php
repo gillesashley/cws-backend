@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AnalyticsController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CampaignMessageController;
 use App\Http\Controllers\API\ConstituencyController;
@@ -46,6 +47,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('reward-withdrawals', RewardWithdrawalController::class)->except(['destroy']);
     Route::apiResource('notifications', NotificationController::class)->only(['index', 'show']);
     Route::patch('notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead']);
+
+    Route::get('/analytics', [AnalyticsController::class, 'index']);
 
     Route::post('/validate-registration', [AuthController::class, 'validateRegistration']);
 });

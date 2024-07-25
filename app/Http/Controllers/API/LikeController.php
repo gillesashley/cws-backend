@@ -7,6 +7,7 @@ use App\Models\CampaignMessage;
 use App\Models\Like;
 use App\Models\PointTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class LikeController extends Controller
@@ -14,6 +15,8 @@ class LikeController extends Controller
     public function store(Request $request, CampaignMessage $campaignMessage)
     {
         try {
+            DB::beginTransaction();
+
             Log::info('Like attempt', ['user_id' => $request->user()->id, 'campaign_message_id' => $campaignMessage->id]);
 
             $user = $request->user();
@@ -23,6 +26,7 @@ class LikeController extends Controller
 
             if ($existingLike) {
                 Log::info('User already liked the message', ['user_id' => $user->id, 'campaign_message_id' => $campaignMessage->id]);
+                DB::rollBack();
                 return response()->json(['message' => 'You have already liked this message'], 400);
             }
 
@@ -48,6 +52,8 @@ class LikeController extends Controller
                 'related_type' => CampaignMessage::class,
             ]);
 
+            DB::commit();
+
             Log::info('Like successful', [
                 'user_id' => $user->id,
                 'campaign_message_id' => $campaignMessage->id,
@@ -60,6 +66,7 @@ class LikeController extends Controller
                 'new_total_points' => $user->points,
             ], 201);
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error('Error in like process', [
                 'user_id' => $request->user()->id,
                 'campaign_message_id' => $campaignMessage->id,

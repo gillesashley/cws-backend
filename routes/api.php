@@ -11,6 +11,7 @@ use App\Http\Controllers\API\RewardWithdrawalController;
 use App\Http\Controllers\API\ShareController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RegionController;
+use App\Http\Controllers\PointsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('reward-withdrawals', RewardWithdrawalController::class)->except(['destroy']);
     Route::apiResource('notifications', NotificationController::class)->only(['index', 'show']);
     Route::patch('notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead']);
+
+    Route::get('/points', [PointsController::class, 'index']);
 
     Route::get('/analytics', [AnalyticsController::class, 'index']);
 

@@ -27,10 +27,10 @@ class LikeController extends Controller
             }
 
             // Create the like
-            $like = new Like();
-            $like->user_id = $user->id;
-            $like->campaign_message_id = $campaignMessage->id;
-            $like->save();
+            $like = Like::create([
+                'user_id' => $user->id,
+                'campaign_message_id' => $campaignMessage->id
+            ]);
 
             // Increment the likes count
             $campaignMessage->increment('likes_count');

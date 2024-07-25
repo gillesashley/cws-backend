@@ -28,6 +28,12 @@ class CampaignMessage extends Model
         static::creating(function ($campaignMessage) {
             $campaignMessage->slug = Str::slug($campaignMessage->title) . '-' . Str::random(8);
         });
+
+        static::updating(function ($campaignMessage) {
+            if ($campaignMessage->isDirty('title')) {
+                $campaignMessage->slug = Str::slug($campaignMessage->title);
+            }
+        });
     }
 
     public function getShareableUrlAttribute()

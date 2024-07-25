@@ -21,7 +21,7 @@ class CampaignMessageResource extends JsonResource
             'title' => $this->title,
             'content' => $this->content,
             'reads' => $this->reads,
-            'shareable_url' => $this->shareable_url,
+            'shareable_url' => url("/campaign/{$this->slug}"),
             'likes_count' => $this->likes_count,
             'shares_count' => $this->shares_count,
             'user' => new UserResource($this->whenLoaded('user')),

@@ -14,6 +14,12 @@ class ShareController extends Controller
 {
     public function share(Request $request, CampaignMessage $campaignMessage)
     {
+        Log::info('Share request received', [
+            'user_id' => $request->user()->id,
+            'campaign_message_id' => $campaignMessage->id,
+            'platform' => $request->platform,
+        ]);
+
         $request->validate([
             'platform' => 'required|string|in:facebook,twitter,whatsapp,shared,other',
         ]);

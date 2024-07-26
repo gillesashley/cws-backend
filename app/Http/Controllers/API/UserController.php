@@ -96,4 +96,11 @@ class UserController extends Controller
         $user = $request->user()->load('constituency', 'region');
         return new UserResource($user);
     }
+
+    public function getBalance(Request $request)
+    {
+        $user = $request->user();
+        $balance = $user->point ? $user->point->balance : 0;
+        return response()->json(['balance' => $balance]);
+    }
 }

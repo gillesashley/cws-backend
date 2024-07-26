@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::post('change-password', [UserController::class, 'changePassword']);
     Route::get('/user-profile', [UserController::class, 'profile']);
+    Route::get('/user-balance', [UserController::class, 'getBalance']);
 
     Route::apiResource('campaign-messages', CampaignMessageController::class);
 

@@ -43,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('campaign-messages/{campaignMessage}/like', [LikeController::class, 'store']);
     Route::get('campaign-messages/{campaignMessage}/like-status', [LikeController::class, 'getLikeStatus']);
     Route::delete('campaign-messages/{campaignMessage}/like', [LikeController::class, 'destroy']);
-    Route::post('campaign-messages/{campaignMessage}/share', [ShareController::class, 'store']);
+    Route::post('campaign-messages/{campaignMessage}/share', [ShareController::class, 'share']);
 
     Route::apiResource('point-transactions', PointTransactionController::class)->only(['index', 'show']);
     Route::apiResource('reward-withdrawals', RewardWithdrawalController::class)->except(['destroy']);

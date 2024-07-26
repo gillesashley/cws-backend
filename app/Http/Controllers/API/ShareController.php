@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Log;
 
 class ShareController extends Controller
 {
-    public function store(Request $request, CampaignMessage $campaignMessage)
+    public function share(Request $request, CampaignMessage $campaignMessage)
     {
         $request->validate([
-            'platform' => 'required|string|in:facebook,twitter,whatsapp',
+            'platform' => 'required|string|in:facebook,twitter,whatsapp,other',
         ]);
 
         $user = $request->user();

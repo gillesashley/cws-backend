@@ -6,12 +6,12 @@ use App\Http\Controllers\API\CampaignMessageController;
 use App\Http\Controllers\API\ConstituencyController;
 use App\Http\Controllers\API\LikeController;
 use App\Http\Controllers\API\NotificationController;
+use App\Http\Controllers\API\PointsController;
 use App\Http\Controllers\API\PointTransactionController;
 use App\Http\Controllers\API\RewardWithdrawalController;
 use App\Http\Controllers\API\ShareController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RegionController;
-use App\Http\Controllers\PointsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

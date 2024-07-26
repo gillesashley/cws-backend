@@ -10,6 +10,7 @@ use App\Models\CampaignMessage;
 use App\Models\UserAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -34,7 +35,14 @@ class CampaignMessageController extends Controller
      */
     public function store(StoreCampaignMessageRequest $request)
     {
-        $message = CampaignMessage::create($request->validated() + ['user_id' => $request->user()->id]);
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('campaign_images', 'public');
+            $data['image_url'] = Storage::url($path);
+        }
+
+        $message = CampaignMessage::create($data + ['user_id' => $request->user()->id]);
         return new CampaignMessageResource($message);
     }
 
@@ -67,7 +75,19 @@ class CampaignMessageController extends Controller
             abort(403);
         }
 
-        $campaignMessage->update($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($campaignMessage->image_url) {
+                Storage::delete(str_replace('/storage/', 'public/', $campaignMessage->image_url));
+            }
+
+            $path = $request->file('image')->store('campaign_images', 'public');
+            $data['image_url'] = Storage::url($path);
+        }
+
+        $campaignMessage->update($data);
         return new CampaignMessageResource($campaignMessage);
     }
 

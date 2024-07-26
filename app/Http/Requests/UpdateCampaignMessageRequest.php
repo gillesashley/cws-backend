@@ -24,6 +24,7 @@ class UpdateCampaignMessageRequest extends FormRequest
         return [
             'title' => 'sometimes|string|max:255',
             'content' => 'sometimes|string',
+            'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

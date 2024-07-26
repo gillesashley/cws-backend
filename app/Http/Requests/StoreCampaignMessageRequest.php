@@ -26,6 +26,7 @@ class StoreCampaignMessageRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'constituency_id' => 'required|exists:constituencies,id',
+            'image_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

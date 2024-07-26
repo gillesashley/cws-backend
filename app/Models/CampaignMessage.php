@@ -15,6 +15,7 @@ class CampaignMessage extends Model
         'constituency_id',
         'title',
         'content',
+        'image_url',
         'reads',
         'likes_count',
         'shares_count',

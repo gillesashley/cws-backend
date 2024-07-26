@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('constituency_id');
             $table->string('title');
             $table->text('content');
+            $table->string('image_url')->nullable();
             $table->integer('reads')->default(0);
             $table->unsignedInteger('likes_count')->default(0);
             $table->unsignedInteger('shares_count')->default(0);

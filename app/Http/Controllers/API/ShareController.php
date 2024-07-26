@@ -32,15 +32,15 @@ class ShareController extends Controller
             Log::info('Starting share creation process', ['user_id' => $user->id, 'campaign_message_id' => $campaignMessage->id, 'platform' => $request->platform]);
 
             // Check if the user has already shared this message on the same platform
-            $existingShare = $campaignMessage->shares()
-                ->where('user_id', $user->id)
-                ->where('platform', $request->platform)
-                ->first();
+            // $existingShare = $campaignMessage->shares()
+            //     ->where('user_id', $user->id)
+            //     ->where('platform', $request->platform)
+            //     ->first();
 
-            if ($existingShare) {
-                DB::rollBack();
-                return response()->json(['message' => 'You have already shared this message on this platform'], 400);
-            }
+            // if ($existingShare) {
+            //     DB::rollBack();
+            //     return response()->json(['message' => 'You have already shared this message on this platform'], 400);
+            // }
 
             $share = $campaignMessage->shares()->create([
                 'user_id' => $user->id,

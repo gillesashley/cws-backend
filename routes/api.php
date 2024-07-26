@@ -11,6 +11,7 @@ use App\Http\Controllers\API\RewardWithdrawalController;
 use App\Http\Controllers\API\ShareController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\RegionController;
+use App\Http\Controllers\PointsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,18 +36,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::post('change-password', [UserController::class, 'changePassword']);
     Route::get('/user-profile', [UserController::class, 'profile']);
+    Route::get('/user-balance', [UserController::class, 'getBalance']);
 
     Route::apiResource('campaign-messages', CampaignMessageController::class);
 
     Route::post('campaign-messages/{campaignMessage}/like', [LikeController::class, 'store']);
     Route::get('campaign-messages/{campaignMessage}/like-status', [LikeController::class, 'getLikeStatus']);
     Route::delete('campaign-messages/{campaignMessage}/like', [LikeController::class, 'destroy']);
-    Route::post('campaign-messages/{campaignMessage}/share', [ShareController::class, 'store']);
+    Route::post('campaign-messages/{campaignMessage}/share', [ShareController::class, 'share']);
 
     Route::apiResource('point-transactions', PointTransactionController::class)->only(['index', 'show']);
     Route::apiResource('reward-withdrawals', RewardWithdrawalController::class)->except(['destroy']);
     Route::apiResource('notifications', NotificationController::class)->only(['index', 'show']);
     Route::patch('notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead']);
+
+    Route::get('/points', [PointsController::class, 'index']);
 
     Route::get('/analytics', [AnalyticsController::class, 'index']);
 

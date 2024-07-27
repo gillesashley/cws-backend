@@ -11,9 +11,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('users', UserController::class);
-    Route::resource('campaigns', CampaignController::class);
-    Route::resource('withdrawals', WithdrawalController::class);
-    // Add more routes as needed
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('users', UserController::class)->names('admin.users');
+    Route::resource('campaigns', CampaignController::class)->names('admin.campaigns');
+    Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('admin.withdrawals');
 });

@@ -12,6 +12,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "spatie/laravel-query-builder": "^6.0",
+        "twilio/sdk": "^8.2",
         "zircote/swagger-php": "^4.10"
     },
     "require-dev": {

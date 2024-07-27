@@ -15,6 +15,19 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    /*'api_url' => env('API_BASE_URL', 'http://localhost/api'),
+    |--------------------------------------------------------------------------
+    | Application URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used by the console to properly generate URLs when using
+    | the Artisan command line tool. You should set this to the root of
+    | your application so that it is used when running Artisan tasks.
+    |
+    */
+
+    'api_url' => env('API_BASE_URL', 'http://localhost/api'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

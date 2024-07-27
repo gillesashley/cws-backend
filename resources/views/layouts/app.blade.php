@@ -91,7 +91,7 @@
         <!--end page content wrapper-->
 
         <!--start footer-->
-        @include('component.footer')
+        @include('components.footer')
         <!--end footer-->
 
         <!--Start Back To Top Button-->

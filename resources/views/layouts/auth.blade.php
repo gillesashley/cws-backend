@@ -24,6 +24,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
     <title>@yield('title', 'CWS - Authentication')</title>
+
+    <style>
+        .login-cover-wrapper {
+            height: 100vh;
+        }
+        .login-cover-img {
+            background-image: url('{{ asset('assets/images/login-cover.jpg') }}');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 
 <body class="bg-white">
@@ -34,7 +45,7 @@
             <div class="row g-0 m-0">
                 <div class="col-xl-6 col-lg-12">
                     <div class="login-cover-wrapper">
-                        <div class="card shadow-none">
+                        <div class="card shadow-none h-100">
                             <div class="card-body">
                                 @yield('content')
                             </div>
@@ -42,10 +53,8 @@
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-12">
-                    <div class="position-absolute top-0 h-100 d-xl-block d-none login-cover-img">
-                        <div class="text-white p-5 w-100">
-                            @yield('cover-content')
-                        </div>
+                    <div class="login-cover-img h-100 d-flex align-items-center">
+                        @yield('cover-content')
                     </div>
                 </div>
             </div>

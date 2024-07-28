@@ -66,8 +66,5 @@
 @endsection
 
 @section('cover-content')
-    <div class="text-white p-5 w-100">
-        <h1 class="text-white">Welcome to Campaign With Us</h1>
-        <p class="text-white">Connect with your constituents like never before.</p>
-    </div>
+    <!-- You can add any content for the right side cover image here -->
 @endsection

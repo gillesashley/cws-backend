@@ -24,6 +24,12 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
+    // password reset route
+    Route::get('password/reset', [LoginController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('password/email', [LoginController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+    Route::get('password/reset/{token}', [LoginController::class, 'showResetForm'])->name('admin.password.reset');
+    Route::post('password/reset', [LoginController::class, 'reset'])->name('admin.password.update');
+
     Route::resource('users', UserController::class)->names('admin.users');
     Route::resource('campaigns', CampaignController::class)->names('admin.campaigns');
     Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('admin.withdrawals');

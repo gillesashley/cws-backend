@@ -64,7 +64,7 @@
         </div>
     </form>
 @endsection
-
+{{-- 
 @section('cover-content')
     <!-- You can add any content for the right side cover image here -->
-@endsection
+@endsection --}}

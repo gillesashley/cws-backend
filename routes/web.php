@@ -39,8 +39,8 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
-// Protected Routes
-Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
+// Protected Routes (without API token validation)
+Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -53,7 +53,10 @@ Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
         'update' => 'admin.users.update',
         'destroy' => 'admin.users.destroy',
     ]);
+});
 
+// Protected Routes (with API token validation)
+Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
     // Targeted Messages (SMS and WhatsApp)
     Route::group(['prefix' => 'targeted-messages', 'as' => 'targeted-messages.'], function () {
         // SMS Campaigns

@@ -2,79 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Region;
+use App\Models\Constituency;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
-
-    // UserController.php
     public function index(Request $request)
     {
-        Log::info('UserController index method called');
+        $users = User::with(['region', 'constituency'])
+            ->paginate(15);
 
-        $token = Session::get('access_token');
-
-        if (!$token) {
-            Log::warning('No access token found in UserController');
-            return redirect()->route('login')->with('error', 'Please log in to access this page.');
-        }
-
-        $page = $request->query('page', 1); // Get current page from request, default to 1
-        $perPage = 15; // Set the number of items per page
-
-        try {
-            $response = Http::withToken($token)->get(config('app.api_url') . '/users', [
-                'page' => $page,
-                'per_page' => $perPage,
-            ]);
-
-            if ($response->successful()) {
-                $data = $response->json();
-                $users = collect($data['data']);
-                $pagination = $data['meta']['pagination'] ?? null;
-
-                // Map users to include relationships
-                $users = $users->map(function ($user) {
-                    $user['region'] = $user['region']['name'] ?? 'N/A';
-                    $user['constituency'] = $user['constituency']['name'] ?? 'N/A';
-                    return $user;
-                });
-
-                // Create a custom paginator
-                $users = new \Illuminate\Pagination\LengthAwarePaginator(
-                    $users,
-                    $pagination['total'] ?? $users->count(),
-                    $pagination['per_page'] ?? $perPage,
-                    $pagination['current_page'] ?? $page,
-                    ['path' => $request->url(), 'query' => $request->query()]
-                );
-
-                return view('admin.users.index', compact('users'));
-            } else {
-                Log::warning('Failed to fetch users', ['status' => $response->status()]);
-                return back()->with('error', 'Unable to fetch users. Please try again.');
-            }
-        } catch (\Exception $e) {
-            Log::error('Error fetching users', ['error' => $e->getMessage()]);
-            return back()->with('error', 'An error occurred while fetching users. Please try again.');
-        }
+        return view('admin.users.index', compact('users'));
     }
-
-
-
 
     public function create()
     {
-        return view('admin.users.create');
+        $regions = Region::all();
+        $constituencies = Constituency::all();
+        return view('admin.users.create', compact('regions', 'constituencies'));
     }
 
     public function store(Request $request)
@@ -87,51 +36,55 @@ class UserController extends Controller
             'constituency_id' => 'required|exists:constituencies,id',
         ]);
 
-        // Set password to email
         $validated['password'] = Hash::make($validated['email']);
 
-        $response = Http::withToken(auth()->user()->api_token)
-            ->post(config('app.api_url') . '/users', $validated);
-
-        if ($response->successful()) {
-            return response()->json(['message' => 'User created successfully'], 201);
+        try {
+            User::create($validated);
+            return redirect()->route('admin.users.index')->with('success', 'User created successfully');
+        } catch (\Exception $e) {
+            Log::error('Error creating user', ['error' => $e->getMessage()]);
+            return back()->withInput()->with('error', 'An error occurred while creating the user. Please try again.');
         }
-
-        return response()->json(['message' => 'Failed to create user'], 400);
     }
 
     public function edit($id)
     {
-        $response = Http::withToken(auth()->user()->api_token)->get(config('app.api_url') . '/users/' . $id);
-
-        if ($response->successful()) {
-            $user = $response->json()['data'];
-            return view('admin.users.edit', compact('user'));
-        }
-
-        return back()->with('error', 'User not found');
+        $user = User::findOrFail($id);
+        $regions = Region::all();
+        $constituencies = Constituency::all();
+        return view('admin.users.edit', compact('user', 'regions', 'constituencies'));
     }
 
     public function update(Request $request, $id)
     {
-        $response = Http::withToken(auth()->user()->api_token)
-            ->put(config('app.api_url') . '/users/' . $id, $request->all());
+        $user = User::findOrFail($id);
 
-        if ($response->successful()) {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
+            'region_id' => 'required|exists:regions,id',
+            'constituency_id' => 'required|exists:constituencies,id',
+        ]);
+
+        try {
+            $user->update($validated);
             return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
+        } catch (\Exception $e) {
+            Log::error('Error updating user', ['error' => $e->getMessage()]);
+            return back()->withInput()->with('error', 'An error occurred while updating the user. Please try again.');
         }
-
-        return back()->withInput()->with('error', 'Failed to update user');
     }
 
     public function destroy($id)
     {
-        $response = Http::withToken(auth()->user()->api_token)->delete(config('app.api_url') . '/users/' . $id);
-
-        if ($response->successful()) {
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
             return redirect()->route('admin.users.index')->with('success', 'User deleted successfully');
+        } catch (\Exception $e) {
+            Log::error('Error deleting user', ['error' => $e->getMessage()]);
+            return back()->with('error', 'An error occurred while deleting the user. Please try again.');
         }
-
-        return back()->with('error', 'Failed to delete user');
     }
 }

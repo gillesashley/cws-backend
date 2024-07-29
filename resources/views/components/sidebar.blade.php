@@ -68,7 +68,7 @@
         </li>
         <li class="menu-label">Campaign Administration</li>
         <li>
-            <a href="pages-user-profile.html">
+            <a href="{{ route('admin.users.index') }}">
                 <div class="parent-icon"><ion-icon name="person-circle-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">All Users</div>

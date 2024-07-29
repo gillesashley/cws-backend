@@ -42,6 +42,7 @@ Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
 
     // User Management
     Route::resource('users', UserController::class)->names('admin.users');
+    Route::post('/users', [UserController::class, 'store'])->name('admin.users.store');
 
     // SMS Campaigns
     Route::get('/sms-campaigns', [TargetedMessageController::class, 'smsIndex'])->name('targeted-messages.sms.index');

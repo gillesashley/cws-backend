@@ -50,6 +50,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $users->links() }}
                     </div>
                 </div>
             </div>
@@ -63,77 +64,6 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
-
-            // Fetch regions
-            $.ajax({
-                url: '{{ config('app.api_url') }}/regions',
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer {{ Session::get('access_token') }}'
-                },
-                success: function(response) {
-                    var regions = response.data;
-                    var regionSelect = $('#region_id');
-                    regions.forEach(function(region) {
-                        regionSelect.append($('<option></option>').attr('value', region.id)
-                            .text(region.name));
-                    });
-                }
-            });
-
-            // Fetch constituencies when region is selected
-            $('#region_id').change(function() {
-                var regionId = $(this).val();
-                if (regionId) {
-                    $.ajax({
-                        url: '{{ config('app.api_url') }}/regions/' + regionId + '/constituencies',
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer {{ Session::get('access_token') }}'
-                        },
-                        success: function(response) {
-                            var constituencies = response.data;
-                            var constituencySelect = $('#constituency_id');
-                            constituencySelect.empty().append($('<option></option>').attr(
-                                'value', '').text('Select Constituency'));
-                            constituencies.forEach(function(constituency) {
-                                constituencySelect.append($('<option></option>').attr(
-                                    'value', constituency.id).text(constituency
-                                    .name));
-                            });
-                        }
-                    });
-                } else {
-                    $('#constituency_id').empty().append($('<option></option>').attr('value', '').text(
-                        'Select Constituency'));
-                }
-            });
-
-            // Set password to email value before form submission
-            $('#createUserForm').submit(function() {
-                $('#password').val($('#email').val());
-            });
-
-            // Handle form submission
-            $('#createUserForm').on('submit', function(e) {
-                e.preventDefault();
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    headers: {
-                        'Authorization': 'Bearer {{ Session::get('access_token') }}'
-                    },
-                    success: function(response) {
-                        $('#createUserModal').modal('hide');
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        // Handle errors
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
         });
     </script>
 @endpush

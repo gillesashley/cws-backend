@@ -53,12 +53,15 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
+            console.log('Document ready');
+            console.log('API URL:', '{{ config('app.api_url') }}');
+
             // Fetch regions
             $.ajax({
                 url: '{{ config('app.api_url') }}/regions',
                 method: 'GET',
                 headers: {
-                    'Authorization': 'Bearer {{ Session::get('access_token') }}'
+                    'Accept': 'application/json'
                 },
                 success: function(response) {
                     console.log('Regions fetched successfully:', response);
@@ -72,9 +75,12 @@
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.error("Error fetching regions:", error);
+                    console.error("Error fetching regions:");
+                    console.error("Status:", status);
+                    console.error("Error:", error);
                     console.error("Response:", xhr.responseText);
-                    alert("Failed to load regions. Please try again.");
+                    console.error("Status Code:", xhr.status);
+                    alert("Failed to load regions. Please check the console for more information.");
                 }
             });
 
@@ -86,7 +92,7 @@
                         url: '{{ config('app.api_url') }}/regions/' + regionId + '/constituencies',
                         method: 'GET',
                         headers: {
-                            'Authorization': 'Bearer {{ Session::get('access_token') }}'
+                            'Accept': 'application/json'
                         },
                         success: function(response) {
                             var constituencies = response.data;

@@ -9,11 +9,11 @@ class CampaignController extends Controller
 {
     public function index()
     {
-        $response = Http::withToken(auth()->user()->api_token)->get(config('app.api_url') . '/campaign-messages');
+        $response = Http::withToken(session('api_token'))->get(config('app.api_url') . '/campaign-messages');
 
         if ($response->successful()) {
             $campaigns = $response->json()['data'];
-            return view('admin.campaigns.index', compact('campaigns'));
+            return view('campaigns.index', compact('campaigns'));
         }
 
         return back()->with('error', 'Unable to fetch campaigns');
@@ -21,19 +21,31 @@ class CampaignController extends Controller
 
     public function create()
     {
-        return view('admin.campaigns.create');
+        $response = Http::withToken(session('api_token'))->get(config('app.api_url') . '/constituency-members');
+
+        if ($response->successful()) {
+            $constituencyMembers = $response->json()['data'];
+            return view('campaigns.create', compact('constituencyMembers'));
+        }
+
+        return back()->with('error', 'Unable to fetch constituency members');
     }
 
     public function store(Request $request)
     {
-        $response = Http::withToken(auth()->user()->api_token)
-            ->post(config('app.api_url') . '/campaign-messages', $request->all());
+        $request->validate([
+            'message' => 'required|string|max:160',
+            'recipients' => 'required|array',
+            'recipients.*' => 'required|integer|exists:users,id',
+        ]);
+
+        $response = Http::withToken(session('api_token'))->post(config('app.api_url') . '/send-sms-campaign', $request->all());
 
         if ($response->successful()) {
-            return redirect()->route('admin.campaigns.index')->with('success', 'Campaign created successfully');
+            return redirect()->route('campaigns.index')->with('success', 'SMS campaign sent successfully');
         }
 
-        return back()->withInput()->with('error', 'Failed to create campaign');
+        return back()->with('error', 'Failed to send SMS campaign')->withInput();
     }
 
     public function show($id)

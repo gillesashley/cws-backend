@@ -39,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user-balance', [UserController::class, 'getBalance']);
 
     Route::apiResource('campaign-messages', CampaignMessageController::class);
+    Route::get('/constituency-members', [CampaignMessageController::class, 'getConstituencyMembers']);
+    Route::post('/send-sms-campaign', [CampaignMessageController::class, 'sendSmsCampaign']);
 
     Route::post('campaign-messages/{campaignMessage}/like', [LikeController::class, 'store']);
     Route::get('campaign-messages/{campaignMessage}/like-status', [LikeController::class, 'getLikeStatus']);

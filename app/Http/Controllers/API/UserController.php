@@ -103,4 +103,20 @@ class UserController extends Controller
         $balance = $user->point ? $user->point->balance : 0;
         return response()->json(['balance' => $balance]);
     }
+
+    public function getConstituencyMembers(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user->isConstituencyAdmin()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $constituencyMembers = User::where('constituency_id', $user->constituency_id)
+            ->where('id', '!=', $user->id)  // Exclude the admin themselves
+            ->select('id', 'name', 'phone')
+            ->get();
+
+        return response()->json(['data' => $constituencyMembers]);
+    }
 }

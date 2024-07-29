@@ -36,6 +36,7 @@ Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEm
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
+
 Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -62,8 +63,9 @@ Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
     Route::post('/messages/sms', [MessagingController::class, 'sendSMS'])->name('admin.messages.sendSMS');
     Route::post('/messages/whatsapp', [MessagingController::class, 'sendWhatsApp'])->name('admin.messages.sendWhatsApp');
 
-    Route::get('/sms-campaigns', [SmsCampaignController::class, 'index'])->name('sms-campaigns.index');
-    Route::post('/sms-campaigns', [SmsCampaignController::class, 'send'])->name('sms-campaigns.send');
+    Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
+    Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('campaigns.create');
+    Route::post('/campaigns', [CampaignController::class, 'store'])->name('campaigns.store');
 
     Route::resource('admin-roles', AdminRoleController::class)->names('admin.roles');
 });

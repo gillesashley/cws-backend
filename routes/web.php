@@ -13,6 +13,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\MessagingController;
+use App\Http\Controllers\SmsCampaignController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Middleware\EnsureApiTokenIsValid;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,9 @@ Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
     Route::get('/messages/create', [MessagingController::class, 'create'])->name('admin.messages.create');
     Route::post('/messages/sms', [MessagingController::class, 'sendSMS'])->name('admin.messages.sendSMS');
     Route::post('/messages/whatsapp', [MessagingController::class, 'sendWhatsApp'])->name('admin.messages.sendWhatsApp');
+
+    Route::get('/sms-campaigns', [SmsCampaignController::class, 'index'])->name('sms-campaigns.index');
+    Route::post('/sms-campaigns', [SmsCampaignController::class, 'send'])->name('sms-campaigns.send');
 
     Route::resource('admin-roles', AdminRoleController::class)->names('admin.roles');
 });

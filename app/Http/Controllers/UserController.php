@@ -3,14 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
     public function index()
     {
-        $response = Http::withToken(auth()->user()->api_token)->get(config('app.api_url') . '/users');
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to access this page.');
+        }
+
+        $user = Auth::user();
+
+        if (!$user->api_token) {
+            return redirect()->route('login')->with('error', 'API token is missing. Please login again.');
+        }
+
+        $response = Http::withToken($user->api_token)->get(config('app.api_url') . '/users');
 
         if ($response->successful()) {
             $users = $response->json()['data'];

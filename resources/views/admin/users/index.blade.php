@@ -45,7 +45,7 @@
                                 <td>{{ $user['name'] }}</td>
                                 <td>{{ $user['email'] }}</td>
                                 <td>{{ $user['role'] }}</td>
-                                <td>{{ $user['region'] ?? 'N/A' }}</td>
+                                <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
                                 <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
                                 <td>
                                     <button class="btn btn-primary btn-sm">Edit</button>

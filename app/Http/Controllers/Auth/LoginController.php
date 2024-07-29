@@ -46,10 +46,14 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Http::withToken(Session::get('api_token'))->post(config('app.api_url') . '/logout');
+        // Call your API to invalidate the token
+        Http::withToken(Session::get('api_token'))
+            ->post(config('app.api_url') . '/logout');
 
+        // Clear the session
         Session::forget(['user', 'api_token']);
 
-        return redirect('/');
+        // Redirect to the login page
+        return redirect()->route('login');
     }
 }

@@ -23,7 +23,10 @@ class UserController extends Controller
     {
         $regions = Region::all();
         $constituencies = Constituency::all();
-        return view('admin.users.create', compact('regions', 'constituencies'));
+        return view('admin.users.create', [
+            'regions' => $regions,
+            'constituencies' => $constituencies
+        ]);
     }
 
     public function store(Request $request)

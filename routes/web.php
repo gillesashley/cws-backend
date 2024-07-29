@@ -40,7 +40,7 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 // Protected Routes (without API token validation)
-Route::middleware(['auth'])->group(function () {
+Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

@@ -18,8 +18,6 @@ class EnsureApiTokenIsValid
      */
     public function handle(Request $request, Closure $next)
     {
-        Log::info('EnsureApiTokenIsValid middleware called');
-
         $token = Session::get('access_token');
 
         if (!$token) {
@@ -32,8 +30,6 @@ class EnsureApiTokenIsValid
 
             if ($response->successful()) {
                 Log::info('API token is valid');
-                // Refresh the user data in the session
-                Session::put('user', $response->json());
                 return $next($request);
             } else {
                 Log::warning('API token is invalid', ['status' => $response->status()]);

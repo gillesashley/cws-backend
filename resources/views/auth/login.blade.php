@@ -60,7 +60,8 @@
             </div>
         </div>
         <div class="col-12 col-lg-12 text-center">
-            <p class="mb-0">Don't have an account? <a href="{{ route('register') }}" disabled>Sign up</a></p>
+            <p class="mb-0">Don't have an account? <a href="{{ route('register') }}"
+                    style="pointer-events: none; color: gray; text-decoration: none;">Sign up</a></p>
         </div>
     </form>
 @endsection

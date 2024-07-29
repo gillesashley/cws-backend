@@ -47,36 +47,36 @@
 
 @push('scripts')
     <script>
-        document.getElementById('media').addEventListener('change', function(event) {
+        $('#media').on('change', function(event) {
             var files = event.target.files;
-            var previewContainer = document.getElementById('mediaPreview');
-            previewContainer.innerHTML = ''; // Clear previous previews
+            var $previewContainer = $('#mediaPreview');
+            $previewContainer.empty(); // Clear previous previews
 
             if (files.length > 0) {
-                previewContainer.style.display = 'block';
+                $previewContainer.show();
             } else {
-                previewContainer.style.display = 'none';
+                $previewContainer.hide();
             }
 
-            Array.from(files).forEach(function(file) {
+            $.each(files, function(index, file) {
                 var reader = new FileReader();
 
                 reader.onload = function(e) {
-                    var previewElement;
+                    var $previewElement;
                     if (file.type.startsWith('image/')) {
-                        previewElement = document.createElement('img');
-                        previewElement.style.maxWidth = '300px';
-                        previewElement.style.maxHeight = '300px';
-                        previewElement.src = e.target.result;
+                        $previewElement = $('<img>', {
+                            src: e.target.result,
+                            style: 'max-width: 300px; max-height: 300px;'
+                        });
                     } else if (file.type.startsWith('video/')) {
-                        previewElement = document.createElement('video');
-                        previewElement.style.maxWidth = '300px';
-                        previewElement.style.maxHeight = '300px';
-                        previewElement.controls = true;
-                        previewElement.src = e.target.result;
+                        $previewElement = $('<video>', {
+                            src: e.target.result,
+                            controls: true,
+                            style: 'max-width: 300px; max-height: 300px;'
+                        });
                     }
 
-                    previewContainer.appendChild(previewElement);
+                    $previewContainer.append($previewElement);
                 }
 
                 if (file) {

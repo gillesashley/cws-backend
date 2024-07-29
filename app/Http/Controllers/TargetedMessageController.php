@@ -6,6 +6,7 @@ use App\Models\TargetedMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Twilio\Rest\Client as TwilioClient;
 
 class TargetedMessageController extends Controller
@@ -55,7 +56,52 @@ class TargetedMessageController extends Controller
 
     public function whatsappStore(Request $request)
     {
-        return $this->storeMessage($request, 'whatsapp');
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'recipients' => 'required|array',
+            'recipients.*' => 'exists:users,id',
+            'media' => 'nullable|file|mimes:jpeg,png,gif,mp4|max:16384', // 16MB max
+        ]);
+
+        $user = auth()->user();
+        $recipients = User::whereIn('id', $request->recipients)->get();
+
+        $mediaUrl = null;
+        if ($request->hasFile('media')) {
+            $mediaPath = $request->file('media')->store('whatsapp_media', 'public');
+            $mediaUrl = Storage::url($mediaPath);
+        }
+
+        $targetedMessage = TargetedMessage::create([
+            'user_id' => $user->id,
+            'constituency_id' => $user->constituency_id,
+            'title' => $request->title,
+            'content' => $request->content,
+            'type' => 'whatsapp',
+            'recipients_count' => count($recipients),
+            'media_url' => $mediaUrl,
+        ]);
+
+        $successCount = 0;
+        $failureCount = 0;
+
+        foreach ($recipients as $recipient) {
+            try {
+                $this->sendWhatsAppWithMedia($recipient->phone, $request->content, $mediaUrl);
+                $successCount++;
+            } catch (\Exception $e) {
+                $failureCount++;
+            }
+        }
+
+        $targetedMessage->update([
+            'success_count' => $successCount,
+            'failure_count' => $failureCount,
+        ]);
+
+        return redirect()->route('targeted-messages.whatsapp.index')
+            ->with('success', "Campaign sent. Successful: $successCount, Failed: $failureCount");
     }
 
     private function storeMessage(Request $request, $type)
@@ -84,11 +130,7 @@ class TargetedMessageController extends Controller
 
         foreach ($recipients as $recipient) {
             try {
-                if ($type === 'sms') {
-                    $this->sendSms($recipient->phone, $request->content);
-                } else {
-                    $this->sendWhatsApp($recipient->phone, $request->content);
-                }
+                $this->sendSms($recipient->phone, $request->content);
                 $successCount++;
             } catch (\Exception $e) {
                 $failureCount++;
@@ -100,8 +142,7 @@ class TargetedMessageController extends Controller
             'failure_count' => $failureCount,
         ]);
 
-        $route = $type === 'sms' ? 'targeted-messages.sms.index' : 'targeted-messages.whatsapp.index';
-        return redirect()->route($route)
+        return redirect()->route('targeted-messages.sms.index')
             ->with('success', "Campaign sent. Successful: $successCount, Failed: $failureCount");
     }
 
@@ -116,14 +157,20 @@ class TargetedMessageController extends Controller
         );
     }
 
-    private function sendWhatsApp($to, $message)
+    private function sendWhatsAppWithMedia($to, $message, $mediaUrl = null)
     {
+        $messageData = [
+            'from' => 'whatsapp:' . config('services.twilio.whatsapp_number'),
+            'body' => $message,
+        ];
+
+        if ($mediaUrl) {
+            $messageData['mediaUrl'] = [asset($mediaUrl)];
+        }
+
         $this->twilioClient->messages->create(
             "whatsapp:$to",
-            [
-                'from' => "whatsapp:" . config('services.twilio.whatsapp_number'),
-                'body' => $message,
-            ]
+            $messageData
         );
     }
 
@@ -131,19 +178,7 @@ class TargetedMessageController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user) {
-            // Handle the case where there's no authenticated user
-            return collect();
-        }
-
-        if (!$user->constituency_id) {
-            // Handle the case where the user doesn't have a constituency
-            return collect();
-        }
-
-        // Assuming you have a method to check if the user is a constituency admin
-        if (!$user->isConstituencyAdmin()) {
-            // Handle the case where the user is not a constituency admin
+        if (!$user || !$user->constituency_id || !$user->isConstituencyAdmin()) {
             return collect();
         }
 

@@ -14,6 +14,7 @@ class TargetedMessage extends Model
         'constituency_id',
         'title',
         'content',
+        'media_url',
         'type',
         'recipients_count',
         'success_count',

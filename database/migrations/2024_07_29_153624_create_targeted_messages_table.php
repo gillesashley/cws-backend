@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('constituency_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('content');
+            $table->string('image_url')->nullable();
             $table->enum('type', ['sms', 'whatsapp']);
             $table->unsignedInteger('recipients_count')->default(0);
             $table->unsignedInteger('success_count')->default(0);

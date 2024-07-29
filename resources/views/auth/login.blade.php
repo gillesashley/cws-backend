@@ -97,7 +97,7 @@
     </form>
 @endsection
 
-{{-- @push('scripts')
+@push('scripts')
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -124,4 +124,4 @@
                 });
         });
     </script>
-@endpush --}}
+@endpush

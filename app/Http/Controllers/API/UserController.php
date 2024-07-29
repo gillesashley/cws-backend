@@ -24,8 +24,8 @@ class UserController extends Controller
                 'email',
             ])
             ->allowedSorts(['name', 'email', 'created_at'])
-            ->allowedIncludes(['constituency'])
-            ->paginate();
+            ->with(['constituency.region']) // Always include constituency and its related region
+            ->paginate(15);
 
         return UserResource::collection($users);
     }

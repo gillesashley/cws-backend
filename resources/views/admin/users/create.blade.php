@@ -61,8 +61,11 @@
                     'Authorization': 'Bearer {{ Session::get('access_token') }}'
                 },
                 success: function(response) {
+                    console.log('Regions fetched successfully:', response);
                     var regions = response.data;
                     var regionSelect = $('#region_id');
+                    regionSelect.empty().append($('<option></option>').attr('value', '').text(
+                        'Select Region'));
                     regions.forEach(function(region) {
                         regionSelect.append($('<option></option>').attr('value', region.id)
                             .text(region.name));
@@ -70,6 +73,8 @@
                 },
                 error: function(xhr, status, error) {
                     console.error("Error fetching regions:", error);
+                    console.error("Response:", xhr.responseText);
+                    alert("Failed to load regions. Please try again.");
                 }
             });
 

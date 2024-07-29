@@ -39,9 +39,26 @@ class UserController extends Controller
 
             if ($response->successful()) {
                 $data = $response->json();
-                $users = $data['data'];
+                $users = collect($data['data']);
                 $pagination = $data['meta']['pagination'] ?? null;
-                return view('admin.users.index', compact('users', 'pagination'));
+
+                // Map users to include relationships
+                $users = $users->map(function ($user) {
+                    $user['region'] = $user['region']['name'] ?? 'N/A';
+                    $user['constituency'] = $user['constituency']['name'] ?? 'N/A';
+                    return $user;
+                });
+
+                // Create a custom paginator
+                $users = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $users,
+                    $pagination['total'] ?? $users->count(),
+                    $pagination['per_page'] ?? $perPage,
+                    $pagination['current_page'] ?? $page,
+                    ['path' => $request->url(), 'query' => $request->query()]
+                );
+
+                return view('admin.users.index', compact('users'));
             } else {
                 Log::warning('Failed to fetch users', ['status' => $response->status()]);
                 return back()->with('error', 'Unable to fetch users. Please try again.');
@@ -51,6 +68,8 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while fetching users. Please try again.');
         }
     }
+
+
 
 
     public function create()

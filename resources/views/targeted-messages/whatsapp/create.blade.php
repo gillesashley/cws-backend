@@ -46,7 +46,6 @@
 @endsection
 
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $('#media').on('change', function(event) {
             var files = event.target.files;
@@ -90,7 +89,7 @@
 
             $.ajax({
                 url: "{{ route('targeted-messages.whatsapp.store') }}",
-                method: 'POST',
+                method: $('#campaignForm').attr('method'),
                 data: formData,
                 contentType: false,
                 processData: false,

@@ -4,7 +4,8 @@
     <div class="container">
         <h1>Create New WhatsApp Campaign</h1>
 
-        <form id="campaignForm" method="POST" enctype="multipart/form-data">
+        <form id="campaignForm" action="{{ route('targeted-messages.whatsapp.store') }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">Campaign Title</label>
@@ -44,3 +45,43 @@
         </form>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('media').addEventListener('change', function(event) {
+            var preview = document.getElementById('mediaPreview');
+            preview.innerHTML = ''; // Clear previous previews
+
+            for (var i = 0; i < event.target.files.length; i++) {
+                var file = event.target.files[i];
+                var reader = new FileReader();
+
+                reader.onload = (function(file) {
+                    return function(e) {
+                        var div = document.createElement('div');
+                        div.className = 'mb-2';
+
+                        if (file.type.startsWith('image/')) {
+                            var img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.maxWidth = '200px';
+                            img.style.maxHeight = '200px';
+                            div.appendChild(img);
+                        } else if (file.type.startsWith('video/')) {
+                            var video = document.createElement('video');
+                            video.src = e.target.result;
+                            video.style.maxWidth = '200px';
+                            video.style.maxHeight = '200px';
+                            video.controls = true;
+                            div.appendChild(video);
+                        }
+
+                        preview.appendChild(div);
+                    };
+                })(file);
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+@endpush

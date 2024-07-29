@@ -69,34 +69,6 @@
     <!-- You can add any content for the right side cover image here -->
 @endsection
 
-@extends('layouts.auth')
-
-@section('title', 'Login')
-
-@section('content')
-    <div class="text-center">
-        <h4>Sign In</h4>
-        <p>Sign In to your account</p>
-    </div>
-    <form id="loginForm" class="form-body row g-3">
-        @csrf
-        <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="col-12">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <!-- ... other form fields ... -->
-        <div class="col-12 col-lg-12">
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Sign In</button>
-            </div>
-        </div>
-    </form>
-@endsection
-
 @push('scripts')
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {

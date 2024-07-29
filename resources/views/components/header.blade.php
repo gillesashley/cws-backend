@@ -198,7 +198,6 @@
                          </a>
                      </div>
                  </li>
-                 {{-- *************** --}}
                  <li class="nav-item dropdown dropdown-user-setting">
                      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;"
                          data-bs-toggle="dropdown">

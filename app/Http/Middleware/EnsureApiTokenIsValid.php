@@ -20,27 +20,30 @@ class EnsureApiTokenIsValid
     {
         Log::info('EnsureApiTokenIsValid middleware called');
 
-        if (!Session::has('api_token')) {
-            Log::warning('No API token in session');
-            return redirect()->route('login');
+        $token = Session::get('access_token');
+
+        if (!$token) {
+            Log::warning('No access token found in session');
+            return redirect()->route('login')->with('error', 'Please log in to access this page.');
         }
 
         try {
-            $response = Http::withToken(Session::get('api_token'))
-                ->get(config('app.api_url') . '/user');
+            $response = Http::withToken($token)->get(config('app.api_url') . '/user');
 
             if ($response->successful()) {
                 Log::info('API token is valid');
+                // Refresh the user data in the session
+                Session::put('user', $response->json());
                 return $next($request);
             } else {
-                Log::warning('Invalid API token', ['status' => $response->status()]);
-                Session::forget(['user', 'api_token']);
-                return redirect()->route('login');
+                Log::warning('API token is invalid', ['status' => $response->status()]);
+                Session::forget(['user', 'access_token']);
+                return redirect()->route('login')->with('error', 'Your session has expired. Please log in again.');
             }
         } catch (\Exception $e) {
-            Log::error('API token validation error', ['message' => $e->getMessage()]);
-            Session::forget(['user', 'api_token']);
-            return redirect()->route('login');
+            Log::error('Error validating API token', ['error' => $e->getMessage()]);
+            Session::forget(['user', 'access_token']);
+            return redirect()->route('login')->with('error', 'An error occurred. Please log in again.');
         }
     }
 }

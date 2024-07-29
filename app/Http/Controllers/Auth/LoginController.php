@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -30,28 +29,12 @@ class LoginController extends Controller
                 $userData = $response->json();
                 Log::info('Login successful', ['user' => $userData['user']['email']]);
 
-                // Generate a new API token
-                $token = Str::random(80);
-                $hashedToken = hash('sha256', $token);
+                Session::put('user', $userData['user']);
+                Session::put('access_token', $userData['token']);
 
-                // Update the user's API token in the database
-                $updateTokenResponse = Http::withToken($userData['token'])
-                    ->put(config('app.api_url') . '/users/' . $userData['user']['id'], [
-                        'api_token' => $hashedToken,
-                    ]);
+                Log::info('Access token stored in session', ['token' => $userData['token']]);
 
-                if ($updateTokenResponse->successful()) {
-                    // Store the new token in the session
-                    Session::put('user', $userData['user']);
-                    Session::put('api_token', $token);
-
-                    Log::info('API token updated successfully');
-                    Log::info('Attempting to redirect to dashboard');
-                    return redirect()->route('dashboard')->with('status', 'Logged in successfully!');
-                } else {
-                    Log::error('Failed to update API token', ['response' => $updateTokenResponse->json()]);
-                    return back()->withErrors(['email' => 'An error occurred during login. Please try again.'])->withInput();
-                }
+                return redirect()->route('dashboard')->with('status', 'Logged in successfully!');
             } else {
                 Log::warning('Login failed', ['errors' => $response->json()]);
                 return back()->withErrors(['email' => 'The provided credentials do not match our records.'])->withInput();
@@ -66,7 +49,7 @@ class LoginController extends Controller
     {
         try {
             // Call your API to invalidate the token
-            $response = Http::withToken(Session::get('api_token'))
+            $response = Http::withToken(Session::get('access_token'))
                 ->post(config('app.api_url') . '/logout');
 
             if (!$response->successful()) {
@@ -77,7 +60,7 @@ class LoginController extends Controller
         }
 
         // Clear the session
-        Session::forget(['user', 'api_token']);
+        Session::forget(['user', 'access_token']);
 
         // Redirect to the login page
         return redirect()->route('login');

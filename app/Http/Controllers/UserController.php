@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -16,24 +18,30 @@ class UserController extends Controller
 
     public function index()
     {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Please login to access this page.');
+        Log::info('UserController index method called');
+
+        $token = Session::get('access_token');
+
+        if (!$token) {
+            Log::warning('No access token found in UserController');
+            return redirect()->route('login')->with('error', 'Please log in to access this page.');
         }
 
-        $user = Auth::user();
+        try {
+            $response = Http::withToken($token)->get(config('app.api_url') . '/users');
 
-        if (!$user->api_token) {
-            return redirect()->route('login')->with('error', 'API token is missing. Please login again.');
+            if ($response->successful()) {
+                $users = $response->json()['data'];
+                Log::info('Users fetched successfully', ['count' => count($users)]);
+                return view('admin.users.index', compact('users'));
+            } else {
+                Log::warning('Failed to fetch users', ['status' => $response->status()]);
+                return back()->with('error', 'Unable to fetch users. Please try again.');
+            }
+        } catch (\Exception $e) {
+            Log::error('Error fetching users', ['error' => $e->getMessage()]);
+            return back()->with('error', 'An error occurred while fetching users. Please try again.');
         }
-
-        $response = Http::withToken($user->api_token)->get(config('app.api_url') . '/users');
-
-        if ($response->successful()) {
-            $users = $response->json()['data'];
-            return view('admin.users.index', compact('users'));
-        }
-
-        return back()->with('error', 'Unable to fetch users');
     }
 
     public function create()

@@ -29,7 +29,7 @@ class User extends Authenticatable
         'region_id',
         'area',
         'role',
-        'points'
+        'points',
     ];
 
     /**

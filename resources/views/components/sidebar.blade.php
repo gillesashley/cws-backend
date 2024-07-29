@@ -43,7 +43,7 @@
                         Campaigns</a>
                 </li>
                 <li>
-                    <a href="{{ route('sms-campaigns.index') }}">
+                    <a href="{{ route('campaigns.index') }}">
                         <ion-icon name="ellipse-outline"></ion-icon>SMS Campaigns
                     </a>
                 </li>

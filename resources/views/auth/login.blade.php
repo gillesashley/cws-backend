@@ -65,10 +65,6 @@
     </form>
 @endsection
 
-@section('cover-content')
-    <!-- You can add any content for the right side cover image here -->
-@endsection
-
 @push('scripts')
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {

@@ -64,3 +64,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/error/{code}', [ErrorController::class, 'show'])->name('error');
+Route::get('/test-dashboard', function () {
+    return "This is a test dashboard route";
+})->name('test.dashboard');

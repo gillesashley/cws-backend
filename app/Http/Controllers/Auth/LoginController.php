@@ -29,11 +29,11 @@ class LoginController extends Controller
                 $userData = $response->json();
                 Log::info('Login successful', ['user' => $userData['user']['email']]);
 
-                // Store user data and token in session
                 Session::put('user', $userData['user']);
                 Session::put('api_token', $userData['token']);
 
-                return redirect()->intended('dashboard');
+                Log::info('Attempting to redirect to dashboard');
+                return redirect()->route('dashboard')->with('status', 'Logged in successfully!');
             } else {
                 Log::warning('Login failed', ['errors' => $response->json()]);
                 return back()->withErrors(['email' => 'The provided credentials do not match our records.'])->withInput();

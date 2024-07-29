@@ -39,26 +39,45 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
-// Protected Routes (without API token validation)
+// Protected Routes
 Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // User Management
-    Route::resource('users', UserController::class)->except(['show'])->names([
-        'index' => 'admin.users.index',
-        'create' => 'admin.users.create',
-        'store' => 'admin.users.store',
-        'edit' => 'admin.users.edit',
-        'update' => 'admin.users.update',
-        'destroy' => 'admin.users.destroy',
-    ]);
-});
+    // Admin Routes
+    Route::prefix('admin')->name('admin.')->group(function () {
+        // User Management
+        Route::resource('users', UserController::class)->except(['show'])->names([
+            'index' => 'users.index',
+            'create' => 'users.create',
+            'store' => 'users.store',
+            'edit' => 'users.edit',
+            'update' => 'users.update',
+            'destroy' => 'users.destroy',
+        ]);
 
-// Protected Routes (with API token validation)
-Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
+        // Withdrawals
+        Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('withdrawals');
+
+        // Analytics
+        Route::prefix('analytics')->name('analytics.')->group(function () {
+            Route::get('/', [AnalyticsController::class, 'index'])->name('index');
+            Route::get('/user-engagement', [AnalyticsController::class, 'userEngagement'])->name('user-engagement');
+            Route::get('/campaign-performance', [AnalyticsController::class, 'campaignPerformance'])->name('campaign-performance');
+        });
+
+        // Notifications
+        Route::resource('notifications', NotificationController::class)->except(['edit', 'update', 'destroy'])->names('notifications');
+
+        // Point Transactions
+        Route::resource('point-transactions', PointTransactionController::class)->only(['index', 'show'])->names('point-transactions');
+
+        // Admin Roles
+        Route::resource('admin-roles', AdminRoleController::class)->names('roles');
+    });
+
     // Targeted Messages (SMS and WhatsApp)
-    Route::group(['prefix' => 'targeted-messages', 'as' => 'targeted-messages.'], function () {
+    Route::prefix('targeted-messages')->name('targeted-messages.')->group(function () {
         // SMS Campaigns
         Route::get('/sms', [TargetedMessageController::class, 'smsIndex'])->name('sms.index');
         Route::get('/sms/create', [TargetedMessageController::class, 'smsCreate'])->name('sms.create');
@@ -69,25 +88,6 @@ Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
         Route::get('/whatsapp/create', [TargetedMessageController::class, 'whatsappCreate'])->name('whatsapp.create');
         Route::post('/whatsapp', [TargetedMessageController::class, 'whatsappStore'])->name('whatsapp.store');
     });
-
-    // Withdrawals
-    Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('admin.withdrawals');
-
-    // Analytics
-    Route::group(['prefix' => 'analytics', 'as' => 'admin.analytics.'], function () {
-        Route::get('/', [AnalyticsController::class, 'index'])->name('index');
-        Route::get('/user-engagement', [AnalyticsController::class, 'userEngagement'])->name('user-engagement');
-        Route::get('/campaign-performance', [AnalyticsController::class, 'campaignPerformance'])->name('campaign-performance');
-    });
-
-    // Notifications
-    Route::resource('notifications', NotificationController::class)->except(['edit', 'update', 'destroy'])->names('admin.notifications');
-
-    // Point Transactions
-    Route::resource('point-transactions', PointTransactionController::class)->only(['index', 'show'])->names('admin.point-transactions');
-
-    // Admin Roles
-    Route::resource('admin-roles', AdminRoleController::class)->names('admin.roles');
 });
 
 // Error Routes

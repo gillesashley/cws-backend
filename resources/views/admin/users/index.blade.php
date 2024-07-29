@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    @include('admin.users.create')
+    @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
 @endsection
 
 @push('scripts')
@@ -72,6 +72,41 @@
                 "paging": false,
                 "info": false,
                 "searching": false
+            });
+
+            // Filter constituencies based on selected region
+            $('#region_id').change(function() {
+                var regionId = $(this).val();
+                var constituencySelect = $('#constituency_id');
+                constituencySelect.find('option').show();
+                if (regionId) {
+                    constituencySelect.find('option').not('[data-region="' + regionId + '"]').hide();
+                }
+                constituencySelect.val('');
+            });
+
+            // Set password to email value before form submission
+            $('#createUserForm').submit(function(e) {
+                e.preventDefault();
+                $('#password').val($('#email').val());
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#createUserModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error creating user:", error);
+                        var errors = xhr.responseJSON.errors;
+                        if (errors) {
+                            var errorMessage = errors[Object.keys(errors)[0]];
+                            alert(errorMessage);
+                        }
+                    }
+                });
             });
         });
     </script>

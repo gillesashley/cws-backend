@@ -13,10 +13,10 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::with(['region', 'constituency'])
-            ->paginate(15);
-
-        return view('admin.users.index', compact('users'));
+        $users = User::with(['region', 'constituency'])->paginate(15);
+        $regions = Region::all();
+        $constituencies = Constituency::all();
+        return view('admin.users.index', compact('users', 'regions', 'constituencies'));
     }
 
     public function create()

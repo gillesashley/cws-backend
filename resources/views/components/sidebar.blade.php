@@ -39,11 +39,13 @@
                 <li> <a href="widgets-static-widgets.html"><ion-icon name="ellipse-outline"></ion-icon>Affiliate
                         Campaigns</a>
                 </li>
-                <li> <a href="widgets-data-widgets.html"><ion-icon name="ellipse-outline"></ion-icon>WhatsApp
-                        Campaigns</a>
+                <li>
+                    <a href="{{ route('targeted-messages.whatsapp.index') }}">
+                        <ion-icon name="ellipse-outline"></ion-icon>WhatsApp Campaigns
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ route('campaigns.index') }}">
+                    <a href="{{ route('targeted-messages.sms.index') }}">
                         <ion-icon name="ellipse-outline"></ion-icon>SMS Campaigns
                     </a>
                 </li>

@@ -13,20 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use Twilio\Rest\Client as TwilioClient;
 
 class CampaignMessageController extends Controller
 {
-    protected $twilioClient;
-
-    public function __construct()
-    {
-        $this->twilioClient = new TwilioClient(
-            config('services.twilio.sid'),
-            config('services.twilio.token')
-        );
-    }
-
     public function index()
     {
         $messages = QueryBuilder::for(CampaignMessage::class)
@@ -118,55 +107,5 @@ class CampaignMessageController extends Controller
     {
         $campaignMessage->increment('reads');
         return response()->json(['reads' => $campaignMessage->reads]);
-    }
-
-    public function sendSmsCampaign(Request $request)
-    {
-        $request->validate([
-            'message' => 'required|string|max:160',
-            'recipients' => 'required|array',
-            'recipients.*' => 'required|string|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-        ]);
-
-        $user = $request->user();
-
-        if (!$user->isConstituencyAdmin()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $successCount = 0;
-        $failureCount = 0;
-
-        foreach ($request->recipients as $recipient) {
-            try {
-                $message = $this->twilioClient->messages->create(
-                    $recipient,
-                    [
-                        'from' => config('services.twilio.phone_number'),
-                        'body' => $request->message,
-                    ]
-                );
-                $successCount++;
-            } catch (\Exception $e) {
-                $failureCount++;
-            }
-        }
-
-        // Create a new campaign message
-        $campaignMessage = CampaignMessage::create([
-            'user_id' => $user->id,
-            'constituency_id' => $user->constituency_id,
-            'title' => 'SMS Campaign',
-            'content' => $request->message,
-            'type' => 'sms',
-            'recipients_count' => count($request->recipients),
-            'success_count' => $successCount,
-            'failure_count' => $failureCount,
-        ]);
-
-        return response()->json([
-            'message' => "SMS campaign sent. Successful: $successCount, Failed: $failureCount",
-            'campaign' => new CampaignMessageResource($campaignMessage),
-        ]);
     }
 }

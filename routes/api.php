@@ -5,6 +5,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CampaignMessageController;
 use App\Http\Controllers\API\ConstituencyController;
 use App\Http\Controllers\API\LikeController;
+use App\Http\Controllers\API\MessageCampaignController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\PointsController;
 use App\Http\Controllers\API\PointTransactionController;
@@ -40,7 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('campaign-messages', CampaignMessageController::class);
     Route::get('/constituency-members', [CampaignMessageController::class, 'getConstituencyMembers']);
-    Route::post('/send-sms-campaign', [CampaignMessageController::class, 'sendSmsCampaign']);
+    Route::post('/send-sms-campaign', [MessageCampaignController::class, 'sendSmsCampaign']);
 
     Route::post('campaign-messages/{campaignMessage}/like', [LikeController::class, 'store']);
     Route::get('campaign-messages/{campaignMessage}/like-status', [LikeController::class, 'getLikeStatus']);

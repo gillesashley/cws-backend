@@ -3,6 +3,11 @@
 @section('title', 'Login')
 
 @section('content')
+<div class="col-12 col-lg-12">
+  <div class="social-login d-flex flex-row align-items-center justify-content-center gap-2 my-2">
+      <img src="{{ asset('assets/images/logo-icon-2.png') }}" alt="" width="200" height="200">
+  </div>
+</div>
     <div class="text-center">
         <h4>Sign In</h4>
         <p>Sign In to your account</p>

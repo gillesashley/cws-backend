@@ -61,16 +61,18 @@ class TargetedMessageController extends Controller
             'content' => 'required|string',
             'recipients' => 'required|array',
             'recipients.*' => 'exists:users,id',
-            'media' => 'nullable|file|mimes:jpeg,png,gif,mp4|max:16384', // 16MB max
+            'media.*' => 'nullable|file|mimes:jpeg,png,gif,mp4|max:16384', // 16MB max per file
         ]);
 
         $user = auth()->user();
         $recipients = User::whereIn('id', $request->recipients)->get();
 
-        $mediaUrl = null;
+        $mediaUrls = [];
         if ($request->hasFile('media')) {
-            $mediaPath = $request->file('media')->store('whatsapp_media', 'public');
-            $mediaUrl = Storage::url($mediaPath);
+            foreach ($request->file('media') as $mediaFile) {
+                $mediaPath = $mediaFile->store('whatsapp_media', 'public');
+                $mediaUrls[] = Storage::url($mediaPath);
+            }
         }
 
         $targetedMessage = TargetedMessage::create([
@@ -80,7 +82,7 @@ class TargetedMessageController extends Controller
             'content' => $request->content,
             'type' => 'whatsapp',
             'recipients_count' => count($recipients),
-            'media_url' => $mediaUrl,
+            'media_url' => implode(',', $mediaUrls), // Store as comma-separated string for reference
         ]);
 
         $successCount = 0;
@@ -88,7 +90,7 @@ class TargetedMessageController extends Controller
 
         foreach ($recipients as $recipient) {
             try {
-                $this->sendWhatsAppWithMedia($recipient->phone, $request->content, $mediaUrl);
+                $this->sendWhatsAppWithMedia($recipient->phone, $request->content, $mediaUrls);
                 $successCount++;
             } catch (\Exception $e) {
                 $failureCount++;
@@ -103,6 +105,7 @@ class TargetedMessageController extends Controller
         return redirect()->route('targeted-messages.whatsapp.index')
             ->with('success', "Campaign sent. Successful: $successCount, Failed: $failureCount");
     }
+
 
     private function storeMessage(Request $request, $type)
     {
@@ -157,15 +160,15 @@ class TargetedMessageController extends Controller
         );
     }
 
-    private function sendWhatsAppWithMedia($to, $message, $mediaUrl = null)
+    private function sendWhatsAppWithMedia($to, $message, $mediaUrls = [])
     {
         $messageData = [
             'from' => 'whatsapp:' . config('services.twilio.whatsapp_number'),
             'body' => $message,
         ];
 
-        if ($mediaUrl) {
-            $messageData['mediaUrl'] = [asset($mediaUrl)];
+        if (!empty($mediaUrls)) {
+            $messageData['mediaUrl'] = array_map('asset', $mediaUrls);
         }
 
         $this->twilioClient->messages->create(
@@ -173,6 +176,7 @@ class TargetedMessageController extends Controller
             $messageData
         );
     }
+
 
     private function getConstituencyMembers()
     {

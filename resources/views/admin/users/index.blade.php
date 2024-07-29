@@ -48,8 +48,15 @@
                                 <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
                                 <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm">Edit</button>
-                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"
+                                        class="btn btn-sm btn-primary">Edit</a>
+                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -60,54 +67,53 @@
                 {{ $users->links() }}
             </div>
         </div>
-    </div>
 
-    @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
-@endsection
+        @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
+    @endsection
 
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                "paging": false,
-                "info": false,
-                "searching": false
-            });
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    "paging": false,
+                    "info": false,
+                    "searching": false
+                });
 
-            // Filter constituencies based on selected region
-            $('#region_id').change(function() {
-                var regionId = $(this).val();
-                var constituencySelect = $('#constituency_id');
-                constituencySelect.find('option').show();
-                if (regionId) {
-                    constituencySelect.find('option').not('[data-region="' + regionId + '"]').hide();
-                }
-                constituencySelect.val('');
-            });
-
-            // Set password to email value before form submission
-            $('#createUserForm').submit(function(e) {
-                e.preventDefault();
-                $('#password').val($('#email').val());
-
-                $.ajax({
-                    url: $(this).attr('action'),
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#createUserModal').modal('hide');
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error creating user:", error);
-                        var errors = xhr.responseJSON.errors;
-                        if (errors) {
-                            var errorMessage = errors[Object.keys(errors)[0]];
-                            alert(errorMessage);
-                        }
+                // Filter constituencies based on selected region
+                $('#region_id').change(function() {
+                    var regionId = $(this).val();
+                    var constituencySelect = $('#constituency_id');
+                    constituencySelect.find('option').show();
+                    if (regionId) {
+                        constituencySelect.find('option').not('[data-region="' + regionId + '"]').hide();
                     }
+                    constituencySelect.val('');
+                });
+
+                // Set password to email value before form submission
+                $('#createUserForm').submit(function(e) {
+                    e.preventDefault();
+                    $('#password').val($('#email').val());
+
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: 'POST',
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            $('#createUserModal').modal('hide');
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error creating user:", error);
+                            var errors = xhr.responseJSON.errors;
+                            if (errors) {
+                                var errorMessage = errors[Object.keys(errors)[0]];
+                                alert(errorMessage);
+                            }
+                        }
+                    });
                 });
             });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush

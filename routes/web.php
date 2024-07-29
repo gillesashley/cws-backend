@@ -45,7 +45,7 @@ Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
 
     // SMS Campaigns
     Route::get('/sms-campaigns', [TargetedMessageController::class, 'smsIndex'])->name('targeted-messages.sms.index');
-    Route::get('/sms-campaigns/create', [TargetedMessageController::class, 'smsCreate'])->name('targeted-messages.sms.create');
+    Route::post('/sms-campaigns/create', [TargetedMessageController::class, 'smsCreate'])->name('targeted-messages.sms.create');
     Route::post('/sms-campaigns', [TargetedMessageController::class, 'smsStore'])->name('targeted-messages.sms.store');
 
     // WhatsApp Campaigns

@@ -102,10 +102,6 @@ class TargetedMessageController extends Controller
             'failure_count' => $failureCount,
         ]);
 
-        if ($request->ajax()) {
-            return response()->json(['success' => true]);
-        }
-
         return redirect()->route('targeted-messages.whatsapp.index')
             ->with('success', "Campaign sent. Successful: $successCount, Failed: $failureCount");
     }

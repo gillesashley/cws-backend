@@ -16,7 +16,8 @@ class UserController extends Controller
     //     $this->middleware('auth');
     // }
 
-    public function index()
+    // UserController.php
+    public function index(Request $request)
     {
         Log::info('UserController index method called');
 
@@ -27,8 +28,14 @@ class UserController extends Controller
             return redirect()->route('login')->with('error', 'Please log in to access this page.');
         }
 
+        $page = $request->query('page', 1); // Get current page from request, default to 1
+        $perPage = 15; // Set the number of items per page
+
         try {
-            $response = Http::withToken($token)->get(config('app.api_url') . '/users');
+            $response = Http::withToken($token)->get(config('app.api_url') . '/users', [
+                'page' => $page,
+                'per_page' => $perPage,
+            ]);
 
             if ($response->successful()) {
                 $data = $response->json();
@@ -44,6 +51,7 @@ class UserController extends Controller
             return back()->with('error', 'An error occurred while fetching users. Please try again.');
         }
     }
+
 
     public function create()
     {

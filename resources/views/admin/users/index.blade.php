@@ -1,3 +1,4 @@
+// index.blade.php
 @extends('layouts.app')
 
 @section('content')
@@ -26,6 +27,7 @@
                         <table id="example" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -35,8 +37,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($users as $index => $user)
                                     <tr>
+                                        <td>{{ $index + 1 }}</td>
                                         <td>{{ $user['name'] }}</td>
                                         <td>{{ $user['email'] }}</td>
                                         <td>{{ $user['role'] }}</td>

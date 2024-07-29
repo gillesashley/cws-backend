@@ -61,7 +61,7 @@ class TargetedMessageController extends Controller
             'content' => 'required|string',
             'recipients' => 'required|array',
             'recipients.*' => 'exists:users,id',
-            'media.*' => 'nullable|file|mimes:jpeg,png,gif,mp4|max:16384', // 16MB max per file
+            'media.*' => 'nullable|file|mimes:jpeg,png,gif,mp4|max:16384', // 16MB max
         ]);
 
         $user = auth()->user();
@@ -69,8 +69,8 @@ class TargetedMessageController extends Controller
 
         $mediaUrls = [];
         if ($request->hasFile('media')) {
-            foreach ($request->file('media') as $mediaFile) {
-                $mediaPath = $mediaFile->store('whatsapp_media', 'public');
+            foreach ($request->file('media') as $media) {
+                $mediaPath = $media->store('whatsapp_media', 'public');
                 $mediaUrls[] = Storage::url($mediaPath);
             }
         }
@@ -82,7 +82,7 @@ class TargetedMessageController extends Controller
             'content' => $request->content,
             'type' => 'whatsapp',
             'recipients_count' => count($recipients),
-            'media_url' => implode(',', $mediaUrls), // Store as comma-separated string for reference
+            'media_urls' => json_encode($mediaUrls),
         ]);
 
         $successCount = 0;
@@ -101,6 +101,10 @@ class TargetedMessageController extends Controller
             'success_count' => $successCount,
             'failure_count' => $failureCount,
         ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true]);
+        }
 
         return redirect()->route('targeted-messages.whatsapp.index')
             ->with('success', "Campaign sent. Successful: $successCount, Failed: $failureCount");

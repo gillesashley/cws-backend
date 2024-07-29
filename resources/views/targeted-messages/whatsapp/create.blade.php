@@ -4,7 +4,7 @@
     <div class="container">
         <h1>Create New WhatsApp Campaign</h1>
 
-        <form action="{{ route('targeted-messages.whatsapp.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="campaignForm" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">Campaign Title</label>
@@ -14,7 +14,7 @@
 
             <div class="form-group">
                 <label for="content">Message Content</label>
-                <textarea name="content" id="content" class="form-control" rows="3" required>{{ old('content') }}</textarea>
+                <textarea name="content" id="content" class="form-control" rows="30" required>{{ old('content') }}</textarea>
             </div>
 
             <div class="form-group">
@@ -23,7 +23,7 @@
                     multiple>
             </div>
 
-            <div id="mediaPreview" class="mt-3" style="display: none;">
+            <div id="mediaPreview" class="mt-3">
                 <!-- Previews will be appended here -->
             </div>
 
@@ -46,6 +46,7 @@
 @endsection
 
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $('#media').on('change', function(event) {
             var files = event.target.files;
@@ -53,34 +54,51 @@
             $previewContainer.empty(); // Clear previous previews
 
             if (files.length > 0) {
-                $previewContainer.show();
+                $.each(files, function(index, file) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        var $previewElement;
+                        if (file.type.startsWith('image/')) {
+                            $previewElement = $('<img>', {
+                                src: e.target.result,
+                                style: 'max-width: 300px; max-height: 300px;'
+                            });
+                        } else if (file.type.startsWith('video/')) {
+                            $previewElement = $('<video>', {
+                                src: e.target.result,
+                                controls: true,
+                                style: 'max-width: 300px; max-height: 300px;'
+                            });
+                        }
+
+                        $previewContainer.append($previewElement);
+                    }
+
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
+                });
             } else {
                 $previewContainer.hide();
             }
+        });
 
-            $.each(files, function(index, file) {
-                var reader = new FileReader();
+        $('#campaignForm').on('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
 
-                reader.onload = function(e) {
-                    var $previewElement;
-                    if (file.type.startsWith('image/')) {
-                        $previewElement = $('<img>', {
-                            src: e.target.result,
-                            style: 'max-width: 300px; max-height: 300px;'
-                        });
-                    } else if (file.type.startsWith('video/')) {
-                        $previewElement = $('<video>', {
-                            src: e.target.result,
-                            controls: true,
-                            style: 'max-width: 300px; max-height: 300px;'
-                        });
-                    }
-
-                    $previewContainer.append($previewElement);
-                }
-
-                if (file) {
-                    reader.readAsDataURL(file);
+            $.ajax({
+                url: "{{ route('targeted-messages.whatsapp.store') }}",
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alert('Campaign sent successfully!');
+                },
+                error: function(response) {
+                    alert('Error sending campaign.');
                 }
             });
         });

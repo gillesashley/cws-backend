@@ -31,9 +31,10 @@ class UserController extends Controller
             $response = Http::withToken($token)->get(config('app.api_url') . '/users');
 
             if ($response->successful()) {
-                $users = $response->json()['data'];
-                Log::info('Users fetched successfully', ['count' => count($users)]);
-                return view('admin.users.index', compact('users'));
+                $data = $response->json();
+                $users = $data['data'];
+                $pagination = $data['meta']['pagination'] ?? null;
+                return view('admin.users.index', compact('users', 'pagination'));
             } else {
                 Log::warning('Failed to fetch users', ['status' => $response->status()]);
                 return back()->with('error', 'Unable to fetch users. Please try again.');

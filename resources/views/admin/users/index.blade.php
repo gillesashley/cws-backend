@@ -50,8 +50,39 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $users->links() }}
                     </div>
+                    @if (isset($pagination))
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                @if ($pagination['current_page'] > 1)
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            href="{{ route('admin.users.index', ['page' => $pagination['current_page'] - 1]) }}"
+                                            aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @for ($i = 1; $i <= $pagination['total_pages']; $i++)
+                                    <li class="page-item {{ $pagination['current_page'] == $i ? 'active' : '' }}">
+                                        <a class="page-link"
+                                            href="{{ route('admin.users.index', ['page' => $i]) }}">{{ $i }}</a>
+                                    </li>
+                                @endfor
+
+                                @if ($pagination['current_page'] < $pagination['total_pages'])
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                            href="{{ route('admin.users.index', ['page' => $pagination['current_page'] + 1]) }}"
+                                            aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </nav>
+                    @endif
                 </div>
             </div>
         </div>

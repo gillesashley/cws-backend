@@ -89,7 +89,7 @@
                         url: '{{ config('app.api_url') }}/regions/' + regionId + '/constituencies',
                         method: 'GET',
                         headers: {
-                            'Authorization': 'Bearer {{ auth()->user()->api_token }}'
+                            'Authorization': 'Bearer {{ Session::get('access_token') }}'
                         },
                         success: function(response) {
                             var constituencies = response.data;
@@ -122,7 +122,7 @@
                     method: 'POST',
                     data: $(this).serialize(),
                     headers: {
-                        'Authorization': 'Bearer {{ auth()->user()->api_token }}'
+                        'Authorization': 'Bearer {{ Session::get('access_token') }}'
                     },
                     success: function(response) {
                         $('#createUserModal').modal('hide');

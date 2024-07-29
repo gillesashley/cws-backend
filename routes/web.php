@@ -50,7 +50,7 @@ Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
 
     // WhatsApp Campaigns
     Route::get('/whatsapp-campaigns', [TargetedMessageController::class, 'whatsappIndex'])->name('targeted-messages.whatsapp.index');
-    Route::post('/whatsapp-campaigns/create', [TargetedMessageController::class, 'whatsappCreate'])->name('targeted-messages.whatsapp.create');
+    Route::get('/whatsapp-campaigns/create', [TargetedMessageController::class, 'whatsappCreate'])->name('targeted-messages.whatsapp.create');
     Route::post('/whatsapp-campaigns', [TargetedMessageController::class, 'whatsappStore'])->name('targeted-messages.whatsapp.store');
 
     // Withdrawals

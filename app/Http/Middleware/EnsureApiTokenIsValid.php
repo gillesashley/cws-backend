@@ -18,9 +18,11 @@ class EnsureApiTokenIsValid
      */
     public function handle(Request $request, Closure $next)
     {
+        Log::info('EnsureApiTokenIsValid middleware called');
+
         if (!Session::has('api_token')) {
             Log::warning('No API token in session');
-            return redirect('login');
+            return redirect()->route('login');
         }
 
         try {
@@ -28,16 +30,17 @@ class EnsureApiTokenIsValid
                 ->get(config('app.api_url') . '/user');
 
             if ($response->successful()) {
+                Log::info('API token is valid');
                 return $next($request);
             } else {
                 Log::warning('Invalid API token', ['status' => $response->status()]);
                 Session::forget(['user', 'api_token']);
-                return redirect('login');
+                return redirect()->route('login');
             }
         } catch (\Exception $e) {
             Log::error('API token validation error', ['message' => $e->getMessage()]);
             Session::forget(['user', 'api_token']);
-            return redirect('login');
+            return redirect()->route('login');
         }
     }
 }

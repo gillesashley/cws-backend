@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TargetedMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Twilio\Rest\Client as TwilioClient;
 
 class TargetedMessageController extends Controller
@@ -128,7 +129,24 @@ class TargetedMessageController extends Controller
 
     private function getConstituencyMembers()
     {
-        $user = auth()->user();
+        $user = Auth::user();
+
+        if (!$user) {
+            // Handle the case where there's no authenticated user
+            return collect();
+        }
+
+        if (!$user->constituency_id) {
+            // Handle the case where the user doesn't have a constituency
+            return collect();
+        }
+
+        // Assuming you have a method to check if the user is a constituency admin
+        if (!$user->isConstituencyAdmin()) {
+            // Handle the case where the user is not a constituency admin
+            return collect();
+        }
+
         return User::where('constituency_id', $user->constituency_id)
             ->where('id', '!=', $user->id)
             ->select('id', 'name', 'phone')

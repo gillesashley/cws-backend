@@ -50,13 +50,8 @@
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-primary">Edit</a>
-                                    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}"
-                                        style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger show_confirm"
-                                            data-toggle="tooltip" title='Delete'>Delete</button>
-                                    </form>
+                                    <button type="button" class="btn btn-sm btn-danger delete-user"
+                                        data-user-id="{{ $user->id }}">Delete</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -72,7 +67,6 @@
     @endsection
 
     @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 Swal.fire({
@@ -122,48 +116,12 @@
                     });
                 });
 
-                $('.show_confirm').click(function(event) {
-
-                    var form = $(this).closest("form");
-
-                    var name = $(this).data("name");
-
-                    event.preventDefault();
-
-                    swal({
-
-                            title: `Are you sure you want to delete this record?`,
-
-                            text: "If you delete this, it will be gone forever.",
-
-                            icon: "warning",
-
-                            buttons: true,
-
-                            dangerMode: true,
-
-                        })
-
-                        .then((willDelete) => {
-
-                            if (willDelete) {
-
-                                form.submit();
-
-                            }
-
-                        });
-
-                });
-
                 // Sweet alert for delete
-                $('.show_confirm').click(function(event) {
-                    var form = $(this).closest("form");
-                    var name = $(this).data("name");
-                    event.preventDefault();
+                $('.delete-user').on('click', function() {
+                    var userId = $(this).data('user-id');
                     Swal.fire({
-                        title: 'Are you sure you want to delete this record?',
-                        text: "If you delete this, it will be gone forever.",
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -171,11 +129,19 @@
                         confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                         if (result.isConfirmed) {
+                            // If user confirms, submit the delete form
+                            var form = $('<form>', {
+                                'method': 'POST',
+                                'action': '{{ route('admin.users.destroy', ':user_id') }}'
+                                    .replace(':user_id', userId)
+                            });
+                            form.append('@csrf');
+                            form.append('@method('DELETE')');
+                            $('body').append(form);
                             form.submit();
                         }
                     });
                 });
-
 
 
                 // Function to show Lobibox notification

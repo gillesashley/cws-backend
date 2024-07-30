@@ -64,7 +64,7 @@
                 </table>
             </div>
             <div class="mt-3">
-                {{ $users->links() }}
+                {{ $users->links('vendor.pagination.syn-ui') }}
             </div>
         </div>
 

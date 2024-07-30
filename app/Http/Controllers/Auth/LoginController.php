@@ -23,11 +23,16 @@ class LoginController extends Controller
         ]);
 
         try {
-            $response = Http::withCookies()->post(config('app.api_url') . '/login', $credentials);
+            $response = Http::withHeaders([
+                'X-CSRF-TOKEN' => csrf_token(),
+            ])->post(config('app.api_url') . '/login', $credentials);
 
             if ($response->successful()) {
                 $userData = $response->json();
                 Log::info('Login successful', ['user' => $userData['user']['email']]);
+
+                // Save user data to the session or perform necessary actions
+                Session::put('user', $userData['user']);
 
                 // The session and token are now managed by Sanctum via cookies
                 return redirect()->route('dashboard')->with('status', 'Logged in successfully!');
@@ -44,8 +49,9 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         try {
-            // Call your API to logout
-            $response = Http::withCookies()->post(config('app.api_url') . '/logout');
+            $response = Http::withHeaders([
+                'X-CSRF-TOKEN' => csrf_token(),
+            ])->post(config('app.api_url') . '/logout');
 
             if (!$response->successful()) {
                 Log::warning('Logout API call failed', ['response' => $response->json()]);
@@ -53,6 +59,9 @@ class LoginController extends Controller
         } catch (\Exception $e) {
             Log::error('Logout error', ['message' => $e->getMessage()]);
         }
+
+        // Clear session
+        Session::flush();
 
         // Redirect to the login page
         return redirect()->route('login');

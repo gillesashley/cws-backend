@@ -26,6 +26,7 @@
     <link href="{{ asset('assets/css/dark-theme.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/semi-dark.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/header-colors.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
 
     <title>CWS @yield('title', 'SYN-UI - Bootstrap Admin Template')</title>
 </head>
@@ -182,6 +183,9 @@
     <script src="{{ asset('assets/js/index2.js') }}"></script>
     <!-- Main JS-->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
 
 
 </body>

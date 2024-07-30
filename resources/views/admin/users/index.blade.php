@@ -54,8 +54,8 @@
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-danger show_confirm"
+                                            data-name="{{ $user->name }}">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -114,6 +114,46 @@
                         }
                     });
                 });
+
+                // Sweet alert for delete
+                $('.show_confirm').click(function(event) {
+                    var form = $(this).closest("form");
+                    var name = $(this).data("name");
+                    event.preventDefault();
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You want to delete " + name + "? This action cannot be undone!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                // Function to show Lobibox notification
+                function showNotification(type, message) {
+                    Lobibox.notify(type, {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: type === 'success' ? 'bx bx-check-circle' : 'bx bx-x-circle',
+                        msg: message
+                    });
+                }
+
+                // Show flash messages on page load
+                @if (session('success'))
+                    showNotification('success', "{{ session('success') }}");
+                @endif
+
+                @if (session('error'))
+                    showNotification('error', "{{ session('error') }}");
+                @endif
             });
         </script>
     @endpush

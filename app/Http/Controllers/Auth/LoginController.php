@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -22,47 +23,30 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        try {
-            $response = Http::post(config('app.api_url') . '/login', $credentials);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-            if ($response->successful()) {
-                $userData = $response->json();
-                Log::info('Login successful', ['user' => $userData['user']['email']]);
+            Log::info('Login successful', ['user' => Auth::user()->email]);
 
-                Session::put('user', $userData['user']);
-                Session::put('access_token', $userData['token']);
-
-                Log::info('Access token stored in session', ['token' => $userData['token']]);
-
-                return redirect()->route('dashboard')->with('status', 'Logged in successfully!');
-            } else {
-                Log::warning('Login failed', ['errors' => $response->json()]);
-                return back()->withErrors(['email' => 'The provided credentials do not match our records.'])->withInput();
-            }
-        } catch (\Exception $e) {
-            Log::error('Login error', ['message' => $e->getMessage()]);
-            return back()->withErrors(['email' => 'An error occurred during login. Please try again.'])->withInput();
+            return redirect()->intended('dashboard')->with('status', 'Logged in successfully!');
         }
+
+        Log::warning('Login failed', ['email' => $request->email]);
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 
     public function logout(Request $request)
     {
-        try {
-            // Call your API to invalidate the token
-            $response = Http::withToken(Session::get('access_token'))
-                ->post(config('app.api_url') . '/logout');
+        Auth::logout();
 
-            if (!$response->successful()) {
-                Log::warning('Logout API call failed', ['response' => $response->json()]);
-            }
-        } catch (\Exception $e) {
-            Log::error('Logout error', ['message' => $e->getMessage()]);
-        }
+        $request->session()->invalidate();
 
-        // Clear the session
-        Session::forget(['user', 'access_token']);
+        $request->session()->regenerateToken();
 
-        // Redirect to the login page
+        Log::info('User logged out');
+
         return redirect()->route('login');
     }
 }

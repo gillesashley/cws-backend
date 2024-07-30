@@ -22,7 +22,7 @@
 
     <!--preloader start-->
     <div class="preloader">
-        <img src="assets/images/loading-logo.png" alt="image">
+        <img src="{{ asset('assets-landing/images/loading-logo.png') }}" alt="image">
     </div>
     <!--preloader end-->
 
@@ -32,7 +32,7 @@
             <div class="header__wrapper">
                 <div class="header__logo">
                     <a href="index.html">
-                        <img src="assets/images/footer-logo.png" alt="logo">
+                        <img src="{{ asset('assets-landing/images/footer-logo.png') }}" alt="logo">
                     </a>
                 </div>
                 <div class="header__nav">
@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
                         <div class="questions-img hero-img">
-                            <img src="assets/images/phone-01.png" alt="image">
+                            <img src="{{ asset('assets-landing/images/phone-01.png') }}" alt="image">
                         </div>
                     </div>
                 </div>

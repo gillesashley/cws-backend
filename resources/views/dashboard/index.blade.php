@@ -10,7 +10,7 @@
                     <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="home-outline" role="img"
                                 class="md hydrated" aria-label="home outline"></ion-icon></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">eCommerce</li>
+                    <li class="breadcrumb-item active" aria-current="page">Analytics</li>
                 </ol>
             </nav>
         </div>

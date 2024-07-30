@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
@@ -13,26 +11,25 @@ class DashboardController extends Controller
     {
         Log::info('Dashboard controller index method called');
 
-        $apiToken = Session::get('api_token');
+        $user = session('user');
 
-        if (!$apiToken) {
-            Log::error('API token not found in session');
+        if (!$user) {
+            Log::error('User not found in session');
             return redirect()->route('login')->with('error', 'Please log in to access the dashboard.');
         }
 
-        try {
-            $response = Http::withToken($apiToken)->get(config('app.api_url') . '/analytics');
+        // Mock analytics data
+        $analyticsData = [
+            'total_users' => 1000,
+            'active_campaigns' => 5,
+            'total_engagement' => 10000,
+            'recent_activities' => [
+                ['type' => 'New User', 'description' => 'John Doe joined'],
+                ['type' => 'Campaign Launch', 'description' => 'Summer Initiative started'],
+                ['type' => 'High Engagement', 'description' => 'Post reached 1000 views'],
+            ]
+        ];
 
-            if ($response->successful()) {
-                $analyticsData = $response->json();
-                return view('dashboard.index', compact('analyticsData'));
-            } else {
-                Log::error('Failed to fetch analytics data', ['status' => $response->status()]);
-                return view('dashboard.index')->with('error', 'Failed to fetch analytics data. Please try again later.');
-            }
-        } catch (\Exception $e) {
-            Log::error('Error fetching analytics data', ['error' => $e->getMessage()]);
-            return view('dashboard.index')->with('error', 'An error occurred while fetching data. Please try again later.');
-        }
+        return view('dashboard.index', compact('user', 'analyticsData'));
     }
 }

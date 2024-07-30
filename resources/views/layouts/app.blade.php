@@ -184,7 +184,7 @@
     <!-- Main JS-->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/plugins/notifications/js/lobibox.min.js') }}"></script>
 
 

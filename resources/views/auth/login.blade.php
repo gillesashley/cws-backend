@@ -42,7 +42,8 @@
             </div>
         </div>
         <div class="col-12 col-lg-6 text-end">
-            <a href="#" style="pointer-events: none; color: gray; text-decoration: none;">Forgot Password?</a>
+            <a href="{{ route('password.request') }}"
+                style="pointer-events: none; color: gray; text-decoration: none;">Forgot Password?</a>
         </div>
         <div class="col-12 col-lg-12">
             <div class="d-grid">

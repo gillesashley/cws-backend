@@ -14,18 +14,13 @@ class RegionController extends Controller
     {
         $regions = QueryBuilder::for(Region::class)
             ->allowedSorts(['name'])
-            ->allowedIncludes(['constituencies'])
-            ->paginate();
+            ->get();
 
         return RegionResource::collection($regions);
     }
 
     public function show(Region $region)
     {
-        return new RegionResource(
-            QueryBuilder::for(Region::where('id', $region->id))
-                ->allowedIncludes(['constituencies'])
-                ->first()
-        );
+        return new RegionResource($region);
     }
 }

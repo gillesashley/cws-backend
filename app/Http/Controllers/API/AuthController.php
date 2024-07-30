@@ -70,17 +70,19 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+            return response()->json([
+                'message' => 'The provided credentials are incorrect.'
+            ], 401);
         }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'user' => $user,
-            'token' => $token,
         ]);
+    }
+
+    public function logout()
+    {
+        return response()->json(['message' => 'Logged out successfully']);
     }
 
     public function checkPhoneAvailability(Request $request)
@@ -88,12 +90,5 @@ class AuthController extends Controller
         $request->validate(['phone' => 'required|string']);
         $exists = User::where('phone', $request->phone)->exists();
         return response()->json(['available' => !$exists]);
-    }
-
-    public function logout(Request $request)
-    {
-        $request->user()->currentAccessToken()->delete();
-
-        return response()->json(['message' => 'Logged out successfully']);
     }
 }

@@ -20,12 +20,10 @@ class ConstituencyController extends Controller
     public function index()
     {
         $constituencies = QueryBuilder::for(Constituency::class)
-            ->allowedFilters([
-                AllowedFilter::exact('region_id'),
-                'name',
-            ])
+            ->allowedFilters(['region_id'])
             ->allowedSorts(['name'])
-            ->paginate();
+            ->with('region')
+            ->get();
 
         return ConstituencyResource::collection($constituencies);
     }
@@ -49,10 +47,7 @@ class ConstituencyController extends Controller
      */
     public function getByRegion(Region $region)
     {
-        $constituencies = $region->constituencies()
-            ->orderBy('name')
-            ->get();
-
+        $constituencies = $region->constituencies()->get();
         return ConstituencyResource::collection($constituencies);
     }
 

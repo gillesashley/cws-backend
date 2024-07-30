@@ -18,6 +18,7 @@ use App\Policies\RegionPolicy;
 use App\Policies\PointTransactionPolicy;
 use App\Policies\NotificationPolicy;
 use App\Policies\AdvertisementPolicy;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -45,6 +46,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(PointTransaction::class, PointTransactionPolicy::class);
         Gate::policy(Notification::class, NotificationPolicy::class);
         Gate::policy(Advertisement::class, AdvertisementPolicy::class);
+
+        Paginator::defaultView('vendor.pagination.syn-ui');
+        Paginator::defaultSimpleView('vendor.pagination.syn-ui');
 
 
         // Define gates

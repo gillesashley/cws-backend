@@ -72,6 +72,7 @@
     @endsection
 
     @push('scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 Swal.fire({
@@ -121,6 +122,40 @@
                     });
                 });
 
+                $('.show_confirm').click(function(event) {
+
+                    var form = $(this).closest("form");
+
+                    var name = $(this).data("name");
+
+                    event.preventDefault();
+
+                    swal({
+
+                            title: `Are you sure you want to delete this record?`,
+
+                            text: "If you delete this, it will be gone forever.",
+
+                            icon: "warning",
+
+                            buttons: true,
+
+                            dangerMode: true,
+
+                        })
+
+                        .then((willDelete) => {
+
+                            if (willDelete) {
+
+                                form.submit();
+
+                            }
+
+                        });
+
+                });
+
                 // Sweet alert for delete
                 $('.show_confirm').click(function(event) {
                     var form = $(this).closest("form");
@@ -140,6 +175,8 @@
                         }
                     });
                 });
+
+
 
                 // Function to show Lobibox notification
                 function showNotification(type, message) {

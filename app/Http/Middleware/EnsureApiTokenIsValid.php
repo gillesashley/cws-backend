@@ -18,27 +18,18 @@ class EnsureApiTokenIsValid
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = Session::get('access_token');
-
-        if (!$token) {
-            Log::warning('No access token found in session');
-            return redirect()->route('login')->with('error', 'Please log in to access this page.');
-        }
-
         try {
-            $response = Http::withToken($token)->get(config('app.api_url') . '/user');
+            $response = Http::withCookies()->get(config('app.api_url') . '/user');
 
             if ($response->successful()) {
-                Log::info('API token is valid');
+                Log::info('User is authenticated');
                 return $next($request);
             } else {
-                Log::warning('API token is invalid', ['status' => $response->status()]);
-                Session::forget(['user', 'access_token']);
-                return redirect()->route('login')->with('error', 'Your session has expired. Please log in again.');
+                Log::warning('User is not authenticated', ['status' => $response->status()]);
+                return redirect()->route('login')->with('error', 'Please log in to access this page.');
             }
         } catch (\Exception $e) {
-            Log::error('Error validating API token', ['error' => $e->getMessage()]);
-            Session::forget(['user', 'access_token']);
+            Log::error('Error checking authentication', ['error' => $e->getMessage()]);
             return redirect()->route('login')->with('error', 'An error occurred. Please log in again.');
         }
     }

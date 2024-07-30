@@ -40,7 +40,7 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 // Protected Routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware([EnsureApiTokenIsValid::class])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

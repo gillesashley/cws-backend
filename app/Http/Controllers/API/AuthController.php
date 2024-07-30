@@ -75,13 +75,14 @@ class AuthController extends Controller
             ]);
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // Instead of creating a token, we're using the session
+        $request->session()->regenerate();
 
         return response()->json([
             'user' => $user,
-            'token' => $token,
         ]);
     }
+
 
     public function checkPhoneAvailability(Request $request)
     {
@@ -92,7 +93,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return response()->json(['message' => 'Logged out successfully']);
     }

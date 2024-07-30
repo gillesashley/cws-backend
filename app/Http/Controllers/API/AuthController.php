@@ -75,15 +75,10 @@ class AuthController extends Controller
             ], 422);
         }
 
-        // Instead of creating a token, we're using the session
-        $request->session()->regenerate();
-
         return response()->json([
             'user' => $user,
         ]);
     }
-
-
 
     public function checkPhoneAvailability(Request $request)
     {

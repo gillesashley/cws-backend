@@ -70,9 +70,9 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+            return response()->json([
+                'message' => 'The provided credentials are incorrect.',
+            ], 422);
         }
 
         // Instead of creating a token, we're using the session
@@ -82,6 +82,7 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
+
 
 
     public function checkPhoneAvailability(Request $request)

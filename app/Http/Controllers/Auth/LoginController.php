@@ -37,8 +37,9 @@ class LoginController extends Controller
                 // The session and token are now managed by Sanctum via cookies
                 return redirect()->route('dashboard')->with('status', 'Logged in successfully!');
             } else {
-                Log::warning('Login failed', ['errors' => $response->json()]);
-                return back()->withErrors(['email' => 'The provided credentials do not match our records.'])->withInput();
+                $responseBody = $response->json();
+                Log::warning('Login failed', ['errors' => $responseBody]);
+                return back()->withErrors(['email' => $responseBody['message'] ?? 'The provided credentials do not match our records.'])->withInput();
             }
         } catch (\Exception $e) {
             Log::error('Login error', ['message' => $e->getMessage()]);

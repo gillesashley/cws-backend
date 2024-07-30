@@ -50,12 +50,12 @@
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}"
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger show_confirm"
-                                            data-name="{{ $user->name }}">Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-danger show_confirm"
+                                            data-toggle="tooltip" title='Delete'>Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -72,7 +72,7 @@
     @endsection
 
     @push('scripts')
-        <script>
+        <script type="text/javascript">
             $(document).ready(function() {
                 $('#example').DataTable({
                     "paging": false,
@@ -120,19 +120,18 @@
                     var form = $(this).closest("form");
                     var name = $(this).data("name");
                     event.preventDefault();
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You want to delete " + name + "? This action cannot be undone!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
+                    swal({
+                            title: `Are you sure you want to delete this record?`,
+                            text: "If you delete this, it will be gone forever.",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                form.submit();
+                            }
+                        });
                 });
 
                 // Function to show Lobibox notification

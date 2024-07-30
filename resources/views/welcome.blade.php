@@ -206,9 +206,9 @@
                     </div>
                 </div>
                 <div class="video__background">
-                    <img src="assets/images/video-bg-1.png" alt="image" class="texture-1">
-                    <img src="assets/images/video-img.png" alt="image" class="phone">
-                    <img src="assets/images/video-bg-2.png" alt="image" class="texture-2">
+                    <img src="{{ asset('assets-landing/images/video-bg-1.png') }}" alt="image" class="texture-1">
+                    <img src="{{ asset('assets-landing/images/video-img.png') }}" alt="image" class="phone">
+                    <img src="{{ asset('assets-landing/images/video-bg-2.png') }}" alt="image" class="texture-2">
                 </div>
             </div>
         </div>
@@ -318,7 +318,7 @@
                     <div class="col-lg-4">
                         <div class="step__box">
                             <div class="image">
-                                <img src="assets/images/phone-01.png" alt="image">
+                                <img src="{{ asset('assets-landing/images/phone-01.png') }}" alt="image">
                             </div>
                             <div class="content">
                                 <h3>EASY TO<span>Register.</span></h3>
@@ -330,7 +330,7 @@
                     <div class="col-lg-4">
                         <div class="step__box">
                             <div class="image">
-                                <img src="assets/images/phone-02.png" alt="image">
+                                <img src="{{ asset('assets-landing/images/phone-02.png') }}" alt="image">
                             </div>
                             <div class="content">
                                 <h3>SIMPLE TO<span>Create.</span></h3>
@@ -342,7 +342,7 @@
                     <div class="col-lg-4">
                         <div class="step__box">
                             <div class="image">
-                                <img src="assets/images/phone-03.png" alt="image">
+                                <img src="{{ asset('assets-landing/images/phone-03.png') }}" alt="image">
                             </div>
                             <div class="content">
                                 <h3>FUN TO<span>Measure.</span></h3>
@@ -374,7 +374,7 @@
             <div class="testimonial__wrapper">
                 <div class="client client-01 active">
                     <div class="image">
-                        <img src="assets/images/testimonial-img-01.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/testimonial-img-01.png') }}" alt="image">
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
@@ -389,7 +389,7 @@
                 </div>
                 <div class="client client-02">
                     <div class="image">
-                        <img src="assets/images/testimonial-img-02.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/testimonial-img-02.png') }}" alt="image">
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
@@ -404,7 +404,7 @@
                 </div>
                 <div class="client client-03">
                     <div class="image">
-                        <img src="assets/images/testimonial-img-03.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/testimonial-img-03.png') }}" alt="image">
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
@@ -419,7 +419,7 @@
                 </div>
                 <div class="client client-04">
                     <div class="image">
-                        <img src="assets/images/testimonial-img-04.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/testimonial-img-04.png') }}" alt="image">
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
@@ -441,13 +441,16 @@
                 <div class="swiper-container clients-slider">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide clients-slide">
-                            <a href="#"><img src="assets/images/client-img.png" alt="image"></a>
+                            <a href="#"><img src="{{ asset('assets-landing/images/client-img.png') }}"
+                                    alt="image"></a>
                         </div>
                         <div class="swiper-slide clients-slide">
-                            <a href="#"><img src="assets/images/client-img.png" alt="image"></a>
+                            <a href="#"><img src="{{ asset('assets-landing/images/client-img.png') }}"
+                                    alt="image"></a>
                         </div>
                         <div class="swiper-slide clients-slide">
-                            <a href="#"><img src="assets/images/client-img.png" alt="image"></a>
+                            <a href="#"><img src="{{ asset('assets-landing/images/client-img.png') }}"
+                                    alt="image"></a>
                         </div>
                     </div>
                 </div>
@@ -622,7 +625,7 @@
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
                         <div class="questions-img">
-                            <img src="assets/images/phone-01.png" alt="image">
+                            <img src="{{ asset('assets-landing/images/phone-01.png') }}" alt="image">
                         </div>
                     </div>
                 </div>
@@ -727,19 +730,19 @@
             <div class="swiper-container screenshot-slider">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide screenshot-slide">
-                        <img src="assets/images/phone-01.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/phone-01.png') }}" alt="image">
                     </div>
                     <div class="swiper-slide screenshot-slide">
-                        <img src="assets/images/phone-02.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/phone-02.png') }}" alt="image">
                     </div>
                     <div class="swiper-slide screenshot-slide">
-                        <img src="assets/images/phone-03.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/phone-03.png') }}" alt="image">
                     </div>
                     <div class="swiper-slide screenshot-slide">
-                        <img src="assets/images/phone-04.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/phone-04.png') }}" alt="image">
                     </div>
                     <div class="swiper-slide screenshot-slide">
-                        <img src="assets/images/phone-05.png" alt="image">
+                        <img src="{{ asset('assets-landing/images/phone-05.png') }}" alt="image">
                     </div>
                 </div>
             </div>
@@ -758,7 +761,8 @@
                             <a href="blog-single.html">
                                 <div class="blog__single blog__single--1">
                                     <div class="blog__single-image">
-                                        <img src="assets/images/blog-img-1.png" alt="image">
+                                        <img src="{{ asset('assets-landing/images/blog-img-1.png') }}"
+                                            alt="image">
                                     </div>
                                     <div class="blog__single-info">
                                         <h3>New features coming in 2020 to our app.</h3>
@@ -773,7 +777,8 @@
                             <a href="blog-single.html">
                                 <div class="blog__single blog__single--2">
                                     <div class="blog__single-image">
-                                        <img src="assets/images/blog-img-2.png" alt="image">
+                                        <img src="{{ asset('assets-landing/images/blog-img-2.png') }}"
+                                            alt="image">
                                     </div>
                                     <div class="blog__single-info">
                                         <h3>New features coming in 2020 to our app.</h3>
@@ -811,7 +816,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="newsletter__img">
-                            <img src="assets/images/newsletter-img.png" alt="image">
+                            <img src="{{ asset('assets/images/newsletter-img.png') }}" alt="image">
                         </div>
                     </div>
                 </div>
@@ -828,7 +833,7 @@
                     <div class="col-lg-4">
                         <div class="footer__info">
                             <div class="footer__info--logo">
-                                <img src="assets/images/footer-logo.png" alt="image">
+                                <img src="{{ asset('assets-landing/images/footer-logo.png') }}" alt="image">
                             </div>
                             <div class="footer__info--content">
                                 <p class="paragraph dark">Zapper is an app that helps you

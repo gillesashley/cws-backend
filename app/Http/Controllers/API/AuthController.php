@@ -71,8 +71,8 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'The provided credentials are incorrect.',
-            ], 422);
+                'message' => 'The provided credentials are incorrect.'
+            ], 401);
         }
 
         return response()->json([
@@ -80,18 +80,15 @@ class AuthController extends Controller
         ]);
     }
 
+    public function logout()
+    {
+        return response()->json(['message' => 'Logged out successfully']);
+    }
+
     public function checkPhoneAvailability(Request $request)
     {
         $request->validate(['phone' => 'required|string']);
         $exists = User::where('phone', $request->phone)->exists();
         return response()->json(['available' => !$exists]);
-    }
-
-    public function logout(Request $request)
-    {
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return response()->json(['message' => 'Logged out successfully']);
     }
 }

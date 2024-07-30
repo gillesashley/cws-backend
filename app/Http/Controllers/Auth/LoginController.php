@@ -29,14 +29,13 @@ class LoginController extends Controller
                 $userData = $response->json();
                 Log::info('Login successful', ['user' => $userData['user']['email']]);
 
-                // Save user data to session or do necessary actions
+                // Store some user data in the session if you need it
                 session(['user' => $userData['user']]);
 
-                return redirect()->route('dashboard')->with('status', 'Logged in successfully!');
+                return redirect()->route('dashboard');
             } else {
-                $responseBody = $response->json();
-                Log::warning('Login failed', ['errors' => $responseBody]);
-                return back()->withErrors(['email' => $responseBody['message'] ?? 'The provided credentials do not match our records.'])->withInput();
+                Log::warning('Login failed', ['errors' => $response->json()]);
+                return back()->withErrors(['email' => 'The provided credentials do not match our records.'])->withInput();
             }
         } catch (\Exception $e) {
             Log::error('Login error', ['message' => $e->getMessage()]);

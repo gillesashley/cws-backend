@@ -19,14 +19,14 @@
               <div class="col-md-4">
                 <label for="validationCustom03" class="form-label">Region</label>
                 <select class="form-select" id="validationCustom04" required="">
-                    <option selected="" disabled="" value="">Choose...</option>
+                    <option selected="" disabled="" value="">Choose region...</option>
                     <option>...</option>
                   </select>
               </div>
               <div class="col-md-4">
                 <label for="validationCustom04" class="form-label">Constituency</label>
                 <select class="form-select" id="validationCustom04" required="">
-                  <option selected="" disabled="" value="">Choose...</option>
+                  <option selected="" disabled="" value="">Choose constituency...</option>
                   <option>...</option>
                 </select>
                 <div class="invalid-feedback">Please select a valid state.</div>

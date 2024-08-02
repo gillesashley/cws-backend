@@ -13,6 +13,8 @@ use App\Http\Controllers\PointTransactionController;
 use App\Http\Controllers\TargetedMessageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithdrawalController;
+use App\Http\Controllers\GeoLocation;
+use App\Http\Controllers\GeoLocationController;
 use App\Http\Middleware\SimpleAuthCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +69,9 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
 
         // Notifications
         Route::resource('notifications', NotificationController::class)->except(['edit', 'update', 'destroy'])->names('notifications');
+
+        // Geo Location
+        Route::get('/geo-location', [GeoLocationController::class, 'index'])->name('geo-location.index');
 
         // Point Transactions
         Route::resource('point-transactions', PointTransactionController::class)->only(['index', 'show'])->names('point-transactions');

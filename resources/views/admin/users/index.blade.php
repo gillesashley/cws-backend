@@ -3,7 +3,7 @@
 @section('content')
     <div class="ms-auto">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
-            Add New User
+            Add New Administrative User
         </button>
     </div><br>
 

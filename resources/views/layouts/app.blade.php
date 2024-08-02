@@ -28,7 +28,7 @@
     <link href="{{ asset('assets/css/header-colors.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/plugins/notifications/css/lobibox.min.css') }}" />
 
-    <title>CWS @yield('title', 'SYN-UI - Bootstrap Admin Template')</title>
+    <title>CWS @yield('title', 'Campaign With Us')</title>
 </head>
 
 <body>

@@ -49,7 +49,7 @@
 <!-- Add JavaScript to dynamically insert the API key -->
 <script>
     // Replace with the actual API key obtained from your .env file
-    const apiKey = 'AIzaSyAPozn9l_ge8sxcWkAwkb4a-gmLBVy_5ns';
+    const apiKey = 'YOUR_API_KEY_HERE';
 
     // Replace with the desired geographical area from the textfield
     const area = 'Accra,+Ghana';

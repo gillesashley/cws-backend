@@ -121,7 +121,7 @@
             </a>
         </li>
         <li>
-            <a href="https://themeforest.net/user/codervent" target="_blank">
+            <a href="{{ route('admin.support.index') }}" target="_blank">
                 <div class="parent-icon"><ion-icon name="link-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Support</div>

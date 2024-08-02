@@ -82,7 +82,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('geo-locations.index') }}">
+            <a href="{{ route('admin.geo-location.index') }}">
                 <div class="parent-icon"><ion-icon name="create-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Geo Locations</div>

@@ -69,12 +69,6 @@
     @push('scripts')
         <script type="text/javascript">
             $(document).ready(function() {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Do you want to continue',
-                    icon: 'error',
-                    confirmButtonText: 'Cool'
-                })
                 $('#example').DataTable({
                     "paging": false,
                     "info": false,
@@ -116,52 +110,34 @@
                     });
                 });
 
-                // Sweet alert for delete
+                // Standard JavaScript alert for delete
                 $('.delete-user').on('click', function() {
                     var userId = $(this).data('user-id');
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // If user confirms, submit the delete form
-                            var form = $('<form>', {
-                                'method': 'POST',
-                                'action': '{{ route('admin.users.destroy', ':user_id') }}'
-                                    .replace(':user_id', userId)
-                            });
-                            form.append('@csrf');
-                            form.append('@method('DELETE')');
-                            $('body').append(form);
-                            form.submit();
-                        }
-                    });
+                    if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+                        var form = $('<form>', {
+                            'method': 'POST',
+                            'action': '{{ route('admin.users.destroy', ':user_id') }}'
+                                .replace(':user_id', userId)
+                        });
+                        form.append('@csrf');
+                        form.append('@method('DELETE')');
+                        $('body').append(form);
+                        form.submit();
+                    }
                 });
 
-
-                // Function to show Lobibox notification
-                function showNotification(type, message) {
-                    Lobibox.notify(type, {
-                        pauseDelayOnHover: true,
-                        continueDelayOnInactiveTab: false,
-                        position: 'top right',
-                        icon: type === 'success' ? 'bx bx-check-circle' : 'bx bx-x-circle',
-                        msg: message
-                    });
+                // Function to show standard JavaScript alert
+                function showAlert(message) {
+                    alert(message);
                 }
 
                 // Show flash messages on page load
                 @if (session('success'))
-                    showNotification('success', "{{ session('success') }}");
+                    showAlert("{{ session('success') }}");
                 @endif
 
                 @if (session('error'))
-                    showNotification('error', "{{ session('error') }}");
+                    showAlert("{{ session('error') }}");
                 @endif
             });
         </script>

@@ -69,6 +69,7 @@
     @push('scripts')
         <script type="text/javascript">
             $(document).ready(function() {
+                alert("Users page is loaded")
                 $('#example').DataTable({
                     "paging": false,
                     "info": false,

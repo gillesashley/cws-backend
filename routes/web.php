@@ -14,6 +14,7 @@ use App\Http\Controllers\TargetedMessageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithdrawalController;
 use App\Http\Controllers\GeoLocationController;
+use App\Http\Controllers\PointsAndPaymentController;
 use App\Http\Controllers\SupportController;
 use App\Http\Middleware\SimpleAuthCheck;
 use Illuminate\Support\Facades\Route;
@@ -75,6 +76,12 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
 
         // Support Routes
         Route::get('/support', [SupportController::class, 'index'])->name('support.index');
+
+        // Documentation Routes
+        Route::get('/documentation', [SupportController::class, 'documentation'])->name('support.documentation');
+
+        // Points and Payment
+        Route::get('/points-and-payment', [PointsAndPaymentController::class, 'index'])->name('points-and-payment.index');
 
         // Point Transactions
         Route::resource('point-transactions', PointTransactionController::class)->only(['index', 'show'])->names('point-transactions');

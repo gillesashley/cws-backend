@@ -10,4 +10,9 @@ class SupportController extends Controller
     {
         return view('support.index');
     }
+
+    public function documentation()
+    {
+        return view('support.documentation');
+    }
 }

@@ -75,7 +75,7 @@
             </a>
         </li>
         <li>
-            <a href="pages-invoices.html">
+            <a href="{{ route('admin.points-and-payment.index') }}">
                 <div class="parent-icon"><ion-icon name="receipt-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Points & Payments</div>

@@ -133,7 +133,9 @@
                     $('#edit_email').val(userEmail);
                     $('#edit_role').val(userRole);
                     $('#edit_region_id').val(userRegion).trigger('change');
-                    $('#edit_constituency_id').val(userConstituency);
+                    setTimeout(function() {
+                        $('#edit_constituency_id').val(userConstituency);
+                    }, 100);
                 });
 
                 // Handle edit form submission
@@ -162,11 +164,14 @@
                 $(document).on('click', '.delete-user-btn', function() {
                     console.log('delete button clicked');
                     var userId = $(this).data('user-id');
-                    if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+                    if (confirm(
+                            'Are you sure you want to delete this user? This action cannot be undone.'
+                        )) {
                         var form = $('<form>', {
                             'method': 'POST',
-                            'action': '{{ route('admin.users.destroy', ':user_id') }}'.replace(
-                                ':user_id', userId)
+                            'action': '{{ route('admin.users.destroy', ':user_id') }}'
+                                .replace(
+                                    ':user_id', userId)
                         });
                         form.append('@csrf');
                         form.append('@method('DELETE')');

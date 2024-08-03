@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminAccessController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -79,6 +80,9 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
 
         // Documentation Routes
         Route::get('/documentation', [SupportController::class, 'documentation'])->name('support.documentation');
+
+        // Admin Access control Route
+        Route::get('/admin-access', [AdminAccessController::class, 'index'])->name('admin-access.index');
 
         // Points and Payment
         Route::get('/points-and-payment', [PointsAndPaymentController::class, 'index'])->name('points-and-payment.index');

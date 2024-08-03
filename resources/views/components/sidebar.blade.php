@@ -89,7 +89,7 @@
             </a>
         </li>
         <li>
-            <a href="javascript:;" target="_blank">
+            <a href="{{ route('admin.admin-access.index') }}">
                 <div class="parent-icon"><ion-icon name="lock-closed-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Admin Access Control</div>

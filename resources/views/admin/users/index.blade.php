@@ -142,7 +142,7 @@
                     e.preventDefault();
                     $.ajax({
                         url: $(this).attr('action'),
-                        method: 'POST',
+                        method: 'PUT',
                         data: $(this).serialize(),
                         success: function(response) {
                             $('#editUserModal').modal('hide');
@@ -167,7 +167,7 @@
                             'Are you sure you want to delete this user? This action cannot be undone.'
                         )) {
                         var form = $('<form>', {
-                            'method': 'POST',
+                            'method': 'DELETE',
                             'action': '{{ route('admin.users.destroy', ':user_id') }}'
                                 .replace(
                                     ':user_id', userId)

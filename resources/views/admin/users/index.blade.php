@@ -49,8 +49,14 @@
                                 <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
                                 <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
                                 <td>
-                                    <a href="{{ route('admin.users.edit', $user->id) }}"
-                                        class="btn btn-sm btn-primary">Edit</a>
+                                    <button type="button" class="btn btn-sm btn-primary edit-user-btn"
+                                        data-bs-toggle="modal" data-bs-target="#editUserModal"
+                                        data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}"
+                                        data-user-email="{{ $user->email }}" data-user-role="{{ $user->role }}"
+                                        data-user-region="{{ $user->region_id }}"
+                                        data-user-constituency="{{ $user->constituency_id }}">
+                                        Edit
+                                    </button>
                                     <button type="button" class="btn btn-sm btn-danger delete-user-btn"
                                         data-user-id="{{ $user->id }}">Delete</button>
                                 </td>
@@ -104,6 +110,45 @@
                         },
                         error: function(xhr, status, error) {
                             console.error("Error creating user:", error);
+                            var errors = xhr.responseJSON.errors;
+                            if (errors) {
+                                var errorMessage = errors[Object.keys(errors)[0]];
+                                alert(errorMessage);
+                            }
+                        }
+                    });
+                });
+
+                // Populate edit form when Edit button is clicked
+                $(document).on('click', '.edit-user-btn', function() {
+                    var userId = $(this).data('user-id');
+                    var userName = $(this).data('user-name');
+                    var userEmail = $(this).data('user-email');
+                    var userRole = $(this).data('user-role');
+                    var userRegion = $(this).data('user-region');
+                    var userConstituency = $(this).data('user-constituency');
+
+                    $('#editUserForm').attr('action', '/admin/users/' + userId);
+                    $('#edit_name').val(userName);
+                    $('#edit_email').val(userEmail);
+                    $('#edit_role').val(userRole);
+                    $('#edit_region_id').val(userRegion).trigger('change');
+                    $('#edit_constituency_id').val(userConstituency);
+                });
+
+                // Handle edit form submission
+                $('#editUserForm').submit(function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: 'POST',
+                        data: $(this).serialize(),
+                        success: function(response) {
+                            $('#editUserModal').modal('hide');
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error updating user:", error);
                             var errors = xhr.responseJSON.errors;
                             if (errors) {
                                 var errorMessage = errors[Object.keys(errors)[0]];

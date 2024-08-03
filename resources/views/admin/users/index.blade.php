@@ -77,7 +77,6 @@
     @push('scripts')
         <script type="text/javascript">
             $(document).ready(function() {
-                alert("Users page is loaded");
                 $('#example').DataTable({
                     "paging": false,
                     "info": false,
@@ -161,7 +160,7 @@
                 });
 
                 // Event delegation for delete buttons
-                $(document).on('click', '.delete-user-btn', function() {
+                $('.delete-user-btn').click(function() {
                     console.log('delete button clicked');
                     var userId = $(this).data('user-id');
                     if (confirm(
@@ -179,6 +178,16 @@
                         form.submit();
                     }
                 });
+
+                // $('#region_id').change(function() {
+                //     var regionId = $(this).val();
+                //     var constituencySelect = $('#constituency_id');
+                //     constituencySelect.find('option').show();
+                //     if (regionId) {
+                //         constituencySelect.find('option').not('[data-region="' + regionId + '"]').hide();
+                //     }
+                //     constituencySelect.val('');
+                // });
 
                 // Function to show standard JavaScript alert
                 function showAlert(message) {

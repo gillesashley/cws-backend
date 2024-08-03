@@ -11,8 +11,8 @@ class SupportController extends Controller
         return view('support.index');
     }
 
-    public function documentation()
+    public function adminProfile()
     {
-        return view('support.documentation');
+        return view('support.profile');
     }
 }

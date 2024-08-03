@@ -80,7 +80,7 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
         Route::get('/support', [SupportController::class, 'index'])->name('support.index');
 
         // Documentation Routes
-        Route::get('/documentation', [SupportController::class, 'documentation'])->name('support.documentation');
+        Route::get('/profile', [SupportController::class, 'adminProfile'])->name('support.profile');
 
         // Admin Access control Route
         Route::get('/admin-access', [AdminAccessController::class, 'index'])->name('admin-access.index');

@@ -117,10 +117,10 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.support.documentation') }}">
+            <a href="{{ route('admin.support.profile') }}">
                 <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>
                 </div>
-                <div class="menu-title">Documentation</div>
+                <div class="menu-title">Admin Profile</div>
             </a>
         </li>
         <li>

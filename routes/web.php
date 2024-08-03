@@ -13,7 +13,6 @@ use App\Http\Controllers\PointTransactionController;
 use App\Http\Controllers\TargetedMessageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithdrawalController;
-use App\Http\Controllers\GeoLocation;
 use App\Http\Controllers\GeoLocationController;
 use App\Http\Controllers\SupportController;
 use App\Http\Middleware\SimpleAuthCheck;

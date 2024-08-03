@@ -8,6 +8,6 @@ class PointsAndPaymentController extends Controller
 {
     public function index()
     {
-        return view('points-and-payment');
+        return view('points-and-payment.index');
     }
 }

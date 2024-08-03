@@ -114,7 +114,7 @@
 
         <li class="menu-label">Documentation & Support</li>
         <li>
-            <a href="{{ route('admin.support.documentation') }}" target="_blank">
+            <a href="{{ route('admin.support.documentation') }}">
                 <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Documentation</div>

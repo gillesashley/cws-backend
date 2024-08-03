@@ -1,3 +1,4 @@
+<!-- Blade Template -->
 @extends('layouts.app')
 
 @section('content')
@@ -50,7 +51,7 @@
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-primary">Edit</a>
-                                    <button type="button" id="deleteUser" class="btn btn-sm btn-danger"
+                                    <button type="button" class="btn btn-sm btn-danger delete-user-btn"
                                         data-user-id="{{ $user->id }}">Delete</button>
                                 </td>
                             </tr>
@@ -70,7 +71,7 @@
     @push('scripts')
         <script type="text/javascript">
             $(document).ready(function() {
-                alert("Users page is loaded")
+                alert("Users page is loaded");
                 $('#example').DataTable({
                     "paging": false,
                     "info": false,
@@ -112,15 +113,15 @@
                     });
                 });
 
-                // Standard JavaScript alert for delete
-                $('#deleteUser').on('click', function() {
+                // Event delegation for delete buttons
+                $(document).on('click', '.delete-user-btn', function() {
                     console.log('delete button clicked');
                     var userId = $(this).data('user-id');
                     if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
                         var form = $('<form>', {
                             'method': 'POST',
-                            'action': '{{ route('admin.users.destroy', ':user_id') }}'
-                                .replace(':user_id', userId)
+                            'action': '{{ route('admin.users.destroy', ':user_id') }}'.replace(
+                                ':user_id', userId)
                         });
                         form.append('@csrf');
                         form.append('@method('DELETE')');

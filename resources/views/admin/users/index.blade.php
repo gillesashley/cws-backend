@@ -50,7 +50,7 @@
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-primary">Edit</a>
-                                    <button type="button" class="btn btn-sm btn-danger delete-user"
+                                    <button type="button" id="deleteUser" class="btn btn-sm btn-danger"
                                         data-user-id="{{ $user->id }}">Delete</button>
                                 </td>
                             </tr>
@@ -113,7 +113,7 @@
                 });
 
                 // Standard JavaScript alert for delete
-                $('.delete-user').on('click', function() {
+                $('#deleteUser').on('click', function() {
                     var userId = $(this).data('user-id');
                     if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
                         var form = $('<form>', {

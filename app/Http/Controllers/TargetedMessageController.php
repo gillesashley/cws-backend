@@ -26,6 +26,15 @@ class TargetedMessageController extends Controller
         return view('targeted-messages.all.index');
     }
 
+    public function allCreate()
+    {
+        return view('targeted-messages.all.create');
+    }
+
+    public function allStore(Request $request)
+    {
+        $this->storeMessage($request, 'all');
+    }
 
     public function smsIndex()
     {

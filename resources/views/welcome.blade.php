@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Zapper</title>
+    <title>Campaign With Us</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets-landing/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets-landing/favicon/favicon-32x32.png') }}">
@@ -43,26 +43,13 @@
                             <a href="#" class="nav__dropdown-info dropdown-info">
                                 Home
                             </a>
-                            <ul class="nav__dropdown-box dropdown-box">
-                                <li><a href="index.html">Home 1</a></li>
-                                <li><a href="index2.html">Home 2</a></li>
-                            </ul>
                         </li>
-                        <li><a href="#video">Video</a></li>
+                        <li><a href="#video">About</a></li>
                         <li><a href="#feature">Features</a></li>
-                        <li><a href="#feedback">Feedbacks</a></li>
+                        <li><a href="#feedback">feedback</a></li>
                         <li><a href="#faq">FAQs</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#preview">Preview</a></li>
-                        <li class="nav__dropdown dropdown-wrapper" id="menu-2">
-                            <a href="#" class="nav__dropdown-info dropdown-info">
-                                Pages
-                            </a>
-                            <ul class="nav__dropdown-box dropdown-box">
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="blog-single.html">Blog single</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#campaign">Campaigns</a></li>
                     </ul>
                     <span><i class="fas fa-times"></i></span>
                 </div>
@@ -82,21 +69,21 @@
             <div class="container">
                 <div class="row align-items-lg-center">
                     <div class="col-lg-6 order-2 order-lg-1">
-                        <h1 class="main-heading color-black">Progress on the fingertips!</h1>
-                        <p class="paragraph"><span>Zapper<sup>TM</sup></span> is an app that helps you organize
-                            yourself on the daily basis using systematic
-                            algorithms to achieve success.</p>
+                        <h1 class="main-heading color-black">Campaign on the fingertips!</h1>
+                        <p class="paragraph"><span>CWS<sup>TM</sup></span> is an app that helps you earn
+                            points as you campaign daily by using systematic
+                            algorithms to generate campaigns.</p>
                         <div class="download-buttons">
                             <a href="#" class="google-play">
                                 <i class="fab fa-google-play"></i>
                                 <div class="button-content">
-                                    <h6>GET IT ON <span>Google Play</span></h6>
+                                    <h6>GET IT ON <span>Android</span></h6>
                                 </div>
                             </a>
                             <a href="#" class="apple-store">
                                 <i class="fab fa-apple"></i>
                                 <div class="button-content">
-                                    <h6>GET IT ON <span>Apple Store</span></h6>
+                                    <h6>GET IT ON <span>IOS</span></h6>
                                 </div>
                             </a>
                         </div>
@@ -115,12 +102,12 @@
     <!--feature section start-->
     <section class="feature" id="intro">
         <div class="container">
-            <h2 class="section-heading color-black">Get surprised by amazing features.</h2>
+            <h2 class="section-heading color-black">Get surprised by campaigning with us.</h2>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="feature__box feature__box--1">
                         <div class="icon icon-1">
-                            <i class="fad fa-user-astronaut"></i>
+                            <i class="fad fa-user-check"></i>
                         </div>
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-1">
@@ -135,11 +122,11 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="feature__box feature__box--2">
                         <div class="icon icon-2">
-                            <i class="fad fa-lightbulb-on"></i>
+                            <i class="fad fa-chart-pie"></i>
                         </div>
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-2">
-                                <h3>Track Your Progress</h3>
+                                <h3>Track Your Campaign</h3>
                                 <p class="paragraph dark">Euisque metus tortor ultricies ac ligula neced eleifend
                                     sodales felise morbi
                                     nec tempor isvel ultricies ligula.</p>
@@ -150,11 +137,11 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="feature__box feature__box--3">
                         <div class="icon icon-3">
-                            <i class="fad fa-solar-system"></i>
+                            <i class="fad fa-chart-line"></i>
                         </div>
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-3">
-                                <h3>Improve Your Growth</h3>
+                                <h3>Improve Your Campaign</h3>
                                 <p class="paragraph dark">Auisque metus tortor ultricies ac ligula neced eleifend
                                     sodales felise morbi
                                     nec tempor isvel ultricies ligula.</p>
@@ -165,11 +152,11 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="feature__box feature__box--4">
                         <div class="icon icon-4">
-                            <i class="fad fa-rocket-launch"></i>
+                            <i class="fad fa-money-bill-wave"></i>
                         </div>
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-4">
-                                <h3>Become an Inspiration</h3>
+                                <h3>Transfer Your Points</h3>
                                 <p class="paragraph dark">Tuisque metus tortor ultricies ac ligula neced eleifend
                                     sodales felise morbi
                                     nec tempor isvel ultricies ligula.</p>
@@ -225,7 +212,7 @@
                     <div class="col-lg-6">
                         <div class="growth__box">
                             <div class="icon">
-                                <i class="fad fa-user-astronaut"></i>
+                                <i class="fad fa-user-check"></i>
                             </div>
                             <div class="content">
                                 <h3>Start Easily</h3>
@@ -237,7 +224,7 @@
                     <div class="col-lg-6">
                         <div class="growth__box">
                             <div class="icon">
-                                <i class="fad fa-lightbulb-on"></i>
+                                <i class="fad fa-chart-line"></i>
                             </div>
                             <div class="content">
                                 <h3>Improve Growth</h3>
@@ -252,7 +239,7 @@
                                 <i class="fad fa-solar-system"></i>
                             </div>
                             <div class="content">
-                                <h3>Create Algorithms</h3>
+                                <h3>CWS Algorithms</h3>
                                 <p class="paragraph dark">Nuisque metus tortor ultricies ac ligula neced eleifend
                                     sodales felise.</p>
                             </div>
@@ -261,10 +248,10 @@
                     <div class="col-lg-6">
                         <div class="growth__box">
                             <div class="icon">
-                                <i class="fad fa-backpack"></i>
+                                <i class="fad fa-person-sign"></i>
                             </div>
                             <div class="content">
-                                <h3>Expand Portfolio</h3>
+                                <h3>Expand Campaign</h3>
                                 <p class="paragraph dark">Euisque metus tortor ultricies ac ligula neced eleifend
                                     sodales felise.</p>
                             </div>
@@ -273,7 +260,7 @@
                     <div class="col-lg-6">
                         <div class="growth__box">
                             <div class="icon">
-                                <i class="fad fa-rocket-launch"></i>
+                                <i class="fad fa-chart-pie"></i>
                             </div>
                             <div class="content">
                                 <h3>Share Statistics</h3>
@@ -285,7 +272,7 @@
                     <div class="col-lg-6">
                         <div class="growth__box">
                             <div class="icon">
-                                <i class="fad fa-user-astronaut"></i>
+                                <i class="fad fa-ballot"></i>
                             </div>
                             <div class="content">
                                 <h3>Measure Results</h3>
@@ -334,7 +321,7 @@
                                 <img src="{{ asset('assets-landing/images/phone-02.png') }}" alt="image">
                             </div>
                             <div class="content">
-                                <h3>SIMPLE TO<span>Create.</span></h3>
+                                <h3>SIMPLE TO<span>Campaign.</span></h3>
                                 <p class="paragraph dark">Once you’re signed up you can create
                                     as many polls you want to watch.</p>
                             </div>
@@ -346,7 +333,7 @@
                                 <img src="{{ asset('assets-landing/images/phone-03.png') }}" alt="image">
                             </div>
                             <div class="content">
-                                <h3>FUN TO<span>Measure.</span></h3>
+                                <h3>FUN TO<span>Earn.</span></h3>
                                 <p class="paragraph dark">Share your growth results with your
                                     friends and inspre others.</p>
                             </div>
@@ -371,7 +358,7 @@
     <!--client section start-->
     <section class="clients-sec" id="feedback">
         <div class="container">
-            <h2 class="section-heading color-black">Hear from what others had to say.</h2>
+            <h2 class="section-heading color-black">Hear from party faithfuls.</h2>
             <div class="testimonial__wrapper">
                 <div class="client client-01 active">
                     <div class="image">
@@ -436,8 +423,8 @@
             </div>
             <div class="clients">
                 <div class="clients__info">
-                    <h3>47,000+</h3>
-                    <p class="paragraph dark">Customers in over 90 countries are growing their businesses with us.</p>
+                    <h3>All 275</h3>
+                    <p class="paragraph dark">Constituencies in all 16 regions accross the country. Get affiliated, Campaign with us, lets win!</p>
                 </div>
                 <div class="swiper-container clients-slider">
                     <div class="swiper-wrapper">
@@ -632,89 +619,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section><br><br>
     <!--questions section end-->
-
-    <!--pricing section start-->
-    <section class="pricing" id="pricing">
-        <div class="pricing__wrapper">
-            <h2 class="section-heading color-black">Easy pricing plans for your needs.</h2>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="pricing__single pricing__single-1">
-                            <div class="icon">
-                                <i class="fad fa-user-graduate"></i>
-                            </div>
-                            <h4>LEARNER</h4>
-                            <h3>$0.00</h3>
-                            <h6>1 to 2 users</h6>
-                            <div class="list">
-                                <ul>
-                                    <li>20 polls per month</li>
-                                    <li>1 email address</li>
-                                    <li>2GB cloud storage</li>
-                                    <li class="not-included">No customer support</li>
-                                    <li class="not-included">Extra features</li>
-                                    <li class="not-included">In-app products</li>
-                                </ul>
-                            </div>
-                            <a href="#" class="button">
-                                <span>GET STARTED <i class="fad fa-long-arrow-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="pricing__single pricing__single-2">
-                            <div class="icon">
-                                <i class="fad fa-user-cowboy"></i>
-                            </div>
-                            <h4>COWBOY</h4>
-                            <h3>$10.00</h3>
-                            <h6>3 to 19 users</h6>
-                            <div class="list">
-                                <ul>
-                                    <li>20 polls per month</li>
-                                    <li>1 email address</li>
-                                    <li>2GB cloud storage</li>
-                                    <li>No customer support</li>
-                                    <li class="not-included">Extra features</li>
-                                    <li class="not-included">In-app products</li>
-                                </ul>
-                            </div>
-                            <a href="#" class="button">
-                                <span>GET STARTED <i class="fad fa-long-arrow-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="pricing__single pricing__single-3">
-                            <div class="icon">
-                                <i class="fad fa-user-astronaut"></i>
-                            </div>
-                            <h4>ASTRONAUT</h4>
-                            <h3>$20.00</h3>
-                            <h6>20 to 50 users</h6>
-                            <div class="list">
-                                <ul>
-                                    <li>20 polls per month</li>
-                                    <li>1 email address</li>
-                                    <li>2GB cloud storage</li>
-                                    <li>No customer support</li>
-                                    <li>Extra features</li>
-                                    <li>In-app products</li>
-                                </ul>
-                            </div>
-                            <a href="#" class="button">
-                                <span>GET STARTED <i class="fad fa-long-arrow-right"></i></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--pricing section end-->
 
     <!--screenshot section start-->
     <section class="screenshot" id="preview">
@@ -752,9 +658,9 @@
     <!--screenshot section end-->
 
     <!--related blog section start-->
-    <section class="related-blog blog">
+    <section class="related-blog blog" id="campaign">
         <div class="related-blog__wrapper">
-            <h2 class="section-heading color-black">Read latest news from our blog.</h2>
+            <h2 class="section-heading color-black">Campaign Posts from our MPs.</h2>
             <div class="blog__content">
                 <div class="container">
                     <div class="row">
@@ -794,37 +700,13 @@
                 </div>
             </div>
             <a href="blog.html" class="button">
-                <span>GO TO BLOG <i class="fad fa-long-arrow-right"></i></span>
+                <span>JOIN THE CAMPAIGN<i class="fad fa-long-arrow-right"></i></span>
             </a>
         </div>
     </section>
     <!--related blog section end-->
 
-    <!--newsletter section start-->
-    <section class="newsletter">
-        <div class="newsletter__wrapper">
-            <div class="container">
-                <div class="row align-items-lg-center">
-                    <div class="col-lg-6">
-                        <div class="newsletter__info">
-                            <h2 class="section-heading color-black">Subscribe to our newsletter.</h2>
-                            <form class="newsletter__info--field">
-                                <input type="text" placeholder="Email address" class="input-field">
-                                <button class="button"><span>SUBSCRIBE <i
-                                            class="fad fa-long-arrow-right"></i></span></button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="newsletter__img">
-                            <img src="{{ asset('assets-landing/images/newsletter-img.png') }}" alt="image">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--newsletter section end-->
+    
 
     <!--footer start-->
     <footer class="footer">
@@ -837,10 +719,9 @@
                                 <img src="{{ asset('assets-landing/images/footer-logo.png') }}" alt="image">
                             </div>
                             <div class="footer__info--content">
-                                <p class="paragraph dark">Zapper is an app that helps you
-                                    organize yourself on the daily basis
-                                    using systematic algorithms to
-                                    achieve success.</p>
+                                <p class="paragraph dark">CWS is an app that helps you earn
+                                    points as you campaign daily by using systematic
+                                    algorithms to generate campaigns.</p>
                                 <div class="social">
                                     <ul>
                                         <li class="facebook"><a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -860,10 +741,9 @@
                                 <ul>
                                     <li>Explore</li>
                                     <li><a href="#">About</a></li>
-                                    <li><a href="#">Our Team</a></li>
                                     <li><a href="#">Features</a></li>
-                                    <li><a href="#">Blog</a></li>
                                     <li><a href="#">How It Works</a></li>
+                                    <li><a href="#">Our Faithfuls</a></li>
                                 </ul>
                             </div>
                             <div class="footer__list">
@@ -872,7 +752,6 @@
                                     <li><a href="#">FAQ</a></li>
                                     <li><a href="#">Privacy Policy</a></li>
                                     <li><a href="#">Support</a></li>
-                                    <li><a href="#">Terms of Service</a></li>
                                     <li><a href="#">Contact</a></li>
                                 </ul>
                             </div>
@@ -881,13 +760,13 @@
                                 <a href="#" class="google-play">
                                     <i class="fab fa-google-play"></i>
                                     <div class="button-content">
-                                        <h6>GET IT ON <span>Google Play</span></h6>
+                                        <h6>GET IT ON <span>Android</span></h6>
                                     </div>
                                 </a>
                                 <a href="#" class="apple-store">
                                     <i class="fab fa-apple"></i>
                                     <div class="button-content">
-                                        <h6>GET IT ON <span>Apple Store</span></h6>
+                                        <h6>GET IT ON <span>IOS</span></h6>
                                     </div>
                                 </a>
                             </div>
@@ -896,7 +775,7 @@
                 </div>
                 <div class="row">
                     <div class="footer__copy">
-                        <h6>&copy; GFXPARTNER</h6>
+                        <h6>&copy; CWS. All Rights Reserved 2024</h6>
                     </div>
                 </div>
             </div>

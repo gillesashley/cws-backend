@@ -19,14 +19,14 @@
               <div class="col-md-4">
                 <label for="validationCustom03" class="form-label">Region</label>
                 <select class="form-select" id="validationCustom04" required="">
-                    <option selected="" disabled="" value="">Choose...</option>
+                    <option selected="" disabled="" value="">Choose region...</option>
                     <option>...</option>
                   </select>
               </div>
               <div class="col-md-4">
                 <label for="validationCustom04" class="form-label">Constituency</label>
                 <select class="form-select" id="validationCustom04" required="">
-                  <option selected="" disabled="" value="">Choose...</option>
+                  <option selected="" disabled="" value="">Choose constituency...</option>
                   <option>...</option>
                 </select>
                 <div class="invalid-feedback">Please select a valid state.</div>
@@ -49,7 +49,7 @@
 <!-- Add JavaScript to dynamically insert the API key -->
 <script>
     // Replace with the actual API key obtained from your .env file
-    const apiKey = 'AIzaSyAPozn9l_ge8sxcWkAwkb4a-gmLBVy_5ns';
+    const apiKey = 'YOUR_API_KEY_HERE';
 
     // Replace with the desired geographical area from the textfield
     const area = 'Accra,+Ghana';

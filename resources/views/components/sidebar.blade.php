@@ -22,9 +22,11 @@
                 <li> <a href="{{ route('campaign-monitor') }}"><ion-icon name="ellipse-outline"></ion-icon>Campaign
                         Monitoring</a>
                 </li>
-                <li> <a href="index.html"><ion-icon name="ellipse-outline"></ion-icon>Platform Users</a>
+                <li> <a href="{{ route('admin.users.index') }}"><ion-icon name="ellipse-outline"></ion-icon>Platform
+                        Users</a>
                 </li>
-                <li> <a href="index2.html"><ion-icon name="ellipse-outline"></ion-icon>Points & Payments</a>
+                <li> <a href="{{ route('admin.points-and-payment.index') }}"><ion-icon
+                            name="ellipse-outline"></ion-icon>Points & Payments</a>
                 </li>
             </ul>
         </li>
@@ -74,8 +76,8 @@
                 <div class="menu-title">Points & Payments</div>
             </a>
         </li>
-        
-        
+
+
         <li class="menu-label">Adversisements </li>
         <li>
             <a href="javascript:;" target="_blank">

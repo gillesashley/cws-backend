@@ -5,7 +5,9 @@
             <img src="{{ asset('assets/images/logo-icon-2.png') }}" class="logo-icon" alt="logo icon">
         </div>
         <div>
-            <h4 class="logo-text">CWS</h4>
+            <a href="{{ route('dashboard') }}">
+                <h4 class="logo-text">CWS</h4>
+            </a>
         </div>
         <div class="toggle-icon ms-auto"><ion-icon name="menu-sharp"></ion-icon>
         </div>

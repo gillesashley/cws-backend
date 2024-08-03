@@ -19,7 +19,8 @@
                 <div class="menu-title">Dashboard</div>
             </a>
             <ul>
-                <li> <a href="index.html"><ion-icon name="ellipse-outline"></ion-icon>Campaign Monitoring</a>
+                <li> <a href="{{ route('campaign-monitor') }}"><ion-icon name="ellipse-outline"></ion-icon>Campaign
+                        Monitoring</a>
                 </li>
                 <li> <a href="index.html"><ion-icon name="ellipse-outline"></ion-icon>Platform Users</a>
                 </li>

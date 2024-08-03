@@ -46,6 +46,7 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 Route::middleware([SimpleAuthCheck::class])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/campaign-monitor', [DashboardController::class, 'campaignMonitor'])->name('campaign-monitor');
 
     // Admin Routes
     Route::prefix('admin')->name('admin.')->group(function () {

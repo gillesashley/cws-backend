@@ -32,4 +32,9 @@ class DashboardController extends Controller
 
         return view('dashboard.index', compact('user', 'analyticsData'));
     }
+
+    public function campaignMonitor()
+    {
+        return view('dashboard.campaign-monitor');
+    }
 }

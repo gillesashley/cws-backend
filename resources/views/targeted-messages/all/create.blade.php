@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="p-4 border rounded">
-                    <h1>Create New SMS Campaign</h1>
+                    <h1>Create New Campaign Message</h1>
 
                     <form action="{{ route('targeted-messages.all.store') }}" method="POST">
                         @csrf

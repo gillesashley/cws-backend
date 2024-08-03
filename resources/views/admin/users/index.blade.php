@@ -114,6 +114,7 @@
 
                 // Standard JavaScript alert for delete
                 $('#deleteUser').on('click', function() {
+                    console.log('delete button clicked');
                     var userId = $(this).data('user-id');
                     if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
                         var form = $('<form>', {

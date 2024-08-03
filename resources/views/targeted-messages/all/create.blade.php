@@ -19,6 +19,11 @@
                             <label for="content">Message Content</label>
                             <textarea name="content" id="content" class="form-control" rows="10" required maxlength="160">{{ old('content') }}</textarea>
                         </div><br>
+                        <div class="form-group">
+                            <label for="media">Media (Optional)</label>
+                            <input type="file" name="media[]" id="media" class="form-control-file"
+                                accept="image/*,video/*" multiple>
+                        </div>
 
                         {{-- <div class="form-group">
                     <label>Recipients</label>

@@ -30,13 +30,14 @@
 
         <li class="menu-label">All Campaigns</li>
         <li>
-            <a href="{{ route('targeted-messages.all.index') }}" class="has-arrow">
+            <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><ion-icon name="briefcase-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">CWS</div>
             </a>
             <ul>
-                <li> <a href="widgets-static-widgets.html"><ion-icon name="ellipse-outline"></ion-icon>Affiliate
+                <li> <a href="{{ route('targeted-messages.all.index') }}"><ion-icon
+                            name="ellipse-outline"></ion-icon>Affiliate
                         Campaigns</a>
                 </li>
                 <li>

@@ -4,23 +4,23 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-              <div class="p-4 border rounded">
-            <h1>Create New SMS Campaign</h1>
+                <div class="p-4 border rounded">
+                    <h1>Create New SMS Campaign</h1>
 
-            <form action="{{ route('targeted-messages.sms.store') }}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="title">Campaign Title</label>
-                    <input type="text" name="title" id="title" class="form-control" required maxlength="255"
-                        value="{{ old('title') }}">
-                </div><br>
+                    <form action="{{ route('targeted-messages.all.store') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="title">Campaign Title</label>
+                            <input type="text" name="title" id="title" class="form-control" required maxlength="255"
+                                value="{{ old('title') }}">
+                        </div><br>
 
-                <div class="form-group">
-                    <label for="content">Message Content</label>
-                    <textarea name="content" id="content" class="form-control" rows="10" required maxlength="160">{{ old('content') }}</textarea>
-                </div><br>
+                        <div class="form-group">
+                            <label for="content">Message Content</label>
+                            <textarea name="content" id="content" class="form-control" rows="10" required maxlength="160">{{ old('content') }}</textarea>
+                        </div><br>
 
-                <div class="form-group">
+                        {{-- <div class="form-group">
                     <label>Recipients</label>
                     @foreach ($constituencyMembers as $member)
                         <div class="form-check">
@@ -31,11 +31,11 @@
                             </label>
                         </div>
                     @endforeach
-                </div><br>
+                </div><br> --}}
 
-                <button type="submit" class="btn btn-primary">Send Campaign</button>
-            </form>
+                        <button type="submit" class="btn btn-primary">Send Campaign Message</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-@endsection
+    @endsection

@@ -2,6 +2,9 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <h2>Registered Users</h2><br>
+
     <div class="ms-auto">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
             Add New Administrative User
@@ -69,6 +72,7 @@
                 {{ $users->links('vendor.pagination.syn-ui') }}
             </div>
         </div>
+    </div>
 
         @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
         @include('admin.users.edit', ['regions' => $regions, 'constituencies' => $constituencies])

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
     <h2>Points and Payment</h2>
 
     <div class="ms-auto">
@@ -172,5 +173,6 @@
               </div>
              </div>
           </div>
-
+        </div>
+    </div>
 @endsection

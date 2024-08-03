@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="p-4 border rounded">
-                    <h1>Create New Campaign Message</h1>
+                    <h1>Create Affliate Campaign Message</h1>
 
                     <form action="{{ route('targeted-messages.all.store') }}" method="POST">
                         @csrf
@@ -23,7 +23,7 @@
                             <label for="media">Media (Optional)</label>
                             <input type="file" name="media[]" id="media" class="form-control-file"
                                 accept="image/*,video/*" multiple>
-                        </div>
+                        </div><br>
 
                         {{-- <div class="form-group">
                     <label>Recipients</label>

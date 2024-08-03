@@ -30,7 +30,7 @@
 
         <li class="menu-label">All Campaigns</li>
         <li>
-            <a href="javascript:;" class="has-arrow">
+            <a href="{{ route('targeted-messages.all.index') }}" class="has-arrow">
                 <div class="parent-icon"><ion-icon name="briefcase-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">CWS</div>

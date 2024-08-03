@@ -96,6 +96,12 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
 
     // Targeted Messages (SMS and WhatsApp)
     Route::prefix('targeted-messages')->name('targeted-messages.')->group(function () {
+
+        // All Campaigns
+        Route::get('/all', [TargetedMessageController::class, 'allIndex'])->name('all.index');
+        Route::get('/all/create', [TargetedMessageController::class, 'allCreate'])->name('all.create');
+        Route::post('/all', [TargetedMessageController::class, 'allStore'])->name('all.store');
+
         // SMS Campaigns
         Route::get('/sms', [TargetedMessageController::class, 'smsIndex'])->name('sms.index');
         Route::get('/sms/create', [TargetedMessageController::class, 'smsCreate'])->name('sms.create');

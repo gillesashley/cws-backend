@@ -21,6 +21,12 @@ class TargetedMessageController extends Controller
         );
     }
 
+    public function allIndex()
+    {
+        return view('targeted-messages.all.index');
+    }
+
+
     public function smsIndex()
     {
         $messages = TargetedMessage::where('type', 'sms')

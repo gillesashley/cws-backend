@@ -32,7 +32,7 @@
     <div class="wrapper">
         <div class="">
             <div class="row g-0 m-0">
-                <div class="col-xl-12 col-lg-12"> <!-- Changed from col-xl-6 to col-xl-12 -->
+                <div class="col-xl-6 col-lg-12">
                     <div class="login-cover-wrapper">
                         <div class="card shadow-none">
                             <div class="card-body">
@@ -41,6 +41,13 @@
                         </div>
                     </div>
                 </div>
+                {{-- <div class="col-xl-6 col-lg-12">
+                    <div class="position-absolute top-0 h-100 d-xl-block d-none login-cover-img">
+                        <div class="text-white p-5 w-100">
+
+                        </div>
+                    </div>
+                </div> --}}
             </div>
             <!--end row-->
         </div>

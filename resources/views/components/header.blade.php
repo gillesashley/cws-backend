@@ -35,7 +35,7 @@
                      </a>
                      <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                          <div class="row row-cols-3 g-3 p-3">
-                            
+
                              <div class="col text-center">
                                  <div class="app-box mx-auto bg-gradient-danger text-white"><ion-icon
                                          name="videocam-sharp"></ion-icon>
@@ -73,10 +73,10 @@
                              </div>
                          </a>
                          <div class="header-notifications-list">
-                         <a href="javascript:;">
-                             <div class="text-center msg-footer">No Notifications</div>
-                         </a>
-                     </div>
+                             <a href="javascript:;">
+                                 <div class="text-center msg-footer">No Notifications</div>
+                             </a>
+                         </div>
                  </li>
                  <li class="nav-item dropdown dropdown-user-setting">
                      <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;"
@@ -104,7 +104,7 @@
                              <hr class="dropdown-divider">
                          </li>
                          <li>
-                             <a class="dropdown-item" href="pages-user-profile.html">
+                             <a class="dropdown-item" href="{{ route('admin.support.profile') }}">
                                  <div class="d-flex align-items-center">
                                      <div class=""><ion-icon name="person-outline"></ion-icon></div>
                                      <div class="ms-3"><span>Profile</span></div>

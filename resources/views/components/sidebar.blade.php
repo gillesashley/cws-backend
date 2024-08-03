@@ -28,12 +28,12 @@
             </ul>
         </li>
 
-        <li class="menu-label">All Campaigns</li>
+        <li class="menu-label">Campaign Administration</li>
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><ion-icon name="briefcase-sharp"></ion-icon>
                 </div>
-                <div class="menu-title">CWS</div>
+                <div class="menu-title">Campaign With Us</div>
             </a>
             <ul>
                 <li> <a href="{{ route('targeted-messages.all.index') }}"><ion-icon
@@ -53,7 +53,6 @@
             </ul>
         </li>
 
-
         <li>
             <a class="has-arrow" href="javascript:;">
                 <div class="parent-icon"><ion-icon name="leaf-sharp"></ion-icon>
@@ -67,14 +66,6 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-label">Campaign Administration</li>
-        <li>
-            <a href="{{ route('admin.users.index') }}">
-                <div class="parent-icon"><ion-icon name="person-circle-sharp"></ion-icon>
-                </div>
-                <div class="menu-title">All Users</div>
-            </a>
-        </li>
         <li>
             <a href="{{ route('admin.points-and-payment.index') }}">
                 <div class="parent-icon"><ion-icon name="receipt-sharp"></ion-icon>
@@ -82,21 +73,8 @@
                 <div class="menu-title">Points & Payments</div>
             </a>
         </li>
-        <li>
-            <a href="{{ route('admin.geo-location.index') }}">
-                <div class="parent-icon"><ion-icon name="create-sharp"></ion-icon>
-                </div>
-                <div class="menu-title">Geo Locations</div>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('admin.admin-access.index') }}">
-                <div class="parent-icon"><ion-icon name="lock-closed-sharp"></ion-icon>
-                </div>
-                <div class="menu-title">Admin Access Control</div>
-            </a>
-
-        </li>
+        
+        
         <li class="menu-label">Adversisements </li>
         <li>
             <a href="javascript:;" target="_blank">
@@ -113,7 +91,28 @@
             </a>
         </li>
 
-        <li class="menu-label">Documentation & Support</li>
+        <li class="menu-label">Administration</li>
+        <li>
+            <a href="{{ route('admin.admin-access.index') }}">
+                <div class="parent-icon"><ion-icon name="lock-closed-sharp"></ion-icon>
+                </div>
+                <div class="menu-title">Admin Access Control</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.users.index') }}">
+                <div class="parent-icon"><ion-icon name="person-circle-sharp"></ion-icon>
+                </div>
+                <div class="menu-title">All Users</div>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.geo-location.index') }}">
+                <div class="parent-icon"><ion-icon name="create-sharp"></ion-icon>
+                </div>
+                <div class="menu-title">Geo Locations</div>
+            </a>
+        </li>
         <li>
             <a href="{{ route('admin.support.documentation') }}">
                 <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>
@@ -122,7 +121,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.support.index') }}" target="_blank">
+            <a href="{{ route('admin.support.index') }}">
                 <div class="parent-icon"><ion-icon name="link-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Support</div>

@@ -4,63 +4,86 @@
     <div class="container">
         <h1>Add new geolocation</h1>
 
-    <div class="card">
-        <div class="card-body">
-            <iframe id="mapFrame" width="100%" height="400" style="border:0" loading="lazy" allowfullscreen
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+        <div class="card">
+            <div class="card-body">
+                <iframe id="mapFrame" width="100%" height="400" style="border:0" loading="lazy" allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="p-4 border rounded">
+                    <form class="row g-3 needs-validation" novalidate="">
+                        <div class="col-md-4">
+                            <label for="region_id" class="form-label">Region</label>
+                            <select class="form-select" id="region_id" name="region_id" required>
+                                <option value="">Select Region</option>
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Please select a region.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="constituency_id" class="form-label">Constituency</label>
+                            <select class="form-select" id="constituency_id" name="constituency_id" required>
+                                <option value="">Select Constituency</option>
+                                @foreach ($constituencies as $constituency)
+                                    <option value="{{ $constituency->id }}" data-region="{{ $constituency->region_id }}">
+                                        {{ $constituency->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Please select a constituency.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="geographical_area" class="form-label">Geographical Area</label>
+                            <input type="text" class="form-control" id="geographical_area" name="geographical_area" required>
+                            <div class="invalid-feedback">Please provide a valid geolocation.</div>
+                        </div>           
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="submit">Add Geographical Area</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-body">
-          <div class="p-4 border rounded">
-            <form class="row g-3 needs-validation" novalidate="">
-              <div class="col-md-4">
-                <label for="validationCustom03" class="form-label">Region</label>
-                <select class="form-select" id="validationCustom04" required="">
-                    <option selected="" disabled="" value="">Choose region...</option>
-                    <option>...</option>
-                  </select>
-              </div>
-              <div class="col-md-4">
-                <label for="validationCustom04" class="form-label">Constituency</label>
-                <select class="form-select" id="validationCustom04" required="">
-                  <option selected="" disabled="" value="">Choose constituency...</option>
-                  <option>...</option>
-                </select>
-                <div class="invalid-feedback">Please select a valid state.</div>
-              </div>
-              <div class="col-md-4">
-                <label for="validationCustom05" class="form-label">Geographical Area</label>
-                <input type="text" class="form-control" id="validationCustom05" required="">
-                <div class="invalid-feedback">Please provide a valid geolocation.</div>
-              </div>           
-              <div class="col-12">
-                <button class="btn btn-primary" type="submit">Add Geographical Area</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-</div>
+    <!-- Add JavaScript for dynamic dropdowns and map update -->
+    <script>
+        $(document).ready(function() {
+            // Function to filter constituencies based on selected region
+            function filterConstituencies() {
+                var regionId = $('#region_id').val();
+                var constituencySelect = $('#constituency_id');
+                constituencySelect.find('option').show();
+                if (regionId) {
+                    constituencySelect.find('option').not('[data-region="' + regionId + '"]').hide();
+                }
+                constituencySelect.val('');
+            }
 
+            // Filter constituencies when region changes
+            $('#region_id').change(filterConstituencies);
 
-<!-- Add JavaScript to dynamically insert the API key -->
-<script>
-    // Replace with the actual API key obtained from your .env file
-    const apiKey = 'YOUR_API_KEY_HERE';
+            // Update map when geographical area changes
+            $('#geographical_area').on('input', function() {
+                updateMap();
+            });
 
-    // Replace with the desired geographical area from the textfield
-    const area = 'Accra,+Ghana';
+            // Function to update the map
+            function updateMap() {
+                const apiKey = '{{ env('GOOGLE_MAPS_API_KEY') }}';
+                const area = $('#geographical_area').val() + ',Ghana';
+                const iframe = document.getElementById('mapFrame');
+                iframe.src = `https://www.google.com/maps/embed/v1/search?key=${apiKey}&q=${area}`;
+            }
 
-    // Get the iframe element
-    const iframe = document.getElementById('mapFrame');
-
-    // Set the iframe src with the API key
-    iframe.src = `https://www.google.com/maps/embed/v1/search?key=${apiKey}&q=${area}`;
-</script>
-
+            // Initial map update
+            updateMap();
+        });
+    </script>
 @endsection
-
-

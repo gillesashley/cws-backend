@@ -1311,7 +1311,7 @@ ul.categories-list li {
 
 .login-cover-wrapper {
     width: 25rem;
-    height: 46rem;
+    height: 100%;
     margin: auto;
     display: flex;
     align-items: center;
@@ -1322,9 +1322,10 @@ ul.categories-list li {
 .login-cover-img {
     background-image: url(../images/login-background.png);
     background-position: center;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size:40%; 
     width: 100%;
-    transform: skewX(-10deg);
+    height: 100%;
 }
 
 

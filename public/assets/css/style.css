@@ -134,7 +134,7 @@ ion-icon {
     margin-left: 10px;
     margin-bottom: 0;
     letter-spacing: 1px;
-    color: #0200FF;
+    color: var(--primary-color);
 }
 
 .toggle-icon {

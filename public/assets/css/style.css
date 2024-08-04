@@ -135,8 +135,6 @@ ion-icon {
     margin-bottom: 0;
     letter-spacing: 1px;
     color: var(--primary-color);
-    color: #0200FF;
-    color: var(--primary-color);
 }
 
 .toggle-icon {
@@ -383,7 +381,7 @@ ion-icon {
 
 .top-header .navbar .searchbar .form-control:focus {
     background-color: #fff;
-    border-color: #c27be4;
+    border-color: #0200FF;
     box-shadow: 0 0 0 .25rem rgba(146, 62, 185, 0.3)
 
 }
@@ -1280,8 +1278,8 @@ ul.categories-list li {
     top: 0;
     right: 0;
     left: 0;
-    background-color: #8436a8;
-    background-image: linear-gradient( 310deg,#7928ca,#ff0080);
+    background-color: #0200FF;
+    background-image: linear-gradient( 310deg,#0200FF,#ff0080);
 
 }
 
@@ -1322,7 +1320,7 @@ ul.categories-list li {
 
 
 .login-cover-img {
-    background-image: url(https://wallpaperaccess.com/full/459724.png);
+    background-image: url(../images/login-background.png);
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -1493,7 +1491,7 @@ ul.categories-list li {
 
 	.top-header .navbar .searchbar .search-close-icon {
 		display: block;
-	}
+	}                   
 
     .footer {
         left: 0px;

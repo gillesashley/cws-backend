@@ -3,7 +3,7 @@ preloader
 ********************/
 .preloader{position: fixed; top: 0; width: 100vw; height: 100vh; z-index: 200; @include animateIt; transition-delay: 1s;
   background: rgb(255,0,174);
-  background: linear-gradient(45deg, rgba(255,0,174,1) 0%, rgba(145,0,255,1) 50%, rgba(255,0,174,1) 100%);
+  background: linear-gradient(45deg, #ff0101 0%, rgba(0,17,172,1) 50%, rgba(255,1,1,1) 100%);
   background-size: 200% 200%; background-position: left bottom;
   animation-name: animateGradient; animation-duration: 5s; animation-iteration-count: infinite;
   img{ @include absoluteCenter; }
@@ -18,7 +18,7 @@ header
   &__nav{
     &-primary{ margin-bottom: 0;
       > li{ list-style: none; display: inline-block;
-        &:first-child{ a{ color: #f41976; } 
+        &:first-child{ a{ color: #ff0101; } 
           i{ 
             &::before{ opacity: var(--var-primary-opacity, .5); } 
             &::after{ opacity: var(--var-secondary-opacity, 1); } 
@@ -95,7 +95,7 @@ header
 .header{
   &__wrapper{ justify-content: space-between; padding: 0 5rem; }
   &__nav{ width: 100vw; height: 130vh; width: 100%; position: absolute; top: -5rem; right: 100%; overflow: hidden !important;
-    background: rgb(147,65,212); background: linear-gradient(45deg, rgba(147,65,212,1) 0%, rgba(217,142,251,1) 100%);
+    background: rgb(255,1,1); background: linear-gradient(45deg, rgba(255,1,1,1) 0%, rgba(255,1,1,1) 100%);
     @include animateIt; padding-top: 15%;
     ul{ display: block; width: 100%; margin-top: 5rem; }
     li{display: block; width: 100%; @include animateIt;
@@ -103,7 +103,7 @@ header
       i{ color: white; }
       &:nth-child(n+2){ margin-left: 0; }
       &:hover{ background-color: white;
-        a, i{ color: rgb(147,65,212); }
+        a, i{ color: rgb(255,1,1); }
       }
     }
     .nav__dropdown{
@@ -149,16 +149,16 @@ hero
   .download-buttons{ a{ display: inline-flex; &:last-child{ margin-left: 2rem; } } }
   .hero-img{
     &::before{ content: ""; display: block; position: absolute; width: 75.3rem; height: 75.3rem;
-      border-radius: 50%; top: 50%; transform: translateY(-50%); background: rgb(147,65,212); 
-      background: linear-gradient(45deg, rgba(147,65,212,1) 0%, rgba(217,142,251,1) 50%, rgba(147,65,212,1) 100%);
+      border-radius: 50%; top: 50%; transform: translateY(-50%); background: rgb(14, 3, 175); 
+      background: linear-gradient(45deg, rgba(255,1,1,1) 0%, rgba(255,1,1,1) 50%, rgba(255,1,1,1) 100%);
       background-size: 200% 200%; background-position: left bottom;
       backface-visibility: hidden; perspective: 1000;
       // filter: drop-shadow(0px 5px 40px #9341d4);
       // -webkit-filter: drop-shadow(0px 5px 40px #9341d4);
       // -moz-filter: drop-shadow(0px 5px 40px #9341d4);
-      filter: drop-shadow(0px 30px 20px rgba(147,65,212,.4));
-      -webkit-filter: drop-shadow(0px 30px 20px rgba(147,65,212,.4));
-      -moz-filter: drop-shadow(0px 30px 20px rgba(147,65,212,.4));
+      filter: drop-shadow(0px 30px 20px rgba(255,1,1,.4));
+      -webkit-filter: drop-shadow(0px 30px 20px rgba(255,1,1,.4));
+      -moz-filter: drop-shadow(0px 30px 20px rgba(255,1,1,.4));
       animation-name: animateGradient; animation-duration: 2.5s; animation-iteration-count: infinite;
     }
   }
@@ -502,12 +502,12 @@ client
       &:nth-child(n+3){ margin-top: 3rem; }
       .image{ cursor: pointer; img{ filter: grayscale(100%); @include animateIt; } } 
       .testimonial{ position: absolute; top: 0; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%);
-        background: rgb(25,165,161); backface-visibility: hidden; perspective: 1000; backface-visibility: hidden; perspective: 1000;
-        background: linear-gradient(45deg, rgba(25,165,161,1) 0%, rgba(99,232,228,1) 100%); width: 60%; height: 100%; 
+        background: rgb(18, 13, 160); backface-visibility: hidden; perspective: 1000; backface-visibility: hidden; perspective: 1000;
+        background: linear-gradient(45deg, rgb(18, 13, 160) 0%, rgb(18, 13, 160) 100%); width: 60%; height: 100%; 
         color: white; border-radius: 3rem; visibility: hidden; opacity: 0; @include animateIt;
-        filter: drop-shadow(0px 20px 10px rgba(79,188,186,.4));
-        -webkit-filter: drop-shadow(0px 20px 10px rgba(79,188,186,.4));
-        -moz-filter: drop-shadow(0px 20px 10px rgba(79,188,186,.4));
+        filter: drop-shadow(0px 20px 10px rgba(18,13,160,.4));
+        -webkit-filter: drop-shadow(0px 20px 10px rgba(18,13,160,.4));
+        -moz-filter: drop-shadow(0px 20px 10px rgba(18,13,160,.4));
         h4{ font-weight: 600; font-size: 1.8rem; margin-top: 2.3rem; }
         p{ font-weight: 500; font-size: 2.8rem; }
         &__wrapper{ @include absoluteCenter; padding: 0 4.8rem 0; }
@@ -594,11 +594,11 @@ questions
     }
     &::before{ content: ""; display: block; position: absolute; width: 75.3rem; height: 75.3rem;
       border-radius: 50%; top: 50%; transform: translateY(-50%); background: rgb(242,2,107); 
-      background: linear-gradient(45deg, rgba(242,2,107,1) 0%, rgba(255,138,175,1) 50%, rgba(242,2,107,1) 100%);
+      background: linear-gradient(45deg, #ff0101 0%, rgba(255,1,1,1) 50%, rgba(255,1,1,1) 100%);
       background-size: 200% 200%; background-position: left bottom;
-      filter: drop-shadow(0px 5px 40px #f54590);
-      -webkit-filter: drop-shadow(0px 5px 40px #f54590);
-      -moz-filter: drop-shadow(0px 5px 40px #f54590);
+      filter: drop-shadow(0px 5px 40px #ff0101);
+      -webkit-filter: drop-shadow(0px 5px 40px #ff0101);
+      -moz-filter: drop-shadow(0px 5px 40px #ff0101);
       animation-name: animateGradient; animation-duration: 2.5s; animation-iteration-count: infinite;
       backface-visibility: hidden; perspective: 1000;
     }
@@ -755,7 +755,7 @@ screenshot
   &-nav{
     &-prev, &-next{ display: inline-block; cursor: pointer;
       i{ font-size: 5rem; color: #8e9a9d; @include animateIt; }
-      &:hover i{ color: #ff0087; }
+      &:hover i{ color: #ff0101; }
       &:focus{ outline: 0; }
     }
     &-next{ margin-left: 4rem; }
@@ -775,7 +775,7 @@ related blog
   .section-heading{ text-align: center; margin: 0 auto 5rem auto; width: 35%;  }
   .button{ margin: 10rem auto 0 auto; text-align: center; display: flex; }
   .button{ border: 4px solid #ffdbe8;
-    i{ color: #f2046c; @include animateIt; } 
+    i{ color: #ff0101; @include animateIt; } 
     &:focus, &:hover{ background-color: #ffdbe8; i{ color: white; } }
   }
   @media (max-width: 991.98px) {
@@ -835,7 +835,7 @@ newsletter
   &::-moz-placeholder{ color: $color-para-dark; }
   &:-ms-input-placeholder{ color: $color-para-dark; }
   &:-moz-placeholder{ color: $color-para-dark; }
-  &:focus{ outline: 0; border: 4px solid #fe7fa9; }
+  &:focus{ outline: 0; border: 4px solid #ff0101; }
 }
 .newsletter-2{
   .newsletter__wrapper{ overflow: visible;

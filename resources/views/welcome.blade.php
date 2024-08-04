@@ -105,7 +105,7 @@
             <h2 class="section-heading color-black">Get surprised by campaigning with us.</h2>
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <div class="feature__box feature__box--1">
+                    <div class="feature__box feature__box--1" >
                         <div class="icon icon-1">
                             <i class="fad fa-user-check"></i>
                         </div>
@@ -358,7 +358,7 @@
     <!--client section start-->
     <section class="clients-sec" id="feedback">
         <div class="container">
-            <h2 class="section-heading color-black">Hear from party faithfuls.</h2>
+            <h2 class="section-heading color-black">Hear from the campaign team.</h2>
             <div class="testimonial__wrapper">
                 <div class="client client-01 active">
                     <div class="image">

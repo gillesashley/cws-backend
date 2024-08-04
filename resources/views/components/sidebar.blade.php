@@ -102,7 +102,7 @@
             </a>
         </li>
 
-        <li class="menu-label">Support | Help</li>
+        <li class="menu-label">Support</li>
         <li>
             <a href="{{ route('admin.support.index') }}">
                 <div class="parent-icon"><ion-icon name="link-sharp"></ion-icon>

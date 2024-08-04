@@ -15,7 +15,7 @@
     <!--navigation-->
     <ul class="metismenu" id="menu">
         <li>
-            <a href="{{route('dashboard')}}" class="has-arrow">
+            <a href="{{route('dashboard')}}">
                 <div class="parent-icon"><ion-icon name="home-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Dashboard</div>

@@ -15,22 +15,11 @@
     <!--navigation-->
     <ul class="metismenu" id="menu">
         <li>
-            <a href="javascript:;" class="has-arrow">
+            <a href="javascript:;">
                 <div class="parent-icon"><ion-icon name="home-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Dashboard</div>
             </a>
-            <ul>
-                <li> <a href="{{ route('campaign-monitor') }}"><ion-icon name="ellipse-outline"></ion-icon>Campaign
-                        Monitoring</a>
-                </li>
-                <li> <a href="{{ route('admin.users.index') }}"><ion-icon name="ellipse-outline"></ion-icon>Platform
-                        Users</a>
-                </li>
-                <li> <a href="{{ route('admin.points-and-payment.index') }}"><ion-icon
-                            name="ellipse-outline"></ion-icon>Points & Payments</a>
-                </li>
-            </ul>
         </li>
 
         <li class="menu-label">Campaign Administration</li>
@@ -58,19 +47,6 @@
             </ul>
         </li>
 
-        <li>
-            <a class="has-arrow" href="javascript:;">
-                <div class="parent-icon"><ion-icon name="leaf-sharp"></ion-icon>
-                </div>
-                <div class="menu-title">Pledges & Follow Ups</div>
-            </a>
-            <ul>
-                <li> <a href="icons-line-icons.html"><ion-icon name="ellipse-outline"></ion-icon>Pleged Voters</a>
-                </li>
-                <li> <a href="icons-boxicons.html"><ion-icon name="ellipse-outline"></ion-icon>Follow Ups</a>
-                </li>
-            </ul>
-        </li>
         <li>
             <a href="{{ route('admin.points-and-payment.index') }}">
                 <div class="parent-icon"><ion-icon name="receipt-sharp"></ion-icon>
@@ -125,6 +101,8 @@
                 <div class="menu-title">Admin Profile</div>
             </a>
         </li>
+
+        <li class="menu-label">Support | Help</li>
         <li>
             <a href="{{ route('admin.support.index') }}">
                 <div class="parent-icon"><ion-icon name="link-sharp"></ion-icon>

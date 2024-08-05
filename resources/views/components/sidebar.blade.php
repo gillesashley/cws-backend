@@ -16,7 +16,7 @@
     <ul class="metismenu" id="menu">
         <li>
             <a href="{{route('dashboard')}}">
-                <div class="parent-icon"><ion-icon name="home-sharp"></ion-icon>
+                <div class="parent-icon"><ion-icon name="desktop"></ion-icon>
                 </div>
                 <div class="menu-title">Dashboard</div>
             </a>
@@ -25,7 +25,7 @@
         <li class="menu-label">Campaign Administration</li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><ion-icon name="briefcase-sharp"></ion-icon>
+                <div class="parent-icon"><ion-icon name="megaphone"></ion-icon>
                 </div>
                 <div class="menu-title">Campaign With Us</div>
             </a>
@@ -49,7 +49,7 @@
 
         <li>
             <a href="{{ route('admin.points-and-payment.index') }}">
-                <div class="parent-icon"><ion-icon name="receipt-sharp"></ion-icon>
+                <div class="parent-icon"><ion-icon name="cash"></ion-icon>
                 </div>
                 <div class="menu-title">Points & Payments</div>
             </a>
@@ -82,21 +82,21 @@
         </li>
         <li>
             <a href="{{ route('admin.users.index') }}">
-                <div class="parent-icon"><ion-icon name="person-circle-sharp"></ion-icon>
+                <div class="parent-icon"><ion-icon name="people"></ion-icon>
                 </div>
                 <div class="menu-title">All Users</div>
             </a>
         </li>
         <li>
             <a href="{{ route('admin.geo-location.index') }}">
-                <div class="parent-icon"><ion-icon name="create-sharp"></ion-icon>
+                <div class="parent-icon"><ion-icon name="compass"></ion-icon>
                 </div>
                 <div class="menu-title">Geo Locations</div>
             </a>
         </li>
         <li>
             <a href="{{ route('admin.support.profile') }}">
-                <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>
+                <div class="parent-icon"><ion-icon name="person-circle-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Admin Profile</div>
             </a>
@@ -105,7 +105,7 @@
         <li class="menu-label">Support</li>
         <li>
             <a href="{{ route('admin.support.index') }}">
-                <div class="parent-icon"><ion-icon name="link-sharp"></ion-icon>
+                <div class="parent-icon"><ion-icon name="help-buoy"></ion-icon>
                 </div>
                 <div class="menu-title">Support</div>
             </a>

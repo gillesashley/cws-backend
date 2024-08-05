@@ -40,9 +40,7 @@
                     <ul class="header__nav-primary">
                         <li><a href="index.html"><i class="fad fa-home-alt"></i></a></li>
                         <li class="nav__dropdown dropdown-wrapper" id="menu-1">
-                            <a href="#" class="nav__dropdown-info dropdown-info">
-                                Home
-                            </a>
+                        <a href="#" class="nav__dropdown-info dropdown-info"> Home</a>
                         </li>
                         <li><a href="#video">About</a></li>
                         <li><a href="#feature">Features</a></li>
@@ -50,6 +48,7 @@
                         <li><a href="#faq">FAQs</a></li>
                         <li><a href="#preview">Preview</a></li>
                         <li><a href="#campaign">Campaigns</a></li>
+                        <li><button type="button" class="btn btn-outline-primary btn-lg"> Admin Login</button></li>
                     </ul>
                     <span><i class="fas fa-times"></i></span>
                 </div>

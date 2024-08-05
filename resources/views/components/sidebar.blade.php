@@ -110,6 +110,13 @@
                 <div class="menu-title">Support</div>
             </a>
         </li>
+        <li>
+            <a href="#" target="_blank">
+                <div class="parent-icon"><ion-icon name="laptop"></ion-icon>
+                </div>
+                <div class="menu-title">Landing Page</div>
+            </a>
+        </li>
     </ul>
     <!--end navigation-->
 </aside>

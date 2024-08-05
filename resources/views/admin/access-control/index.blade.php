@@ -31,4 +31,6 @@
     </div>
   </div>
   <!--end breadcrumb-->
+
+</div>
 @endsection

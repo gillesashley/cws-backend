@@ -85,48 +85,14 @@
     <div class="row">
         <div class="col-12 col-lg-6 col-xl-4 d-flex">
             <div class="card radius-10 w-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <h6 class="mb-0">Campaign Traffic</h6>
-                        <div class="dropdown options ms-auto">
-                            <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                                <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated"
-                                    aria-label="ellipsis horizontal sharp"></ion-icon>
-                            </div>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="chart-container3">
-                        <div class="piechart-legend">
-                            <h2 class="mb-1">85%</h2>
-                            <h6 class="mb-0">Total Visitors</h6>
-                        </div>
-                        <canvas id="chart1" width="271" height="293"
-                            style="display: block; box-sizing: border-box; height: 293px; width: 271px;"></canvas>
-                    </div>
-                </div>
+                
             </div>
         </div>
         <div class="col-12 col-lg-6 col-xl-4 d-flex">
             <div class="card radius-10 w-100">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <h6 class="mb-0">User Activity</h6>
-                        <div class="dropdown options ms-auto">
-                            <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                                <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated"
-                                    aria-label="ellipsis horizontal sharp"></ion-icon>
-                            </div>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
+                        
                     </div>
                     <div class="chart-container3">
                         <canvas id="chart2" width="271" height="293"
@@ -184,67 +150,9 @@
     </div><!--end row-->
 
 
-    <div class="row">
-        <div class="col-12 col-lg-12 col-xl-8 d-flex">
-            <div class="card radius-10 overflow-hidden w-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <h6 class="mb-0">Geo Location Statistics</h6>
-                        <div class="dropdown options ms-auto">
-                            <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                                <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated"
-                                    aria-label="ellipsis horizontal sharp"></ion-icon>
-                            </div>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                                <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                                <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="chart-container5">
-                        <canvas id="chart4" width="271" height="230"
-                            style="display: block; box-sizing: border-box; height: 230px; width: 271px;"></canvas>
-                    </div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center border-top">
-                        Region
-                        <span class="badge bg-tiffany rounded-pill">55</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Constituency
-                        <span class="badge bg-success rounded-pill">20</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Area
-                        <span class="badge bg-warning rounded-pill">10</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    
 
-        <div class="col-12 col-lg-12 col-xl-4 d-flex">
-            <div class="card radius-10 w-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                        <h6 class="mb-0">Constituencies</h6>
-                        <div class="ms-auto">
-                            <div class="d-flex align-items-center font-13 gap-2">
-                                <span class="border px-1 rounded cursor-pointer"><i
-                                        class="bx bxs-circle me-1 text-primary"></i>Shares</span>
-                                <span class="border px-1 rounded cursor-pointer"><i
-                                        class="bx bxs-circle me-1 text-success"></i>Likes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chart-container4">
-                        <canvas id="chart3" width="598" height="350"
-                            style="display: block; box-sizing: border-box; height: 350px; width: 598px;"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
     </div><!--end row-->
 
 

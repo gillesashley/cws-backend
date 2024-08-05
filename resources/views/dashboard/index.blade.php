@@ -96,7 +96,6 @@
           </div>
     </div>
 
-
     <div class="row">
         <div class="col-12 col-lg-8 col-xl-8 d-flex">
           <div class="card radius-10 w-100">
@@ -232,15 +231,7 @@
                     <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
                       <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon>
                     </div>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                      <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                      <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="chart-container4">
-                  <canvas id="chart8" style="display: block; box-sizing: border-box; height: 350px; width: 917px;" width="1834" height="700"></canvas>
+
                 </div>
               </div>
             </div>

@@ -7,7 +7,7 @@
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0 align-items-center">
-                <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="megaphone" role="img"
+                <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="mail" role="img"
                             class="md hydrated" aria-label="home outline"></ion-icon></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">SMS Campaign</li>

@@ -146,8 +146,8 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <!--plugins-->
     <script src="{{ asset('assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
-{{--    <script src="{{ asset('assets/plugins/chartjs/chart.min.js') }}"></script>--}}
-    <script src="{{ asset('assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/chartjs/chart.min.js') }}"></script>
+{{--    <script src="{{ asset('assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>--}}
     <script src="{{ asset('assets/js/index2.js') }}"></script>
     <!-- Main JS-->
     <script src="{{ asset('assets/js/main.js') }}"></script>

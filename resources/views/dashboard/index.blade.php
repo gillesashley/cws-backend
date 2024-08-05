@@ -135,7 +135,6 @@
 
 
     <div class="row">
-        
         <div class="col-12 col-lg-12 col-xl-8 d-flex">
             <div class="card radius-10 overflow-hidden w-100">
                 <div class="card-body">

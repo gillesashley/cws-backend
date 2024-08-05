@@ -92,115 +92,44 @@
             </div>
           </div>
          </div>
+    </div>
          
-         <div class="row">
-            <div class="col-12 col-lg-12 col-xl-6">
-              <div class="card radius-10 w-100">
-                <div class="card-body">
-                  <div class="d-flex align-items-center mb-3">
-                    <h6 class="mb-0">Top Constituencies</h6>
-                    <div class="dropdown options ms-auto">
-                      <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                        <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon>
-                      </div>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                      </ul>
+          <div class="row">
+            <div class="col-12 col-lg-12 col-xl-12 d-flex">
+                <div class="card radius-10 overflow-hidden w-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <h6 class="mb-0">Geo Location Statistics</h6>
+                            <div class="dropdown options ms-auto">
+                                <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
+                                    <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated"
+                                        aria-label="ellipsis horizontal sharp"></ion-icon>
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="javascript:;">Action</a></li>
+                                    <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
+                                    <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="chart-container5">
+                            <canvas id="chart4" width="271" height="230"
+                                style="display: block; box-sizing: border-box; height: 230px; width: 271px;"></canvas>
+                        </div>
                     </div>
-                  </div>
-                  <div class="row row-cols-1 row-cols-md-2 g-3 mt-2 align-items-center">
-                    <div class="col-lg-7 col-xl-7 col-xxl-8">
-                      <div class="chart-container6">
-                         <div class="piechart-legend">
-                            <h2 class="mb-1">68%</h2>
-                            <h6 class="mb-0">Total Constituencies</h6>
-                         </div>
-                        <canvas id="chart2" style="display: block; box-sizing: border-box; height: 250px; width: 468.5px;" width="937" height="500"></canvas>
-                      </div>
-                    </div>
-                    <div class="col-lg-5 col-xl-5 col-xxl-4">
-                      <div class="">
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item border-0 d-flex align-items-center gap-2">
-                            <ion-icon name="ellipse-sharp" class="text-info md hydrated" role="img" aria-label="ellipse sharp"></ion-icon><span>Ayawaso North</span>
-                          </li>
-                          <li class="list-group-item border-0 d-flex align-items-center gap-2">
-                            <ion-icon name="ellipse-sharp" class="text-danger md hydrated" role="img" aria-label="ellipse sharp"></ion-icon><span>Gbawe South</span>
-                          </li>
-                          <li class="list-group-item border-0 d-flex align-items-center gap-2">
-                            <ion-icon name="ellipse-sharp" class="text-success md hydrated" role="img" aria-label="ellipse sharp"></ion-icon><span>Bantama</span>
-                          </li>
-                          <li class="list-group-item border-0 d-flex align-items-center gap-2">
-                            <ion-icon name="ellipse-sharp" class="text-primary md hydrated" role="img" aria-label="ellipse sharp"></ion-icon><span>Abelkuma West</span>
-                          </li>
-                          <li class="list-group-item border-0 d-flex align-items-center gap-2">
-                            <ion-icon name="ellipse-sharp" class="text-warning md hydrated" role="img" aria-label="ellipse sharp"></ion-icon><span>Nkwakwa South</span>
-                          </li>
-                        </ul>
-                       </div>
-                    </div>
-                  </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center border-top">
+                            Regional Points
+                            <span class="badge bg-tiffany rounded-pill">55</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Constituency Points
+                            <span class="badge bg-success rounded-pill">20</span>
+                        </li>
+                    </ul>
                 </div>
-              </div>
-             </div>
-             <div class="col-12 col-lg-12 col-xl-6">
-              <div class="card radius-10 w-100">
-                <div class="card-body">
-                  <div class="d-flex align-items-center mb-3">
-                    <h6 class="mb-0">Top Users</h6>
-                    <div class="dropdown options ms-auto">
-                      <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                        <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon>
-                      </div>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="row row-cols-1 row-cols-md-2 g-3 mt-2 align-items-center">
-                    <div class="col-lg-7 col-xl-7 col-xxl-7">
-                      <div class="chart-container6">
-                         <div class="piechart-legend">
-                            <h2 class="mb-1">48K</h2>
-                            <h6 class="mb-0">Users</h6>
-                         </div>
-                        <canvas id="chart3" style="display: block; box-sizing: border-box; height: 250px; width: 468.5px;" width="937" height="500"></canvas>
-                      </div>
-                    </div>
-                    <div class="col-lg-5 col-xl-5 col-xxl-5">
-                      <div class="">
-                        <div class="d-flex align-items-start gap-2 mb-3">
-                          <div><ion-icon name="ellipse-sharp" class="text-info md hydrated" role="img" aria-label="ellipse sharp"></ion-icon></div>
-                          <div>
-                            <p class="mb-1">Current Users</p>
-                            <p class="mb-0 h5">66%</p>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-start gap-2 mb-3">
-                          <div><ion-icon name="ellipse-sharp" class="text-danger md hydrated" role="img" aria-label="ellipse sharp"></ion-icon></div>
-                          <div>
-                            <p class="mb-1">New Users</p>
-                            <p class="mb-0 h5">48%</p>
-                          </div>
-                        </div>
-                        <div class="d-flex align-items-start gap-2">
-                          <div><ion-icon name="ellipse-sharp" class="text-success md hydrated" role="img" aria-label="ellipse sharp"></ion-icon></div>
-                          <div>
-                            <p class="mb-1">Retargeted Users</p>
-                            <p class="mb-0 h5">25%</p>
-                          </div>
-                        </div>
-                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-             </div>
+            </div>
           </div>
-        </div>
+        
     
 @endsection

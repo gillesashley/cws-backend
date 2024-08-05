@@ -63,7 +63,7 @@
           </div>
           <div class="ms-auto">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
-                Edit Admin Profile
+                Edit Profile
             </button>
         </div>
           </div>

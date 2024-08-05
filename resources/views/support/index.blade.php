@@ -32,38 +32,41 @@
   </div>
   <!--end breadcrumb-->
 
-  <div class="col-xl-8 mx-auto">
     <div class="card">
         <div class="card-body">
-            <div class="border p-3 rounded">
-                <h6 class="mb-0 text-uppercase">Contact Admin</h6>
-            <hr>
-            <form class="row g-3">
-                <div class="col-12">
-                    <label class="form-label">Name</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-12">
-                    <label class="form-label">Constituency</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-12">
-                    <label class="form-label">Email</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-12">
-                    <label class="form-label">Report Issue</label>
-                    <textarea class="form-control" rows="8" cols="8"></textarea>
-                </div>
-                <div class="col-12">
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Send</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            <div class="p-4 border rounded">
+                <h1>Contact Admin</h1>
+
+                <form action="" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="title">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required maxlength="255"
+                            value="">
+                    </div><br>
+                    <div class="form-group">
+                        <label for="title">Constituency</label>
+                        <input type="text" name="Constituency" id="Constituency" class="form-control" required maxlength="255"
+                            value="">
+                    </div><br>
+                    <div class="form-group">
+                        <label for="content">Message Content</label>
+                        <textarea name="content" id="content" class="form-control" rows="10" required maxlength="160">{{ old('content') }}</textarea>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="media">Media (Optional)</label>
+                        <input type="file" name="media[]" id="media" class="form-control-file"
+                            accept="image/*,video/*" multiple>
+                    </div><br>
+       
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
         </div>
     </div>
+
   </div>
+</div>
+</div>
 
 @endsection

@@ -34,11 +34,11 @@
   <!--end breadcrumb-->
 
 
-    <div class="ms-auto">
+    {{-- <div class="ms-auto">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
             Add New Administrative User
         </button>
-    </div><br>
+    </div><br> --}}
 
     <div class="card radius-10 w-100">
         <div class="card-body">
@@ -68,7 +68,7 @@
                             <th>Role</th>
                             <th>Region</th>
                             <th>Constituency</th>
-                            <th>Actions</th>
+                            {{-- <th>Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -80,7 +80,7 @@
                                 <td>{{ $user['role'] }}</td>
                                 <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
                                 <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
-                                <td>
+                                {{-- <td>
                                     <button type="button" class="btn btn-sm btn-primary edit-user-btn"
                                         data-bs-toggle="modal" data-bs-target="#editUserModal"
                                         data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}"
@@ -91,7 +91,7 @@
                                     </button>
                                     <button type="button" class="btn btn-sm btn-danger delete-user-btn"
                                         data-user-id="{{ $user->id }}">Delete</button>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

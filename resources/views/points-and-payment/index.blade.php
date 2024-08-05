@@ -49,7 +49,7 @@
                   </div>
                   <div class="fs-5 ms-auto"><ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon></div>
                 </div>
-                <h5 class="my-3">Points Rate</h5>
+                <h5 class="my-3">Points Earned</h5>
                 <div class="progress mt-1" style="height: 5px;">
                   <div class="progress-bar bg-gradient-branding" role="progressbar" style="width: 65%"></div>
                 </div>

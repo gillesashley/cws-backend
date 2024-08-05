@@ -32,16 +32,16 @@
             <ul>
                 <li> <a href="{{ route('targeted-messages.all.index') }}"><ion-icon
                             name="image"></ion-icon>Affiliate
-                        Campaigns</a>
+                        Campaign</a>
                 </li>
                 <li>
                     <a href="{{ route('targeted-messages.whatsapp.index') }}">
-                        <ion-icon name="logo-whatsapp"></ion-icon>WhatsApp Campaigns
+                        <ion-icon name="logo-whatsapp"></ion-icon>WhatsApp Campaign
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('targeted-messages.sms.index') }}">
-                        <ion-icon name="mail"></ion-icon>SMS Campaigns
+                        <ion-icon name="mail"></ion-icon>SMS Campaign
                     </a>
                 </li>
             </ul>
@@ -58,14 +58,14 @@
 
         <li class="menu-label">Adversisements </li>
         <li>
-            <a href="javascript:;" target="_blank">
+            <a href="#">
                 <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Private</div>
             </a>
         </li>
         <li>
-            <a href="avascript:;" target="_blank">
+            <a href="#">
                 <div class="parent-icon"><ion-icon name="link-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Adsense</div>

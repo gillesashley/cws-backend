@@ -102,6 +102,7 @@
             </div>
         </div>
     </div>
+</div>
 
         @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
         @include('admin.users.edit', ['regions' => $regions, 'constituencies' => $constituencies])

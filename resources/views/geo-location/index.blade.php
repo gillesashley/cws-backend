@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-  
+    </div>
 
     <!-- Add JavaScript for dynamic dropdowns and map update -->
     <script>

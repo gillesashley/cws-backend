@@ -109,5 +109,5 @@
     </table>
 
     {{ $messages->links() }}
-
+</div>
 @endsection

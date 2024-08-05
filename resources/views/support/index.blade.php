@@ -32,4 +32,38 @@
   </div>
   <!--end breadcrumb-->
 
+  <div class="col-xl-8 mx-auto">
+    <div class="card">
+        <div class="card-body">
+            <div class="border p-3 rounded">
+                <h6 class="mb-0 text-uppercase">Contact Admin</h6>
+            <hr>
+            <form class="row g-3">
+                <div class="col-12">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Constituency</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Report Issue</label>
+                    <textarea class="form-control" rows="8" cols="8"></textarea>
+                </div>
+                <div class="col-12">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+  </div>
+
 @endsection

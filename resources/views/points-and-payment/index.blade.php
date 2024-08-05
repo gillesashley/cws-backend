@@ -98,7 +98,36 @@
             <div class="col-12 col-lg-12 col-xl-12 d-flex">
                 <div class="card radius-10 overflow-hidden w-100">
                     <div class="card-body">
-                        
+                      <div class="d-flex align-items-center mb-3">
+                        <h6 class="mb-0">Audiences Metrics</h6>
+                        <div class="dropdown options ms-auto">
+                          <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
+                            <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon>
+                          </div>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="javascript:;">Action</a></li>
+                            <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
+                            <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="row row-cols-1 row-cols-lg-3 g-3 justify-content-start align-items-center mb-3">
+                        <div class="col">
+                          <h5 class="mb-0">974 <span class="text-success font-13">56% <ion-icon name="arrow-up-outline" role="img" class="md hydrated" aria-label="arrow up outline"></ion-icon></span></h5>
+                          <p class="mb-0">Avg. Session</p>
+                        </div>
+                        <div class="col">
+                          <h5 class="mb-0">1,218 <span class="text-success font-13">34% <ion-icon name="arrow-up-outline" role="img" class="md hydrated" aria-label="arrow up outline"></ion-icon></span></h5>
+                          <p class="mb-0">Conversion. Rate</p>
+                        </div>
+                        <div class="col">
+                          <h5 class="mb-0">10,317 <span class="text-success font-13">22% <ion-icon name="arrow-up-outline" role="img" class="md hydrated" aria-label="arrow up outline"></ion-icon></span></h5>
+                          <p class="mb-0">Avg. Session Duration</p>
+                        </div>
+                      </div><!--end row-->
+                      <div class="chart-container7">
+                        <canvas id="chart4" style="display: block; box-sizing: border-box; height: 300px; width: 592.5px;" width="1185" height="600"></canvas>
+                      </div>
                     </div>
                     
                 </div>

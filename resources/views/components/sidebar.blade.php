@@ -25,23 +25,23 @@
         <li class="menu-label">Campaign Administration</li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><ion-icon name="megaphone"></ion-icon>
+                <div class="parent-icon"><ion-icon name="chatbox"></ion-icon>
                 </div>
                 <div class="menu-title">Campaign With Us</div>
             </a>
             <ul>
                 <li> <a href="{{ route('targeted-messages.all.index') }}"><ion-icon
-                            name="ellipse-outline"></ion-icon>Affiliate
+                            name="image"></ion-icon>Affiliate
                         Campaigns</a>
                 </li>
                 <li>
                     <a href="{{ route('targeted-messages.whatsapp.index') }}">
-                        <ion-icon name="ellipse-outline"></ion-icon>WhatsApp Campaigns
+                        <ion-icon name="logo-whatsapp"></ion-icon>WhatsApp Campaigns
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('targeted-messages.sms.index') }}">
-                        <ion-icon name="ellipse-outline"></ion-icon>SMS Campaigns
+                        <ion-icon name="mail"></ion-icon>SMS Campaigns
                     </a>
                 </li>
             </ul>

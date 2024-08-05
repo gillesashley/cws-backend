@@ -57,7 +57,7 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
-            </div>
+            </div><br>
             <div class="table-responsive">
                 <table id="example" class="table table-striped table-bordered align-middle mb-0" style="width:100%">
                     <thead>

@@ -4,13 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -53,7 +53,7 @@ class AuthController extends Controller
                 'user' => $user,
                 'token' => $token,
             ], 201);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // If user creation fails, delete the uploaded image
             if (isset($validated['ghana_card_image_path'])) {
                 Storage::disk('public')->delete($validated['ghana_card_image_path']);
@@ -94,7 +94,7 @@ class AuthController extends Controller
             'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ], 200);
+        ], 201);
     }
 
     public function logout(Request $request): JsonResponse
@@ -104,7 +104,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Logged out successfully'
-        ], 200);
+        ]);
     }
 
     public function checkPhoneAvailability(Request $request): JsonResponse

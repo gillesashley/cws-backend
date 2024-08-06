@@ -24,7 +24,7 @@
 
         <li class="menu-label">Campaign Administration</li>
         <li>
-            <a href="javascript:;" class="has-arrow">
+            <a href="javascript:" class="has-arrow">
                 <div class="parent-icon"><ion-icon name="chatbox"></ion-icon>
                 </div>
                 <div class="menu-title">Campaign With Us</div>
@@ -56,7 +56,7 @@
         </li>
 
 
-        <li class="menu-label">Adversisements </li>
+        <li class="menu-label">Advertisements </li>
         <li>
             <a href="#">
                 <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>
@@ -111,7 +111,7 @@
             </a>
         </li>
         <li>
-            <a href="#" target="_blank">
+            <a href="/" target="_blank">
                 <div class="parent-icon"><ion-icon name="laptop"></ion-icon>
                 </div>
                 <div class="menu-title">Landing Page</div>

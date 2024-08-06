@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
 
         // Create users
         try {
-            $users = User::factory(100)->create()->each(function ($user) use ($constituencies) {
+            $users = User::factory(50)->create()->each(function ($user) use ($constituencies) {
                 Log::info("Creating user. Constituencies count: " . $constituencies->count());
                 $constituency = $constituencies->random();
                 $user->constituency_id = $constituency->id;
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
 
         // Create campaign messages
         try {
-            $campaignMessages = CampaignMessage::factory(200)->create()->each(function ($message) use ($constituencies, $users) {
+            $campaignMessages = CampaignMessage::factory(20)->create()->each(function ($message) use ($constituencies, $users) {
                 $constituency = $constituencies->random();
                 $usersInConstituency = $users->where('constituency_id', $constituency->id);
 

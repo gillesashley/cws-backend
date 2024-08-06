@@ -48,7 +48,7 @@
                         <li><a href="#faq">FAQs</a></li>
                         <li><a href="#preview">Preview</a></li>
                         <li><a href="#campaign">Campaigns</a></li>
-                        <li><button type="button" class="btn btn-outline-primary btn-lg"> Admin Login</button></li>
+                        <li><a href="{{route('login')}}" type="button" class="btn btn-outline-primary btn-lg">Admin Login</a></li>
                     </ul>
                     <span><i class="fas fa-times"></i></span>
                 </div>
@@ -705,7 +705,7 @@
     </section>
     <!--related blog section end-->
 
-    
+
 
     <!--footer start-->
     <footer class="footer">

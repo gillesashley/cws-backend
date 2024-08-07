@@ -55,7 +55,22 @@
             </a>
         </li>
 
-
+        <li class="menu-label">Application SetUp </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><ion-icon name="albums"></ion-icon>
+                </div>
+                <div class="menu-title">Banner</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><ion-icon name="today"></ion-icon>
+                </div>
+                <div class="menu-title">Events</div>
+            </a>
+        </li>
+    
         <li class="menu-label">Advertisements </li>
         <li>
             <a href="#">

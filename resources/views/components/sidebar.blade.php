@@ -55,12 +55,12 @@
             </a>
         </li>
 
-        <li class="menu-label">Application SetUp </li>
+        <li class="menu-label">Application SetUp</li>
         <li>
             <a href="#">
                 <div class="parent-icon"><ion-icon name="albums"></ion-icon>
                 </div>
-                <div class="menu-title">Banner</div>
+                <div class="menu-title">Banners</div>
             </a>
         </li>
         <li>
@@ -70,8 +70,15 @@
                 <div class="menu-title">Events</div>
             </a>
         </li>
+        <li>
+            <a href="#">
+                <div class="parent-icon"><ion-icon name="library"></ion-icon>
+                </div>
+                <div class="menu-title">Manifesto</div>
+            </a>
+        </li>
     
-        <li class="menu-label">Advertisements </li>
+        <li class="menu-label">Advertisements</li>
         <li>
             <a href="#">
                 <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>

@@ -87,6 +87,7 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
 
         // Points and Payment
         Route::get('/points-and-payment', [PointsAndPaymentController::class, 'index'])->name('points-and-payment.index');
+        Route::get('/view-transactions', [PointsAndPaymentController::class, 'viewTransactions'])->name('view-transactions');
 
         // Point Transactions
         Route::resource('point-transactions', PointTransactionController::class)->only(['index', 'show'])->names('point-transactions');

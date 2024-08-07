@@ -10,7 +10,7 @@
             <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="cash" role="img"
                         class="md hydrated" aria-label="home outline"></ion-icon></a>
             </li>
-            
+
         </ol>
     </nav>
 </div>
@@ -33,13 +33,13 @@
 <!--end breadcrumb-->
 
     <div class="ms-auto">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
+        <a href="{{ route('admin.view-transactions') }}" class="btn btn-primary">
             Points and Payment Transactions
-        </button>
+        </a>
     </div><br>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-3">
-        
+
         <div class="col">
             <div class="card radius-10">
               <div class="card-body">
@@ -57,7 +57,7 @@
               </div>
             </div>
            </div>
-         
+
          <div class="col">
           <div class="card radius-10">
             <div class="card-body">
@@ -93,7 +93,7 @@
           </div>
          </div>
     </div>
-         
+
           <div class="row">
             <div class="col-12 col-lg-12 col-xl-12 d-flex">
                 <div class="card radius-10 overflow-hidden w-100">
@@ -129,9 +129,8 @@
                         <canvas id="chart4" style="display: block; box-sizing: border-box; height: 300px; width: 592.5px;" width="1185" height="600"></canvas>
                       </div>
                     </div>
-                    
+
                 </div>
             </div>
           </div>
-    
 @endsection

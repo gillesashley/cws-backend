@@ -37,7 +37,7 @@
       <div class="p-4 border rounded">
         <h1>Upload New App Banner</h1>
         <br>
-        <form id="campaignForm" action="" method="POST"
+        <form id="bannerForm" action="" method="POST"
             enctype="multipart/form-data">
             @csrf
             <div class="form-group">

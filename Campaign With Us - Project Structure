@@ -1,0 +1,88 @@
+# Campaign With Us - Project Structure
+
+## Root Directory
+- `.env` (not provided, but assumed to exist)
+- `composer.json` (not provided, but assumed to exist)
+- `artisan` (not provided, but assumed to exist)
+
+## App Directory (`app/`)
+
+### Models (`app/Models/`)
+- `Advertisement.php`
+- `Analytics.php`
+- `CampaignMessage.php`
+- `Constituency.php`
+- `Feedback.php`
+- `Like.php`
+- `Notification.php`
+- `Point.php`
+- `PointTransaction.php`
+- `Region.php`
+- `RewardWithdrawal.php`
+- `Share.php`
+- `User.php`
+- `UserAction.php`
+- `UserProfile.php`
+
+### Policies (`app/Policies/`)
+- `AdvertisementPolicy.php`
+- `CampaignMessagePolicy.php`
+- `ConstituencyPolicy.php`
+
+### Controllers (`app/Http/Controllers/`)
+- Not provided, but should be created for each model/feature
+
+### Middleware (`app/Http/Middleware/`)
+- Not provided, but should include authentication and other custom middleware
+
+### Requests (`app/Http/Requests/`)
+- Not provided, but should be created for form requests and validation
+
+### Services (`app/Services/`)
+- Not provided, but should be created for complex business logic
+
+## Database Directory (`database/`)
+
+### Migrations (`database/migrations/`)
+- `0001_01_01_000001_create_cache_table.php`
+- `0001_01_01_000002_create_regions_table.php`
+- `0001_01_01_000003_create_constituencies_table.php`
+- `0001_01_01_000004_create_users_table.php`
+- `0001_01_01_000005_create_jobs_table.php`
+- `2024_07_15_171858_create_personal_access_tokens_table.php`
+- `2024_07_15_205200_create_campaign_messages_table.php`
+- `2024_07_15_205809_create_user_actions_table.php`
+- `2024_07_15_205905_create_reward_withdrawals_table.php`
+- `2024_07_15_205958_create_notifications_table.php`
+- `2024_07_15_214824_create_likes_table.php`
+- `2024_07_15_214832_create_shares_table.php`
+- `2024_07_15_220143_create_user_profiles_table.php`
+- `2024_07_15_220201_create_points_table.php`
+- `2024_07_15_220202_create_point_transactions_table.php`
+- `2024_07_15_220229_create_advertisements_table.php`
+- `2024_07_15_231008_create_feedback_table.php`
+- `2024_07_15_231143_create_analytics_table.php`
+
+### Seeders (`database/seeders/`)
+- Not provided, but should be created for initial data seeding
+
+## Routes (`routes/`)
+- Not provided, but should include `api.php` for API routes
+
+## Config (`config/`)
+- Not provided, but should include various configuration files
+
+## Resources (`resources/`)
+- Not provided, but should include views, language files, and assets
+
+## Tests (`tests/`)
+- Not provided, but should include unit and feature tests
+
+## Public (`public/`)
+- Not provided, but should include the `index.php` file and assets
+
+## Storage (`storage/`)
+- Not provided, but used for storing logs, cache, and user-uploaded files
+
+## Bootstrap (`bootstrap/`)
+- Not provided, but contains files for bootstrapping the application

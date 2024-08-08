@@ -11,12 +11,13 @@ use App\Models\Region;
 use App\Models\Share;
 use App\Models\User;
 use App\Models\UserAction;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AnalyticsController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $user = Auth::user();
         $currentWeekStart = now()->startOfWeek();

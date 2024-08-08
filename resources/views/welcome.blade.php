@@ -165,7 +165,8 @@
         <div class="video__wrapper">
             <div class="container">
                 <div class="video__play">
-                    <button type="button" data-toggle="modal" data-target="#videoModal">
+                    <button type="button" data-toggle="modal" 
+                    {{-- data-target="#videoModal"> --}}>
                         <i class="fad fa-play"></i>
                     </button>
                     <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -251,7 +252,7 @@
                             </div>
                             <div class="content">
                                 <h3>View Campaign Statistics</h3>
-                                <p class="paragraph dark">Track your progress, analyze performance, and optimize your efforts with real-time data on CWS.</p>
+                                <p class="paragraph dark">Track your progress, analyze performance, with real-time data on CWS.</p>
                             </div>
                         </div>
                     </div>
@@ -610,20 +611,20 @@
     <!--related blog section start-->
     <section class="related-blog blog" id="campaign">
         <div class="related-blog__wrapper">
-            <h2 class="section-heading color-black">Campaign Posts from our MPs.</h2>
+            <h2 class="section-heading color-black">Campaign Posts from His Excellency.</h2>
             <div class="blog__content">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-4">
-                            <a href="blog-single.html">
+                            <a href="#">
                                 <div class="blog__single blog__single--1">
                                     <div class="blog__single-image">
                                         <img src="{{ asset('assets-landing/images/blog-img-1.png') }}"
                                             alt="image">
                                     </div>
                                     <div class="blog__single-info">
-                                        <h3>New features coming in 2020 to our app.</h3>
-                                        <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
+                                        <h3>Tranformation is Coming.</h3>
+                                        <h4>12 <i class="fad fa-comment"></i><span>|</span>Aug 1, 2024</h4>
                                         <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
                                             eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
                                     </div>
@@ -631,15 +632,15 @@
                             </a>
                         </div>
                         <div class="col-lg-8">
-                            <a href="blog-single.html">
+                            <a href="#">
                                 <div class="blog__single blog__single--2">
                                     <div class="blog__single-image">
                                         <img src="{{ asset('assets-landing/images/blog-img-2.png') }}"
                                             alt="image">
                                     </div>
                                     <div class="blog__single-info">
-                                        <h3>New features coming in 2020 to our app.</h3>
-                                        <h4>12 <i class="fad fa-comment"></i><span>|</span>Dec 17, 2020</h4>
+                                        <h3>Developemnt like never before.</h3>
+                                        <h4>12 <i class="fad fa-comment"></i><span>|</span>June 17, 2024</h4>
                                         <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced
                                             eleifend dales felise morbi nec tempor isvel ultricies lideula. </p>
                                     </div>

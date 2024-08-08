@@ -32,6 +32,46 @@
   </div>
   <!--end breadcrumb-->
 
+  <div class="card">
+    <div class="card-body">
+      <div class="p-4 border rounded">
+        <h1>Event Schedule</h1>
+
+        <form id="manifestoForm" action="" method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="title">Event Title</label>
+                <input type="text" name="title" id="title" class="form-control" required maxlength="255"
+                    value="">
+            </div><br>
+
+            <div class="form-group">
+                <label for="content">Agenda</label>
+                <textarea name="content" id="content" class="form-control" rows="5" required>{{ old('content') }}</textarea>
+            </div><br>
+
+            <div class="mb-3">
+                <label class="form-label">Shedule Date and Time of Event</label>
+                <input class="result form-control" type="text" id="date-time" placeholder="Date Picker..." data-dtp="dtp_ghTYS">
+            </div><br>
+
+            <div class="form-group">
+                <label for="media">Event Flyer</label>
+                <input type="file" name="media[]" id="media" class="form-control-file" accept="image/*,video/*"
+                    multiple>
+            </div>
+
+            <div id="mediaPreview" class="mt-3">
+                <!-- Previews will be appended here -->
+            </div><br>
+
+            <button type="submit" class="btn btn-primary">Schedule Event</button>
+        </form>
+    </div>
+</div>
+</div>
 
 </div>
+
 @endsection('content')

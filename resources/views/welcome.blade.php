@@ -111,9 +111,7 @@
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-1">
                                 <h3>Join in Easy Steps</h3>
-                                <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise morbi
-                                    nec tempor isvelultricies ligula.</p>
+                                <p class="paragraph dark">Create an account with your details and get verified for points and payments</p>
                             </div>
                         </div>
                     </div>
@@ -126,9 +124,7 @@
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-2">
                                 <h3>Track Your Campaign</h3>
-                                <p class="paragraph dark">Euisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise morbi
-                                    nec tempor isvel ultricies ligula.</p>
+                                <p class="paragraph dark">Campaign daily, and earn rewards! Personalize messages, reach your audience, and turn your efforts into points.</p>
                             </div>
                         </div>
                     </div>
@@ -141,9 +137,7 @@
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-3">
                                 <h3>Improve Your Campaign</h3>
-                                <p class="paragraph dark">Auisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise morbi
-                                    nec tempor isvel ultricies ligula.</p>
+                                <p class="paragraph dark">Boost Your Campaign: Earn more rewards by personalizing messages and targeting the right audience with CWS.</p>
                             </div>
                         </div>
                     </div>
@@ -156,9 +150,7 @@
                         <div class="feature__box__wrapper">
                             <div class="feature__box--content feature__box--content-4">
                                 <h3>Transfer Your Points</h3>
-                                <p class="paragraph dark">Tuisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise morbi
-                                    nec tempor isvel ultricies ligula.</p>
+                                <p class="paragraph dark">Convert Your Points to Cash: Earn, campaign, and easily transfer your points into real money with CWS..</p>
                             </div>
                         </div>
                     </div>
@@ -215,8 +207,7 @@
                             </div>
                             <div class="content">
                                 <h3>Start Easily</h3>
-                                <p class="paragraph dark">Auisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise.</p>
+                                <p class="paragraph dark">Download CWS, campaign, and start earning rewards right away with just a few clicks.</p>
                             </div>
                         </div>
                     </div>
@@ -227,8 +218,7 @@
                             </div>
                             <div class="content">
                                 <h3>Improve Growth</h3>
-                                <p class="paragraph dark">Kuisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise.</p>
+                                <p class="paragraph dark">Accelerate Growth: Earn more by expanding your reach and optimizing your campaigns with CWS.</p>
                             </div>
                         </div>
                     </div>
@@ -239,8 +229,7 @@
                             </div>
                             <div class="content">
                                 <h3>CWS Algorithms</h3>
-                                <p class="paragraph dark">Nuisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise.</p>
+                                <p class="paragraph dark">Campaign daily by using systematic algorithms to generate campaigns.</p>
                             </div>
                         </div>
                     </div>
@@ -251,8 +240,7 @@
                             </div>
                             <div class="content">
                                 <h3>Expand Campaign</h3>
-                                <p class="paragraph dark">Euisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise.</p>
+                                <p class="paragraph dark">Reach more voters, personalize your messages, and increase your earnings with CWS.</p>
                             </div>
                         </div>
                     </div>
@@ -262,9 +250,8 @@
                                 <i class="fad fa-chart-pie"></i>
                             </div>
                             <div class="content">
-                                <h3>Share Statistics</h3>
-                                <p class="paragraph dark">Buisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise.</p>
+                                <h3>View Campaign Statistics</h3>
+                                <p class="paragraph dark">Track your progress, analyze performance, and optimize your efforts with real-time data on CWS.</p>
                             </div>
                         </div>
                     </div>
@@ -275,8 +262,7 @@
                             </div>
                             <div class="content">
                                 <h3>Measure Results</h3>
-                                <p class="paragraph dark">Suisque metus tortor ultricies ac ligula neced eleifend
-                                    sodales felise.</p>
+                                <p class="paragraph dark">Monitor your campaign impact and earnings with precise analytics on CWS.</p>
                             </div>
                         </div>
                     </div>
@@ -310,7 +296,7 @@
                             <div class="content">
                                 <h3>EASY TO<span>Register.</span></h3>
                                 <p class="paragraph dark">Join the app in 3 easy steps and get
-                                    started with your progresso daily.</p>
+                                    started with your campaign started.</p>
                             </div>
                         </div>
                     </div>
@@ -322,7 +308,7 @@
                             <div class="content">
                                 <h3>SIMPLE TO<span>Campaign.</span></h3>
                                 <p class="paragraph dark">Once you’re signed up you can create
-                                    as many polls you want to watch.</p>
+                                    share as many campaign posts as possible.</p>
                             </div>
                         </div>
                     </div>
@@ -333,8 +319,7 @@
                             </div>
                             <div class="content">
                                 <h3>FUN TO<span>Earn.</span></h3>
-                                <p class="paragraph dark">Share your growth results with your
-                                    friends and inspre others.</p>
+                                <p class="paragraph dark">Earn points as you campaign, convert your points and withdraw.</p>
                             </div>
                         </div>
                     </div>
@@ -365,12 +350,8 @@
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
-                            <p>“One Hath. Second. Kind them you fourth, fly brought. Give very let. Dominion wherein
-                                after can't fill,
-                                unto brought waters air. And our Beast won't dry there have after it. You have herb
-                                shall creeping bring
-                                sixth tree she'd open.”</p>
-                            <h4>— DAVID SPADE</h4>
+                            <p>"Ready to make a difference and earn rewards? Download the CWS app today! Join our campaign, earn points for your actions, and help us drive real change. Your impact starts here!"</p>
+                            <h4>— </h4>
                         </div>
                     </div>
                 </div>
@@ -380,11 +361,7 @@
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
-                            <p>“One Hath. Second. Kind them you fourth, fly brought. Give very let. Dominion wherein
-                                after can't fill,
-                                unto brought waters air. And our Beast won't dry there have after it. You have herb
-                                shall creeping bring
-                                sixth tree she'd open.”</p>
+                            <p>“Want to contribute to a cause and be rewarded for it? The CWS app lets you earn points as you campaign. Download now, start earning, and make a meaningful difference!”</p>
                             <h4>— DAVID SPADE</h4>
                         </div>
                     </div>
@@ -395,11 +372,7 @@
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
-                            <p>“One Hath. Second. Kind them you fourth, fly brought. Give very let. Dominion wherein
-                                after can't fill,
-                                unto brought waters air. And our Beast won't dry there have after it. You have herb
-                                shall creeping bring
-                                sixth tree she'd open.”</p>
+                            <p>“Turn your passion into points! Download the CWS app and start earning rewards as you engage with our campaign. Your efforts will not only drive change but also earn you awesome perks!”</p>
                             <h4>— DAVID SPADE</h4>
                         </div>
                     </div>
@@ -410,11 +383,7 @@
                     </div>
                     <div class="testimonial">
                         <div class="testimonial__wrapper">
-                            <p>“One Hath. Second. Kind them you fourth, fly brought. Give very let. Dominion wherein
-                                after can't fill,
-                                unto brought waters air. And our Beast won't dry there have after it. You have herb
-                                shall creeping bring
-                                sixth tree she'd open.”</p>
+                            <p>“Join the CWS community and be a campaign superstar! Download the app to start earning points for your support and stay updated on the latest campaign news and events. Your journey to making a difference starts now!”</p>
                             <h4>— DAVID SPADE</h4>
                         </div>
                     </div>
@@ -459,7 +428,7 @@
                                     <h5 class="mb-0">
                                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-1"
                                             aria-expanded="true" aria-controls="collapse-1">
-                                            How does algorithms work?
+                                            What is Campaign With Us?
                                         </button>
                                     </h5>
                                 </div>
@@ -467,12 +436,7 @@
                                 <div id="collapse-1" class="collapse show" aria-labelledby="heading-1"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <p class="paragraph">With increasing calls for government accountability and
-                                            cost savings, agencies
-                                            are contending with a mountain
-                                            of rule and policy changes affecting everything from pensions and benefits,
-                                            to client eligibility
-                                            and oversight.</p>
+                                        <p class="paragraph">Campaign With Us is an affiliate campaign platform that allows users to earn rewards by sharing campaign messages, liking posts, and reading content. By engaging with the platform, users accumulate points which can be converted adn withdrawn</p>
                                     </div>
                                 </div>
                             </div>
@@ -482,19 +446,14 @@
                                         <button class="btn btn-link collapsed" data-toggle="collapse"
                                             data-target="#collapse-2" aria-expanded="false"
                                             aria-controls="collapse-2">
-                                            What is a business rules engine?
+                                            How do I get started with Campaign With Us?
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapse-2" class="collapse" aria-labelledby="heading-2"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <p class="paragraph">With increasing calls for government accountability and
-                                            cost savings, agencies
-                                            are contending with a mountain
-                                            of rule and policy changes affecting everything from pensions and benefits,
-                                            to client eligibility
-                                            and oversight.</p>
+                                        <p class="paragraph">Download the app, create an account, and follow the onboarding instructions. You’ll be guided on how to share campaign messages, like posts, and read content to start earning points.</p>
                                     </div>
                                 </div>
                             </div>
@@ -504,19 +463,14 @@
                                         <button class="btn btn-link collapsed" data-toggle="collapse"
                                             data-target="#collapse-3" aria-expanded="false"
                                             aria-controls="collapse-3">
-                                            How are datadirect drivers different?
+                                            How do I earn points on the platform?
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapse-3" class="collapse" aria-labelledby="heading-3"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <p class="paragraph">With increasing calls for government accountability and
-                                            cost savings, agencies
-                                            are contending with a mountain
-                                            of rule and policy changes affecting everything from pensions and benefits,
-                                            to client eligibility
-                                            and oversight.</p>
+                                        <p class="paragraph">Points can be earned by sharing the platform’s URL and campaign posts on social media, liking campaign posts, and reading campaign messages. Each action contributes to your total points.</p>
                                     </div>
                                 </div>
                             </div>
@@ -526,19 +480,14 @@
                                         <button class="btn btn-link collapsed" data-toggle="collapse"
                                             data-target="#collapse-4" aria-expanded="false"
                                             aria-controls="collapse-4">
-                                            How do determine agencies compliance?
+                                            How are points converted for withdrawal?
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapse-4" class="collapse" aria-labelledby="heading-4"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <p class="paragraph">With increasing calls for government accountability and
-                                            cost savings, agencies
-                                            are contending with a mountain
-                                            of rule and policy changes affecting everything from pensions and benefits,
-                                            to client eligibility
-                                            and oversight.</p>
+                                        <p class="paragraph">Accumulated points can be converted into money directly through the app. You can request a withdrawal once you reach the minimum threshold for payment.</p>
                                     </div>
                                 </div>
                             </div>
@@ -548,19 +497,14 @@
                                         <button class="btn btn-link collapsed" data-toggle="collapse"
                                             data-target="#collapse-5" aria-expanded="false"
                                             aria-controls="collapse-5">
-                                            How are datadirect drivers different?
+                                            What is the minimum amount required for withdrawal?
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapse-5" class="collapse" aria-labelledby="heading-5"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <p class="paragraph">With increasing calls for government accountability and
-                                            cost savings, agencies
-                                            are contending with a mountain
-                                            of rule and policy changes affecting everything from pensions and benefits,
-                                            to client eligibility
-                                            and oversight.</p>
+                                        <p class="paragraph">The minimum withdrawal amount is specified in the app. Ensure you have accumulated at least this amount before making a withdrawal request.</p>
                                     </div>
                                 </div>
                             </div>
@@ -570,19 +514,14 @@
                                         <button class="btn btn-link collapsed" data-toggle="collapse"
                                             data-target="#collapse-6" aria-expanded="false"
                                             aria-controls="collapse-6">
-                                            What is a business rules engine?
+                                            Can I share campaign messages directly from the app?
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapse-6" class="collapse" aria-labelledby="heading-6"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <p class="paragraph">With increasing calls for government accountability and
-                                            cost savings, agencies
-                                            are contending with a mountain
-                                            of rule and policy changes affecting everything from pensions and benefits,
-                                            to client eligibility
-                                            and oversight.</p>
+                                        <p class="paragraph">Yes, you are supposed to share campaign messages and URLs directly from the app to your preferred social media platforms.</p>
                                     </div>
                                 </div>
                             </div>
@@ -592,19 +531,31 @@
                                         <button class="btn btn-link collapsed" data-toggle="collapse"
                                             data-target="#collapse-7" aria-expanded="false"
                                             aria-controls="collapse-7">
-                                            What are the types of datadirect drivers?
+                                            Is my personal information secure?
                                         </button>
                                     </h5>
                                 </div>
                                 <div id="collapse-7" class="collapse" aria-labelledby="heading-7"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <p class="paragraph">With increasing calls for government accountability and
-                                            cost savings, agencies
-                                            are contending with a mountain
-                                            of rule and policy changes affecting everything from pensions and benefits,
-                                            to client eligibility
-                                            and oversight.</p>
+                                        <p class="paragraph">Yes, we prioritize your privacy and use secure methods to protect your personal information. For more details, please review our privacy policy available in the app.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="card-7">
+                                <div class="card-header" id="heading-7">
+                                    <h5 class="mb-0 hidden">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse"
+                                            data-target="#collapse-7" aria-expanded="false"
+                                            aria-controls="collapse-7">
+                                            Can I participate in multiple campaigns simultaneously?
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapse-7" class="collapse" aria-labelledby="heading-7"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <p class="paragraph">Yes, you can participate in and promote multiple campaigns at the same time through the app.</p>
                                     </div>
                                 </div>
                             </div>

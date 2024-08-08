@@ -57,27 +57,27 @@
 
         <li class="menu-label">Application SetUp</li>
         <li>
-            <a href="#">
+            <a href="{{ route('admin.banners') }}">
                 <div class="parent-icon"><ion-icon name="albums"></ion-icon>
                 </div>
                 <div class="menu-title">Banners</div>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('admin.events') }}">
                 <div class="parent-icon"><ion-icon name="today"></ion-icon>
                 </div>
                 <div class="menu-title">Events</div>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{ route('admin.manifesto') }}">
                 <div class="parent-icon"><ion-icon name="library"></ion-icon>
                 </div>
                 <div class="menu-title">Manifesto</div>
             </a>
         </li>
-    
+
         <li class="menu-label">Advertisements</li>
         <li>
             <a href="#">

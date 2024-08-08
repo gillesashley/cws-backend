@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAccessController;
+use App\Http\Controllers\ApplicationSetupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -94,6 +95,11 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
 
         // Admin Roles
         Route::resource('admin-roles', AdminRoleController::class)->names('roles');
+
+        // Application setup
+        Route::get('/banners', [ApplicationSetupController::class, 'banners'])->name('banners');
+        Route::get('/events', [ApplicationSetupController::class, 'events'])->name('events');
+        Route::get('/manifesto', [ApplicationSetupController::class, 'manifesto'])->name('manifesto');
     });
 
     // Targeted Messages (SMS and WhatsApp)

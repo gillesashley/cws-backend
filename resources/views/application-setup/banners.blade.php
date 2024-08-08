@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-        <!--start breadcrumb-->
+<!--start breadcrumb-->
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Mobile App Banner</div>
     <div class="ps-3">

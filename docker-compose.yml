@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: cws-api-app
-    container_name: cws_api_app
+    # container_name: cws_api_app
     restart: unless-stopped
     working_dir: /var/www
     volumes:
@@ -15,6 +15,7 @@ services:
     user: "www-data:www-data"
     networks:
       - app-network
+    env_file: .env
     environment:
       - APP_ENV=${APP_ENV}
       - APP_DEBUG=${APP_DEBUG}
@@ -32,11 +33,21 @@ services:
         chmod -R 775 /var/www/storage /var/www/bootstrap/cache
         php-fpm
       "
+    deploy:
+      replicas: 1
+      resources: &app_resources
+        limits:
+          cpus: '0.95'
+          memory: 256M
+        reservations:
+          cpus: '0.01'
+          memory: 128M
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: cws_phpmyadmin
+    # container_name: cws_phpmyadmin
     platform: linux/amd64
+    env_file: .env
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
@@ -48,14 +59,18 @@ services:
       - app-network
     depends_on:
       - db
+    deploy:
+      resources:
+        <<: *app_resources
 
   db:
-    image: mysql:8.0
-    container_name: cws_api_db
+    image: mysql:${MYSQL_VERSION:-8.0}
+    # container_name: cws_api_db
     restart: unless-stopped
+    env_file: .env
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
@@ -65,7 +80,7 @@ services:
 
   nginx:
     image: nginx:alpine
-    container_name: cws_api_nginx
+    # container_name: cws_api_nginx
     restart: unless-stopped
     ports:
       - "8080:80"

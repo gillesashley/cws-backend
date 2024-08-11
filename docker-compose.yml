@@ -20,7 +20,7 @@ services:
       - APP_ENV=${APP_ENV}
       - APP_DEBUG=${APP_DEBUG}
       - APP_KEY=${APP_KEY}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=${DB_HOST:-db}
       - DB_PORT=${DB_PORT}
       - DB_DATABASE=${DB_DATABASE}
       - DB_USERNAME=${DB_USERNAME}
@@ -30,8 +30,8 @@ services:
 
     entrypoint: |
       sh -c "
-        chmod -R 775 /var/www/storage /var/www/bootstrap/cache
-        php-fpm
+        chmod -R 775  /var/www/storage /var/www/bootstrap/
+        npm run dev &1> /dev/null & php-fpm
       "
     deploy:
       replicas: 1

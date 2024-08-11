@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -25,7 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('constituency_id');
             $table->integer('points')->default(0);
             $table->string('area');
-            $table->enum('role', ['user', 'constituency_admin', 'regional_admin', 'national_admin', 'super_admin'])->default('user');
+            $table->enum('role', ['user', 'constituency_admin', 'regional_admin', 'national_admin', 'application_admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();
 

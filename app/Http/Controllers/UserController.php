@@ -18,10 +18,11 @@ class UserController extends Controller
 {
     public function index(Request $request): View|Factory|Application
     {
-        $users = User::with(['region', 'constituency'])->paginate(15);
+        $userRoles = $request->get('userRoles', null);
+        $users = User::with(['region', 'constituency'])->when($userRoles, fn($q) => $q->whereIn('role', $userRoles))->paginate(15);
         $regions = Region::all();
         $constituencies = Constituency::all();
-        return view('admin.users.index', compact('users', 'regions', 'constituencies'));
+        return view('admin.users.index', compact('users', 'regions', 'constituencies', 'userRoles'));
     }
 
     public function create(): View|Factory|Application
@@ -38,7 +39,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
+            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,application_admin',
             'region_id' => 'required|exists:regions,id',
             'constituency_id' => 'required|exists:constituencies,id',
         ]);
@@ -69,7 +70,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
+            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,application_admin',
             'region_id' => 'required|exists:regions,id',
             'constituency_id' => 'required|exists:constituencies,id',
         ]);

@@ -29,7 +29,7 @@ class UpdateUserRequest extends FormRequest
             'date_of_birth' => 'sometimes|date',
             'constituency_id' => 'sometimes|exists:constituencies,id',
             'area' => 'sometimes|string|max:255',
-            'role' => 'sometimes|in:user,constituency_admin,regional_admin,national_admin,super_admin',
+            'role' => 'sometimes|in:user,constituency_admin,regional_admin,national_admin,application_admin',
         ];
     }
 }

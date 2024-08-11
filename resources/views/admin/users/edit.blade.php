@@ -27,7 +27,7 @@
                             <option value="constituency_admin">Constituency Admin</option>
                             <option value="regional_admin">Regional Admin</option>
                             <option value="national_admin">National Admin</option>
-                            <option value="super_admin">Super Admin</option>
+                            <option value="application_admin">Super Admin</option>
                         </select>
                     </div>
                     <div class="mb-3">

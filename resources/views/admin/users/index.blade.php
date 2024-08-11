@@ -47,68 +47,84 @@
 
     <div class="card radius-10 w-100">
         <div class="card-body">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center gap-5">
                 <h6 class="mb-0">Users</h6>
-                <div class="fs-5 ms-auto dropdown">
-                    <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown">
-                        <i class="bi bi-three-dots"></i>
-                    </div>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
-            </div><br>
 
-
-            <table id="example" class="table-responsive table table-striped table-bordered align-middle mb-0"
-                style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Region</th>
-                        <th>Constituency</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $index => $user)
-                        <tr>
-                            <td>{{ $users->firstItem() + $index }}</td>
-                            <td>{{ $user['name'] }}</td>
-                            <td>{{ $user['email'] }}</td>
-                            <td>{{ $user['role'] }}</td>
-                            <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
-                            <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
-                            <td class="d-flex gap-2">
-                                <button type="button" class="btn btn-sm btn-primary edit-user-btn" data-bs-toggle="modal"
-                                    data-bs-target="#editUserModal" data-user="{{ $user?->toJson() }}">
-                                    Edit
-                                </button>
-
-                                <form action="{{ route('admin.users.destroy', ['user' => $user['id']]) }}" method="DELETE">
-                                    @csrf
-                                    <button type="button" class="btn btn-sm btn-danger delete-user-btn"
-                                        data-name="{{ $user->name }}">Delete</button>
-                                </form>
-
-                            </td>
-                        </tr>
+                <form class="filter-role-opttionsp" name='filter-roles' action="{{ route('admin.users.index') }}">
+                    @foreach (['user', 'constituency_admin', 'regional_admin', 'national_admin', 'application_admin'] as $key => $uRole)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="userRoles[{{ $key }}]"
+                                value="{{ $uRole }}" checked={{ in_array($uRole, $userRoles ?? []) }}>
+                            <label class="form-check-label text-capitalize"
+                                for="userRoles[{{ $key }}]">{{ str_replace('_', ' ', $uRole) }}</label>
+                        </div>
                     @endforeach
-                </tbody>
-            </table>
 
-            <div class="mt-3">
-                {{ $users->links('vendor.pagination.syn-ui') }}
+
+                    <button type="submit" class="btn btn-secondary btn-sm">Filter</button>
+                </form>
             </div>
+            <div class="fs-5 ms-auto dropdown">
+                <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown">
+                    <i class="bi bi-three-dots"></i>
+                </div>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+        </div><br>
+
+
+        <table id="example" class="table-responsive table table-striped table-bordered align-middle mb-0"
+            style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Region</th>
+                    <th>Constituency</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $index => $user)
+                    <tr>
+                        <td>{{ $users->firstItem() + $index }}</td>
+                        <td>{{ $user['name'] }}</td>
+                        <td>{{ $user['email'] }}</td>
+                        <td>{{ $user['role'] }}</td>
+                        <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
+                        <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
+                        <td class="d-flex gap-2">
+                            <button type="button" class="btn btn-sm btn-primary edit-user-btn" data-bs-toggle="modal"
+                                data-bs-target="#editUserModal" data-user="{{ $user?->toJson() }}">
+                                Edit
+                            </button>
+
+                            <form action="{{ route('admin.users.destroy', ['user' => $user['id']]) }}" method="POST">
+                                @csrf
+                                {{ method_field('delete') }}
+                                <button type="button" class="btn btn-sm btn-danger delete-user-btn"
+                                    data-name="{{ $user->name }}">Delete</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <div class="mt-3">
+            {{ $users->links('vendor.pagination.syn-ui') }}
         </div>
+    </div>
     </div>
 
     @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
@@ -171,40 +187,6 @@
                 }, 100);
             });
 
-            // Handle edit form submission
-            // $('#editUserForm').submit(function(e) {
-            //     e.preventDefault();
-            //     return;
-            //     const url = $(this).attr('action')
-            //     const data = $(this).serialize()
-
-            //     console.log({
-            //         data,
-            //         url
-            //     })
-            //     if (!/d+/.test(url)) return alert('Invalid url')
-
-            //     $.ajax({
-            //         url,
-            //         method: 'PUT',
-            //         data,
-            //         success: function(response) {
-            //             console.log({
-            //                 response
-            //             })
-            //             $('#editUserModal').modal('hide');
-            //             location.reload();
-            //         },
-            //         error: function(xhr, status, error) {
-            //             console.error("Error updating user:", error);
-            //             var errors = xhr.responseJSON.errors;
-            //             if (errors) {
-            //                 var errorMessage = errors[Object.keys(errors)[0]];
-            //                 alert(errorMessage);
-            //             }
-            //         }
-            //     });
-            // });
 
             // Event delegation for delete buttons
             $('.delete-user-btn').click(function(event) {
@@ -214,29 +196,22 @@
                         'Are you sure you want to delete this user (' + event.target.dataset.name +
                         ')? This action cannot be undone.'
                     )) {
-                    // var form = $('<form>', {
-                    //     'method': 'DELETE',
-                    //     'action': '{{ route('admin.users.destroy', ':user_id') }}'
-                    //         .replace(
-                    //             ':user_id', userId)
-                    // });
-                    // form.append('@csrf');
-                    // form.append('@method('DELETE')');
-                    // $('body').append(form);
+
                     const form = event.target.closest('form')
                     form.submit();
                 }
             });
 
-            // $('#region_id').change(function() {
-            //     var regionId = $(this).val();
-            //     var constituencySelect = $('#constituency_id');
-            //     constituencySelect.find('option').show();
-            //     if (regionId) {
-            //         constituencySelect.find('option').not('[data-region="' + regionId + '"]').hide();
-            //     }
-            //     constituencySelect.val('');
-            // });
+            $('#region_id').change(function() {
+                var regionId = $(this).val();
+                var constituencySelect = $('#constituency_id');
+                // show contituencies related to region
+                constituencySelect.find('option').show();
+                if (regionId) {
+                    constituencySelect.find('option').not('[data-region="' + regionId + '"]').hide();
+                }
+                constituencySelect.val('');
+            });
 
             // Function to show standard JavaScript alert
             function showAlert(message) {

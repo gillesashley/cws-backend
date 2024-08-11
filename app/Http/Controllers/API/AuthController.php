@@ -27,7 +27,7 @@ class AuthController extends Controller
             'constituency_id' => 'required|exists:constituencies,id',
             'region_id' => 'required|exists:regions,id',
             'area' => 'required|string|max:255',
-            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,super_admin',
+            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,application_admin',
         ]);
 
         // Handle file upload

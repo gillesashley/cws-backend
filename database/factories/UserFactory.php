@@ -47,7 +47,7 @@ class UserFactory extends Factory
             'constituency_id' => $constituency->id,
             'region_id' => $constituency->region_id,
             'area' => $this->faker->streetAddress,
-            'role' => $this->faker->randomElement(['user', 'constituency_admin', 'regional_admin', 'national_admin', 'super_admin']),
+            'role' => $this->faker->randomElement(['user', 'constituency_admin', 'regional_admin', 'national_admin', 'application_admin']),
             'remember_token' => Str::random(10),
         ];
     }
@@ -57,7 +57,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

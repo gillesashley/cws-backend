@@ -78,7 +78,7 @@ class AdminUsersSeeder extends Seeder
             ['email' => 'admin@example.com'],
             [
                 'name' => 'Super Admin',
-                'role' => 'super_admin',
+                'role' => 'application_admin',
                 'constituency_id' => Constituency::inRandomOrder()->first()->id,
                 'region_id' => Region::inRandomOrder()->first()->id,
                 'area' => fake()->streetAddress(),

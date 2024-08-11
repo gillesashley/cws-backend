@@ -132,11 +132,11 @@ class User extends Authenticatable
 
     public function isSuperAdmin()
     {
-        return $this->role === 'super_admin';
+        return $this->role === 'application_admin';
     }
 
     public function isAnyAdmin()
     {
-        return in_array($this->role, ['constituency_admin', 'regional_admin', 'national_admin', 'super_admin']);
+        return in_array($this->role, ['constituency_admin', 'regional_admin', 'national_admin', 'application_admin']);
     }
 }

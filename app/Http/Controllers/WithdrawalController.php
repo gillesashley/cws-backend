@@ -2,21 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class WithdrawalController extends Controller
 {
-    public function index()
+    public function index(): View|Application|Factory|RedirectResponse
     {
-        $response = Http::withToken(auth()->user()->api_token)->get(config('app.api_url') . '/reward-withdrawals');
+        try {
+            $token = auth()->user()->api_token;
+            if (!$token) {
+                throw new Exception('No API token available');
+            }
 
-        if ($response->successful()) {
-            $withdrawals = $response->json()['data'];
-            return view('admin.withdrawals.index', compact('withdrawals'));
+            $response = Http::withToken($token)->get(config('app.api_url') . '/reward-withdrawals');
+
+            if ($response->successful()) {
+                $withdrawals = $response->json()['data'];
+                if (!is_array($withdrawals)) {
+                    throw new Exception('Unexpected response format');
+                }
+                return view('points-and-payment.view-transaction', compact('withdrawals'));
+            } else {
+                throw new Exception('API request failed: ' . $response->body());
+            }
+        } catch (Exception $e) {
+            Log::error('Error in WithdrawalController@index: ' . $e->getMessage());
+            return back()->with('error', 'An error occurred while fetching withdrawal requests. Please try again later.');
         }
-
-        return back()->with('error', 'Unable to fetch withdrawal requests');
     }
 
     public function show($id)
@@ -33,11 +52,18 @@ class WithdrawalController extends Controller
 
     public function update(Request $request, $id)
     {
+        $status = $request->input('status');
+        $rejectionReason = $request->input('rejection_reason');
+
         $response = Http::withToken(auth()->user()->api_token)
-            ->put(config('app.api_url') . '/reward-withdrawals/' . $id, $request->all());
+            ->put(config('app.api_url') . '/reward-withdrawals/' . $id, [
+                'status' => $status,
+                'rejection_reason' => $rejectionReason
+            ]);
 
         if ($response->successful()) {
-            return redirect()->route('admin.withdrawals.index')->with('success', 'Withdrawal request updated successfully');
+            $message = $status === 'approved' ? 'Withdrawal request approved successfully' : 'Withdrawal request declined successfully';
+            return redirect()->route('admin.withdrawals.index')->with('success', $message);
         }
 
         return back()->withInput()->with('error', 'Failed to update withdrawal request');

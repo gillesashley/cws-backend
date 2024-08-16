@@ -6,6 +6,7 @@ use App\Models\TargetedMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Twilio\Rest\Client as TwilioClient;
 
@@ -36,12 +37,24 @@ class TargetedMessageController extends Controller
         $this->storeMessage($request, 'all');
     }
 
+    public static function getRecipients($user)
+    {
+        $user = $user ?? User::where('email', session('user')?->email)->firstOrFail();
+        return User::select('name', 'id', 'phone')
+            ->when($user->role === 'constituency_admin', fn($q) => $q->where('constituency_id', $user->constituency_id))
+            ->when($user->role === 'regional_admin', fn($q) => $q->where('region_id', $user->region_id))
+            ->get();
+    }
+
     public function smsIndex()
     {
         $messages = TargetedMessage::where('type', 'sms')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('targeted-messages.sms.index', compact('messages'));
+
+        $recipients = self::getRecipients(auth()->user());
+
+        return view('targeted-messages.sms.index', compact('messages', 'recipients'));
     }
 
     public function whatsappIndex()
@@ -49,19 +62,23 @@ class TargetedMessageController extends Controller
         $messages = TargetedMessage::where('type', 'whatsapp')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        return view('targeted-messages.whatsapp.index', compact('messages'));
+        $recipients = self::getRecipients(auth()->user());
+        return view('targeted-messages.whatsapp.index', compact('messages', 'recipients'));
     }
 
     public function smsCreate()
     {
         $constituencyMembers = $this->getConstituencyMembers();
-        return view('targeted-messages.sms.create', compact('constituencyMembers'));
+        $recipients = self::getRecipients(auth()->user());
+        return view('targeted-messages.sms.create', compact('constituencyMembers', 'recipients'));
     }
 
     public function whatsappCreate()
     {
         $constituencyMembers = $this->getConstituencyMembers();
-        return view('targeted-messages.whatsapp.create', compact('constituencyMembers'));
+        $recipients = self::getRecipients(auth()->user());
+
+        return view('targeted-messages.whatsapp.create', compact('constituencyMembers', 'recipients'));
     }
 
     public function smsStore(Request $request)
@@ -71,16 +88,19 @@ class TargetedMessageController extends Controller
 
     public function whatsappStore(Request $request)
     {
+        Log::info('whatsappStore.fired.started');
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'recipients' => 'required|array',
-            'recipients.*' => 'exists:users,id',
-            'media.*' => 'nullable|file|mimes:jpeg,png,gif,mp4|max:16384', // 16MB max
+            // 'recipients' => 'required|array',
+            // 'recipients.*' => 'exists:users,id',
+            'media.*' => 'sometimes|nullable|file|mimes:jpeg,png,gif,mp4|max:16384', // 16MB max
         ]);
+        Log::info('whatsappStore.fired.validated');
 
-        $user = auth()->user();
-        $recipients = User::whereIn('id', $request->recipients)->get();
+        $user = auth()->user() ?? User::where('email', session('user')->email)->firstorfail();
+        // $recipients = User::whereIn('id', $request->recipients)->get();
+        $recipients = self::getRecipients($user);
 
         $mediaUrls = [];
         if ($request->hasFile('media')) {
@@ -100,17 +120,22 @@ class TargetedMessageController extends Controller
             'media_urls' => json_encode($mediaUrls),
         ]);
 
+        Log::info('whatsappStore.fired.message.created');
+
         $successCount = 0;
         $failureCount = 0;
 
         foreach ($recipients as $recipient) {
             try {
                 $this->sendWhatsAppWithMedia($recipient->phone, $request->content, $mediaUrls);
+                Log::info('whatsappStore.fired.message.dispatch.queue');
                 $successCount++;
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 $failureCount++;
             }
         }
+        Log::info('whatsappStore.fired.recipients.count: ' . count($recipients), compact('successCount', 'failureCount'));
 
         $targetedMessage->update([
             'success_count' => $successCount,
@@ -124,15 +149,17 @@ class TargetedMessageController extends Controller
 
     private function storeMessage(Request $request, $type)
     {
+        Log::info('sms.fired');
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string|max:160',
-            'recipients' => 'required|array',
-            'recipients.*' => 'exists:users,id',
+            // 'recipients' => 'required|array',
+            // 'recipients.*' => 'exists:users,id',
         ]);
 
-        $user = auth()->user();
-        $recipients = User::whereIn('id', $request->recipients)->get();
+        Log::info('sms.fired.validated');
+        $user = User::where('email', auth()->user()?->email ?? session('user')->email)->firstorfail();
+        $recipients = self::getRecipients(auth()->user());
 
         $targetedMessage = TargetedMessage::create([
             'user_id' => $user->id,
@@ -151,9 +178,12 @@ class TargetedMessageController extends Controller
                 $this->sendSms($recipient->phone, $request->content);
                 $successCount++;
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 $failureCount++;
             }
         }
+
+        Log::info("success", compact('successCount', 'failureCount'));
 
         $targetedMessage->update([
             'success_count' => $successCount,
@@ -166,12 +196,15 @@ class TargetedMessageController extends Controller
 
     private function sendSms($to, $message)
     {
-        $this->twilioClient->messages->create(
-            $to,
-            [
-                'from' => config('services.twilio.phone_number'),
-                'body' => $message,
-            ]
+        dispatch(
+            fn() => $this->twilioClient->messages->create(
+                $to,
+                [
+                    'from' => config('services.twilio.phone_number'),
+                    'body' => $message,
+                ]
+            )
+
         );
     }
 
@@ -186,9 +219,12 @@ class TargetedMessageController extends Controller
             $messageData['mediaUrl'] = array_map('asset', $mediaUrls);
         }
 
-        $this->twilioClient->messages->create(
-            "whatsapp:$to",
-            $messageData
+        dispatch(
+            fn() =>
+            $this->twilioClient->messages->create(
+                "whatsapp:$to",
+                $messageData
+            )
         );
     }
 

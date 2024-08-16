@@ -44,7 +44,8 @@ class MessagingController extends Controller
     {
         try {
             $request->validate([
-                'to' => 'required|string',
+                'to' => 'required|array|min:1',
+                'to.*' => 'required|string',
                 'message' => 'required|string',
             ]);
 
@@ -66,7 +67,8 @@ class MessagingController extends Controller
     {
         try {
             $request->validate([
-                'to' => 'required|string',
+                'to' => 'required|array|min:1',
+                'to.*' => 'required|string',
                 'message' => 'required|string',
             ]);
 

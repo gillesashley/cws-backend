@@ -53,6 +53,31 @@
     </div>
 </div>
 
- 
+<table id="example" class="table-responsive table table-striped table-bordered align-middle mb-0"
+            style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Constituency</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <tr>
+                        <td>001</td>
+                        <td>Kwame Asamoah</td>
+                        <td>South Gbawe</td>
+                        <td>Ghc 350</td>
+                        <td></td>
+                        <td></td>
+                        
+                    </tr>
+                
+            </tbody>
+
 </div> 
 @endsection

@@ -62,7 +62,9 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
         ]);
 
         // Withdrawals
-        Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('withdrawals');
+//        Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('withdrawals');
+        Route::get('withdrawals', [WithdrawalController::class, 'index'])->name('withdrawals.index');
+        Route::put('admin/withdrawals/{id}', [WithdrawalController::class, 'update'])->name('admin.withdrawals.update');
 
         // Analytics
         Route::prefix('analytics')->name('analytics.')->group(function () {

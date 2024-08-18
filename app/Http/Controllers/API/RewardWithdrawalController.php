@@ -9,15 +9,18 @@ use App\Http\Resources\RewardWithdrawalResource;
 use App\Models\Point;
 use App\Models\PointTransaction;
 use App\Models\RewardWithdrawal;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class RewardWithdrawalController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
         if ($request->user()->cannot('viewAny', RewardWithdrawal::class)) {
             abort(403);
@@ -31,6 +34,9 @@ class RewardWithdrawalController extends Controller
             ->allowedSorts(['created_at', 'amount'])
             ->allowedIncludes(['user'])
             ->paginate();
+
+        Log::info('API Withdrawals Query: ' . $withdrawals->toSql());
+        Log::info('API Withdrawals Count: ' . $withdrawals->count());
 
         return RewardWithdrawalResource::collection($withdrawals);
     }
@@ -83,7 +89,7 @@ class RewardWithdrawalController extends Controller
 
             DB::commit();
             return new RewardWithdrawalResource($withdrawal);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return response()->json(['message' => 'Failed to process withdrawal request'], 500);
         }

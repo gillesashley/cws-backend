@@ -23,8 +23,11 @@ class WithdrawalController extends Controller
 
             $response = Http::withToken($token)->get(config('app.api_url') . '/reward-withdrawals');
 
+            Log::info('API Response: ' . $response->body());
+
             if ($response->successful()) {
                 $withdrawals = $response->json()['data'] ?? [];
+                Log::info('Withdrawals: ' . json_encode($withdrawals));
                 if (!is_array($withdrawals)) {
                     throw new Exception('Unexpected response format');
                 }

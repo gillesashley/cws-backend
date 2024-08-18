@@ -80,64 +80,72 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($withdrawals as $withdrawal)
-                <tr>
-                    <td>{{ $withdrawal['id'] }}</td>
-                    <td>{{ $withdrawal['user']['name'] }}</td>
-                    <td>{{ $withdrawal['user']['constituency']['name'] }}</td>
-                    <td>GHC {{ number_format($withdrawal['amount'], 2) }}</td>
-                    <td>{{ ucfirst($withdrawal['status']) }}</td>
-                    <td>
-                        @if($withdrawal['status'] === 'pending')
-                            <form action="{{ route('admin.withdrawals.update', $withdrawal['id']) }}" method="POST"
-                                  class="d-inline">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="status" value="approved">
-                                <button type="submit" class="btn btn-sm btn-success">Accept</button>
-                            </form>
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#declineModal{{ $withdrawal['id'] }}">
-                                Decline
-                            </button>
-                        @else
-                            N/A
-                        @endif
-                    </td>
-                </tr>
+            @if(isset($withdrawals) && is_array($withdrawals))
+                @foreach($withdrawals as $withdrawal)
+                    <tr>
+                        <td>{{ $withdrawal['id'] }}</td>
+                        <td>{{ $withdrawal['user']['name'] }}</td>
+                        <td>{{ $withdrawal['user']['constituency']['name'] }}</td>
+                        <td>GHC {{ number_format($withdrawal['amount'], 2) }}</td>
+                        <td>{{ ucfirst($withdrawal['status']) }}</td>
+                        <td>
+                            @if($withdrawal['status'] === 'pending')
+                                <form action="{{ route('admin.withdrawals.update', $withdrawal['id']) }}" method="POST"
+                                      class="d-inline">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="status" value="approved">
+                                    <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                                </form>
+                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#declineModal{{ $withdrawal['id'] }}">
+                                    Decline
+                                </button>
+                            @else
+                                N/A
+                            @endif
+                        </td>
+                    </tr>
 
-                <!-- Decline Modal -->
-                <div class="modal fade" id="declineModal{{ $withdrawal['id'] }}" tabindex="-1"
-                     aria-labelledby="declineModalLabel{{ $withdrawal['id'] }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="declineModalLabel{{ $withdrawal['id'] }}">Decline Withdrawal
-                                    Request</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <form action="{{ route('admin.withdrawals.update', $withdrawal['id']) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-body">
-                                    <input type="hidden" name="status" value="rejected">
-                                    <div class="mb-3">
-                                        <label for="rejection_reason" class="form-label">Reason for Declining</label>
-                                        <textarea class="form-control" id="rejection_reason" name="rejection_reason"
-                                                  rows="3" required></textarea>
+                    <!-- Decline Modal -->
+                    <div class="modal fade" id="declineModal{{ $withdrawal['id'] }}" tabindex="-1"
+                         aria-labelledby="declineModalLabel{{ $withdrawal['id'] }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="declineModalLabel{{ $withdrawal['id'] }}">Decline
+                                        Withdrawal
+                                        Request</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('admin.withdrawals.update', $withdrawal['id']) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body">
+                                        <input type="hidden" name="status" value="rejected">
+                                        <div class="mb-3">
+                                            <label for="rejection_reason" class="form-label">Reason for
+                                                Declining</label>
+                                            <textarea class="form-control" id="rejection_reason" name="rejection_reason"
+                                                      rows="3" required></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                    </button>
-                                    <button type="submit" class="btn btn-danger">Decline Request</button>
-                                </div>
-                            </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-danger">Decline Request</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @else
+                <tr>
+                    <td colspan="6">No withdrawal requests found.</td>
+                </tr>
+            @endif
             </tbody>
         </table>
     </div>

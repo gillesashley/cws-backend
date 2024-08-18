@@ -24,11 +24,11 @@ class WithdrawalController extends Controller
             $response = Http::withToken($token)->get(config('app.api_url') . '/reward-withdrawals');
 
             if ($response->successful()) {
-                $withdrawals = $response->json()['data'];
+                $withdrawals = $response->json()['data'] ?? [];
                 if (!is_array($withdrawals)) {
                     throw new Exception('Unexpected response format');
                 }
-                return view('points-and-payment.view-transaction', compact('withdrawals'));
+                return view('points-and-payment.view-transaction', ['withdrawals' => $withdrawals]);
             } else {
                 throw new Exception('API request failed: ' . $response->body());
             }

@@ -74,6 +74,7 @@ services:
     deploy:
       resources:
         <<: *app_resources
+    profiles: [inspect]
 
   db:
     image: mysql:${MYSQL_VERSION:-8.0}

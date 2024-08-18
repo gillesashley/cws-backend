@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PointTransactionResource;
 use App\Models\PointTransaction;
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -51,14 +53,26 @@ class PointTransactionController extends Controller
 
         // Validation logic here
         $validatedData = $request->validate([
-            'points' => 'required|integer',
+            // 'points' => 'required|integer',
             'transaction_type' => 'required|string',
             'related_id' => 'nullable|integer',
             'related_type' => 'nullable|string',
         ]);
 
+        $recentPoints = PointTransaction::where($validatedData + ['user_id' => auth()->id()])->where('created_at', '>=', now()->subMinutes(30))->latest()->get();
+        if (
+            $recentPoints->count()
+        ) {
+            $cooldown_ends_at = Carbon::parse($recentPoints->first()->created_at)->addMinutes(30)->fromNow();
+            abort(208, "You can earn points for this message after cool down period ends {$cooldown_ends_at}");
+        }
+
+        $readCounts = PointTransaction::where($validatedData + ['user_id' => auth()->id()])->count();
+
         $pointTransaction = PointTransaction::create($validatedData + [
             'user_id' => $request->user()->id,
+            'point_id' => PointTransaction::firstOrCreate(['user_id' => auth()->id()])->id,
+            'points' => intval(30 * pow(0.70, $readCounts))
         ]);
 
         return new PointTransactionResource($pointTransaction);

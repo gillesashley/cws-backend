@@ -1,6 +1,6 @@
 
 services:
-  app:
+  app: &app
     build:
       context: .
       dockerfile: Dockerfile
@@ -31,7 +31,7 @@ services:
     entrypoint: |
       sh -c "
         chmod -R 775  /var/www/storage /var/www/bootstrap/
-        npm run dev &1> /dev/null & php-fpm
+        npm run dev &1> /dev/null && php-fpm
       "
     deploy:
       replicas: 1
@@ -42,6 +42,18 @@ services:
         reservations:
           cpus: '0.01'
           memory: 128M
+
+  queue:
+    <<: *app
+    depends_on:
+      - db
+    entrypoint: |
+      sh -c "
+        php artisan queue:work
+      "
+    deploy:
+      replicas: 3
+      # <<: *app_resources
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -62,6 +74,7 @@ services:
     deploy:
       resources:
         <<: *app_resources
+    profiles: [inspect]
 
   db:
     image: mysql:${MYSQL_VERSION:-8.0}

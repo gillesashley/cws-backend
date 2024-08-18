@@ -213,19 +213,7 @@
                 constituencySelect.val('');
             });
 
-            // Function to show standard JavaScript alert
-            function showAlert(message) {
-                alert(message);
-            }
 
-            // Show flash messages on page load
-            @if (session('success'))
-                showAlert("{{ session('success') }}");
-            @endif
-
-            @if (session('error'))
-                showAlert("{{ session('error') }}");
-            @endif
         });
     </script>
 @endPushOnce

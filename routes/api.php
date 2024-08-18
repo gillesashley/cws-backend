@@ -50,7 +50,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('campaign-messages/{campaignMessage}/like', [LikeController::class, 'destroy']);
     Route::post('campaign-messages/{campaignMessage}/share', [ShareController::class, 'share']);
 
-    Route::apiResource('point-transactions', PointTransactionController::class)->only(['index', 'show']);
+    Route::apiResource('point-transactions', PointTransactionController::class);
     Route::apiResource('reward-withdrawals', RewardWithdrawalController::class)->except(['destroy']);
     Route::apiResource('notifications', NotificationController::class)->only(['index', 'show']);
     Route::patch('notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead']);

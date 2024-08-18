@@ -18,3 +18,9 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+.bash_history
+.composer/
+.config/
+.local/
+.npm/

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,28 +17,41 @@ class WithdrawalController extends Controller
     public function index(): View|Application|Factory|RedirectResponse
     {
         try {
-            $token = auth()->user()->api_token;
+            $token = session('token');
+
             if (!$token) {
                 throw new Exception('No API token available');
             }
 
-            $response = Http::withToken($token)->get(config('app.api_url') . '/reward-withdrawals');
+
+            $api_url = config('app.docker_api_url', config('app.api_url'));
+
+            $url = $api_url . '/reward-withdrawals?include=user.constituency&' . implode('&', ["page=" . request()->input('page', 1), 'withPath=/admin/view-transactions']);
+            $response = Http::withToken($token)->get($url);
+
 
             Log::info('API Response: ' . $response->body());
 
             if ($response->successful()) {
-                $withdrawals = $response->json()['data'] ?? [];
+                $withdrawals = $response->json('data', []);
                 Log::info('Withdrawals: ' . json_encode($withdrawals));
                 if (!is_array($withdrawals)) {
                     throw new Exception('Unexpected response format');
                 }
-                return view('points-and-payment.view-transaction', ['withdrawals' => $withdrawals]);
+
+                $meta = $response->json('meta', []);
+
+                debug($response->json('meta'));
+                return view('points-and-payment.view-transaction', compact('withdrawals', 'meta'));
             } else {
                 throw new Exception('API request failed: ' . $response->body());
             }
         } catch (Exception $e) {
             Log::error('Error in WithdrawalController@index: ' . $e->getMessage());
-            return back()->with('error', 'An error occurred while fetching withdrawal requests. Please try again later.');
+            Log::info(session('token'), compact('url'));
+            return back()
+                ->withException($e)
+                ->with('error', 'An error occurred while fetching withdrawal requests. Please try again later.');
         }
     }
 

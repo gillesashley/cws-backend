@@ -28,6 +28,8 @@ return [
 
     'api_url' => env('API_BASE_URL', 'http://localhost/api'),
 
+    'docker_api_url' => env('DOCKER_API_URL'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

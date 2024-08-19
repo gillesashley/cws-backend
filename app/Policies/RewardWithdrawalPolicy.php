@@ -34,4 +34,8 @@ class RewardWithdrawalPolicy
     {
         return $user->isSuperAdmin();
     }
+
+    public function viewAny(User $user){
+        return $user->isAnyAdmin();
+    }
 }

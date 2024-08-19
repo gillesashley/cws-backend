@@ -62,8 +62,8 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
         ]);
 
         // Withdrawals
-//        Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('withdrawals');
-        Route::get('/view-transactions', [WithdrawalController::class, 'index'])->name('withdrawals.index');
+        Route::resource('withdrawals', WithdrawalController::class)->except(['create', 'store', 'destroy'])->names('withdrawals');
+        Route::get('/view-transactions', [WithdrawalController::class, 'index'])->name('withdrawals');
         Route::put('admin/withdrawals/{id}', [WithdrawalController::class, 'update'])->name('admin.withdrawals.update');
 
         // Analytics
@@ -90,7 +90,7 @@ Route::middleware([SimpleAuthCheck::class])->group(function () {
 
         // Points and Payment
         Route::get('/points-and-payment', [PointsAndPaymentController::class, 'index'])->name('points-and-payment.index');
-        Route::get('/view-transactions', [PointsAndPaymentController::class, 'viewTransactions'])->name('view-transactions');
+        // Route::get('/view-transactions', [PointsAndPaymentController::class, 'viewTransactions'])->name('view-transactions');
 
         // Point Transactions
         Route::resource('point-transactions', PointTransactionController::class)->only(['index', 'show'])->names('point-transactions');

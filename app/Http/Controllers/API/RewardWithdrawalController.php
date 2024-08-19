@@ -22,8 +22,9 @@ class RewardWithdrawalController extends Controller
 
     public function index(Request $request): AnonymousResourceCollection
     {
-        if ($request->user()->cannot('viewAny', RewardWithdrawal::class)) {
-            abort(403);
+        $authorized = $request->user()->cannot('viewAny', RewardWithdrawal::class);
+        if ($authorized) {
+            abort(403, 'Restricted: admin-operation' . auth()->user()->isAnyAdmin());
         }
 
         $withdrawals = QueryBuilder::for(RewardWithdrawal::class)
@@ -32,13 +33,13 @@ class RewardWithdrawalController extends Controller
                 AllowedFilter::exact('status'),
             ])
             ->allowedSorts(['created_at', 'amount'])
-            ->allowedIncludes(['user'])
+            ->allowedIncludes(['user.constituency'])
             ->paginate();
 
-        Log::info('API Withdrawals Query: ' . $withdrawals->toSql());
+        Log::info('API Withdrawals Query: ' . $withdrawals);
         Log::info('API Withdrawals Count: ' . $withdrawals->count());
 
-        return RewardWithdrawalResource::collection($withdrawals);
+        return RewardWithdrawalResource::collection($withdrawals->withPath($request->input('withPath')));
     }
 
 
@@ -81,7 +82,7 @@ class RewardWithdrawalController extends Controller
             PointTransaction::create([
                 'user_id' => $user->id,
                 'point_id' => $userPoints->id,
-                'points' => - ($amount * 50),
+                'points' => -($amount * 50),
                 'transaction_type' => 'withdrawal',
                 'related_id' => $withdrawal->id,
                 'related_type' => RewardWithdrawal::class,

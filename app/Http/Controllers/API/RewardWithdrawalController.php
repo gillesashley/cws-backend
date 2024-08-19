@@ -127,6 +127,7 @@ class RewardWithdrawalController extends Controller
         }
 
         $rewardWithdrawal->save();
+        Log::info('withdrawal.update', compact('rewardWithdrawal'));
 
         return new RewardWithdrawalResource($rewardWithdrawal);
     }

@@ -25,6 +25,7 @@ services:
       - DB_DATABASE=${DB_DATABASE}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DOCKER_API_URL=http://nginx:80/api
     depends_on:
       - db
 

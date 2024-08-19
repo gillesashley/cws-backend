@@ -33,7 +33,7 @@
 <!--end breadcrumb-->
 
     <div class="ms-auto">
-        <a href="{{ route('admin.view-transactions') }}" class="btn btn-primary">
+        <a href="{{ route('admin.withdrawals') }}" class="btn btn-primary">
             Points and Payment Transactions
         </a>
     </div><br>

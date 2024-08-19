@@ -17,6 +17,7 @@ class AdminUsersSeeder extends Seeder
     {
         $constituency = Constituency::inRandomOrder()->first();
         $region = Region::inRandomOrder()->first();
+        $password = bcrypt('password');
 
         if (!$constituency || !$region) {
             throw new \Exception('No constituencies or regions found. Make sure GhanaRegionsAndConstituenciesSeeder ran successfully.');
@@ -32,7 +33,7 @@ class AdminUsersSeeder extends Seeder
                 'region_id' => $constituency->region_id,
                 'area' => fake()->streetAddress(),
                 'phone' => '1234567890',
-                'password' => bcrypt('password'),
+                'password' => $password,
                 'date_of_birth' => now()->subYears(30),
                 'ghana_card_id' => 'GHA-' . str_pad(rand(0, 999999999999), 12, '0', STR_PAD_LEFT) . '-1',
                 'ghana_card_image_path' => 'path/to/default/image.jpg',
@@ -49,7 +50,7 @@ class AdminUsersSeeder extends Seeder
                 'region_id' => $region->id,
                 'area' => fake()->streetAddress(),
                 'phone' => '2345678901',
-                'password' => bcrypt('password'),
+                'password' => $password,
                 'date_of_birth' => now()->subYears(35),
                 'ghana_card_id' => 'GHA-' . str_pad(rand(0, 999999999999), 12, '0', STR_PAD_LEFT) . '-1',
                 'ghana_card_image_path' => 'path/to/default/image.jpg',
@@ -66,7 +67,7 @@ class AdminUsersSeeder extends Seeder
                 'region_id' => Region::inRandomOrder()->first()->id,
                 'area' => fake()->streetAddress(),
                 'phone' => '3456789012',
-                'password' => bcrypt('password'),
+                'password' => $password,
                 'date_of_birth' => now()->subYears(40),
                 'ghana_card_id' => 'GHA-' . str_pad(rand(0, 999999999999), 12, '0', STR_PAD_LEFT) . '-1',
                 'ghana_card_image_path' => 'path/to/default/image.jpg',
@@ -83,7 +84,7 @@ class AdminUsersSeeder extends Seeder
                 'region_id' => Region::inRandomOrder()->first()->id,
                 'area' => fake()->streetAddress(),
                 'phone' => '0247648200',
-                'password' => bcrypt('password'),
+                'password' => $password,
                 'date_of_birth' => now()->subYears(45),
                 'ghana_card_id' => 'GHA-' . str_pad(rand(0, 999999999999), 12, '0', STR_PAD_LEFT) . '-2',
                 'ghana_card_image_path' => 'path/to/default/image.jpg',

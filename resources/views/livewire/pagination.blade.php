@@ -21,10 +21,10 @@ state(['meta' => []]);
 
                 @for ($i = 1; $i <= $meta['last_page']; $i++)
                     @if ($i == $meta['current_page'])
-                        <span class="pagination-link current btn">{{ $i }}</span>
+                        <span class="pagination-link  active btn btn-link">{{ $i }}</span>
                     @else
                         <a href="{{ url($meta['path'] . '?page=' . $i) }}"
-                            class="pagination-link btn">{{ $i }}</a>
+                            class="pagination-link btn btn-link">{{ $i }}</a>
                     @endif
                 @endfor
 

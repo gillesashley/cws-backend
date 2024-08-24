@@ -24,17 +24,17 @@ class TargetedMessageController extends Controller
 
     public function allIndex()
     {
-        return view('targeted-messages.all.index');
+        return view('targeted-messages.all.index', ['messages' => TargetedMessage::paginate()]);
     }
 
     public function allCreate()
     {
-        return view('targeted-messages.all.create');
+        return view('targeted-messages.all.create', ['messages' => TargetedMessage::paginate()]);
     }
 
     public function allStore(Request $request)
     {
-        $this->storeMessage($request, 'all');
+        return $this->storeMessage($request, 'all');
     }
 
     public static function getRecipients($user)
@@ -190,7 +190,7 @@ class TargetedMessageController extends Controller
             'failure_count' => $failureCount,
         ]);
 
-        return redirect()->route('targeted-messages.sms.index')
+        return redirect()->route("targeted-messages.$type.index")
             ->with('success', "Campaign sent. Successful: $successCount, Failed: $failureCount");
     }
 

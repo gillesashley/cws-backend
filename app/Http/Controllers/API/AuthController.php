@@ -20,15 +20,24 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:20|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
             'date_of_birth' => 'required|date',
             'ghana_card_id' => 'required|string|unique:users',
-            'ghana_card_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            // 'ghana_card_image' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
             'constituency_id' => 'required|exists:constituencies,id',
             'region_id' => 'required|exists:regions,id',
             'area' => 'required|string|max:255',
-            'role' => 'required|in:user,constituency_admin,regional_admin,national_admin,application_admin',
+            'role' => [
+                'sometimes',
+                function ($attr, $value, $fail) {
+                    $roles = explode(',', 'user,constituency_admin,regional_admin,national_admin,application_admin');
+                    if (auth()->user()->isAnyAdmin() && !in_array($attr, $roles)) {
+                        $fail("Error: $attr value invalid");
+                    }
+                }
+            ],
         ]);
+
 
         // Handle file upload
         if ($request->hasFile('ghana_card_image')) {
@@ -45,7 +54,7 @@ class AuthController extends Controller
         unset($validated['ghana_card_image']);
 
         try {
-            $user = User::create($validated);
+            $user = User::create(['role' => 'user', 'ghana_card_image_path' => asset('assets/images/avatars/01.png')] + $validated);
 
             $token = $user->createToken('auth_token')->plainTextToken;
 

@@ -738,6 +738,7 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Content</th>
                 <th>Recipients</th>
                 <th>Success</th>
                 <th>Failure</th>
@@ -748,6 +749,7 @@
             @foreach ($messages as $message)
                 <tr>
                     <td>{{ $message->title }}</td>
+                    <td>{{ $message->content }}</td>
                     <td>{{ $message->recipients_count }}</td>
                     <td>{{ $message->success_count }}</td>
                     <td>{{ $message->failure_count }}</td>

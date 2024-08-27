@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'date_of_birth' => $this->date_of_birth,
             'role' => $this->role,
+            'region_id' => $this->region_id,
             'constituency_id' => $this->constituency_id,
             'constituency' => $this->whenLoaded('constituency', function () {
                 return [

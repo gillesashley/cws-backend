@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateCampaignMessageRequest;
 use App\Http\Resources\CampaignMessageResource;
 use App\Models\CampaignMessage;
 use App\Models\UserAction;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,11 +21,16 @@ class CampaignMessageController extends Controller
     {
         $messages = QueryBuilder::for(CampaignMessage::class)
             ->allowedFilters([
+
                 AllowedFilter::exact('user_id'),
                 AllowedFilter::exact('constituency_id'),
+                AllowedFilter::callback('regional', fn(Builder $q) => $q
+                    ->where('constituency_id', '!=', auth()->user()->constituency_id)
+                    ->whereRelation('region','id', auth()->user()->region_id)),
+                AllowedFilter::callback('national', fn(Builder $q) => $q->whereRelation('contituency', 'region_id', '!=', auth()->user()->region_id))
             ])
             ->allowedSorts(['created_at', 'likes_count', 'shares_count'])
-            ->allowedIncludes(['user', 'constituency'])
+            ->allowedIncludes(['user', 'constituency', 'region'])
             ->paginate(10);
 
         return CampaignMessageResource::collection($messages);

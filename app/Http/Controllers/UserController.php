@@ -13,15 +13,21 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
 {
     public function index(Request $request): View|Factory|Application
     {
         $userRoles = $request->get('userRoles', null);
-        $users = User::with(['region', 'constituency'])->when($userRoles, fn($q) => $q->whereIn('role', $userRoles))->paginate(15);
+        // $users = User::with(['region', 'constituency'])->when($userRoles, fn($q) => $q->whereIn('role', $userRoles))->paginate(15);
+        $users = QueryBuilder::for(User::class)->allowedFilters([
+            AllowedFilter::exact('constituency_id'),
+            AllowedFilter::exact('region_id'),
+        ])->paginate()->appends(request()->query());
         $regions = Region::all();
-        $constituencies = Constituency::all();
+        $constituencies = Constituency::get();
         return view('admin.users.index', compact('users', 'regions', 'constituencies', 'userRoles'));
     }
 

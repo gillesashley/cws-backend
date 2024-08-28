@@ -54,9 +54,11 @@
                     @foreach (['user', 'constituency_admin', 'regional_admin', 'national_admin', 'application_admin'] as $key => $uRole)
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="userRoles[{{ $key }}]"
-                                value="{{ $uRole }}" checked={{ in_array($uRole, $userRoles ?? []) }}>
+                                id="userRoles[{{ $key }}]" value="{{ $uRole }}"  disabled
+                                checked={{ in_array($uRole, $userRoles ?? []) }}>
                             <label class="form-check-label text-capitalize"
-                                for="userRoles[{{ $key }}]">{{ str_replace('_', ' ', $uRole) }}</label>
+                                for="userRoles[{{ $key }}]">{{ str_replace('_', ' ', $uRole) }}
+                            </label>
                         </div>
                     @endforeach
 

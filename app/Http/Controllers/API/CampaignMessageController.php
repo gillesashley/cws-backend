@@ -31,7 +31,8 @@ class CampaignMessageController extends Controller
             ])
             ->allowedSorts(['created_at', 'likes_count', 'shares_count'])
             ->allowedIncludes(['user', 'constituency', 'region'])
-            ->paginate(10);
+            ->paginate(10)
+            ->appends(request()->query());
 
         return CampaignMessageResource::collection($messages);
     }

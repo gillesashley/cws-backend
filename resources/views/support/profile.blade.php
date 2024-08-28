@@ -10,7 +10,7 @@
             <li class="breadcrumb-item"><a href="javascript:;"><ion-icon name="person-circle-sharp" role="img"
                         class="md hydrated" aria-label="home outline"></ion-icon></a>
             </li>
-            
+
         </ol>
     </nav>
 </div>
@@ -42,12 +42,12 @@
             <div class="card-body">
               <div class="mt-5 d-flex align-items-start justify-content-between">
                 <div class="">
-                  <h3 class="mb-2">Jhon Deo</h3>
-                  <p class="mb-1">Constituency Admin</p>
-                  <p>Gbawe South, Mallam</p>
-                  
+                  <h3 class="mb-2">{{ auth()->user()->name }}</h3>
+                  <p class="mb-1">{{ auth()->user()->role }}</p>
+                  <p>{{ auth()->user()->constituency?->name }}, {{ auth()->user()->area }}</p>
+
                 </div>
-                
+
               </div>
             </div>
           </div>

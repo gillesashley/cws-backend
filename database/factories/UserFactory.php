@@ -38,7 +38,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'phone' => $this->faker->unique()->phoneNumber(),
+            'phone' => $this->faker->unique()->regexify('\+233(20|50|24|55)\d{5}2'),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'date_of_birth' => $this->faker->date('Y-m-d', '-18 years'),

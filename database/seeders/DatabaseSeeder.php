@@ -15,6 +15,7 @@ use App\Models\RewardWithdrawal;
 use App\Models\Share;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
@@ -38,16 +39,31 @@ class DatabaseSeeder extends Seeder
 
         // Create users
         try {
-            $users = User::factory(50)->create()->each(function ($user) use ($constituencies) {
-                Log::info("Creating user. Constituencies count: " . $constituencies->count());
-                $constituency = $constituencies->random();
-                $user->constituency_id = $constituency->id;
-                $user->region_id = $constituency->region_id;
-                $user->area = fake()->streetAddress();
-                $user->save();
+            $constituencies->each(function ($constituency) {
+                $users = User::factory(20)->make([
+                    'constituency_id' => $constituency->id,
+                    'region_id' => $constituency->region_id,
+                    'area' => fake()->streetAddress(),
+                    'created_at' => now()->format('Y-m-d H:i:s'),
 
-                Point::factory()->create(['user_id' => $user->id]);
+                ])->toArray();
+
+                print_r([$users[0],$users[0]['created_at']]);
+                DB::table('users')->insert($users);
+
             });
+
+
+            // $users = User::factory(50)->create()->each(function ($user) use ($constituencies) {
+            //     Log::info("Creating user. Constituencies count: " . $constituencies->count());
+            //     $constituency = $constituencies->random();
+            //     $user->constituency_id = $constituency->id;
+            //     $user->region_id = $constituency->region_id;
+            //     $user->area = fake()->streetAddress();
+            //     $user->save();
+
+            //     Point::factory()->create(['user_id' => $user->id]);
+            // });
         } catch (\Exception $e) {
             Log::error('Error in DatabaseSeeder: ' . $e->getMessage());
             throw $e;
@@ -55,6 +71,7 @@ class DatabaseSeeder extends Seeder
 
         // Create campaign messages
         try {
+            $users = User::all();
             $campaignMessages = CampaignMessage::factory(20)->create()->each(function ($message) use ($constituencies, $users) {
                 $constituency = $constituencies->random();
                 $usersInConstituency = $users->where('constituency_id', $constituency->id);

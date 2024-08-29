@@ -25,6 +25,7 @@ class UserController extends Controller
         $users = QueryBuilder::for(User::class)->allowedFilters([
             AllowedFilter::exact('constituency_id'),
             AllowedFilter::exact('region_id'),
+            AllowedFilter::exact('role'),
         ])->paginate()->appends(request()->query());
         $regions = Region::all();
         $constituencies = Constituency::get();

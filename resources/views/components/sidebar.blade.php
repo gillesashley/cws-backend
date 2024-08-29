@@ -15,7 +15,7 @@
     <!--navigation-->
     <ul class="metismenu" id="menu">
         <li>
-            <a href="{{route('dashboard')}}">
+            <a href="{{ route('dashboard') }}">
                 <div class="parent-icon"><ion-icon name="desktop"></ion-icon>
                 </div>
                 <div class="menu-title">Dashboard</div>
@@ -30,8 +30,7 @@
                 <div class="menu-title">Campaign With Us</div>
             </a>
             <ul>
-                <li> <a href="{{ route('targeted-messages.all.index') }}"><ion-icon
-                            name="image"></ion-icon>Affiliate
+                <li> <a href="{{ route('targeted-messages.all.index') }}"><ion-icon name="image"></ion-icon>Affiliate
                         Campaign</a>
                 </li>
                 <li>
@@ -103,7 +102,8 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('admin.users.index') }}">
+            <a
+                href="{{ route('admin.users.index') . '?' . implode('&', ['filter[region_id]=' . auth()->user()->region_id, 'filter[constituency_id]=' . auth()->user()->constituency_id]) }}">
                 <div class="parent-icon"><ion-icon name="people"></ion-icon>
                 </div>
                 <div class="menu-title">All Users</div>

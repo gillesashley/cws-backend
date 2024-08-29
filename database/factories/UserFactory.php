@@ -36,10 +36,10 @@ class UserFactory extends Factory
         }
 
         return [
-            'name' => $this->faker->name(),
+            'name' => '#' . $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'phone' => $this->faker->unique()->phoneNumber(),
-            'email_verified_at' => now(),
+            'phone' => $this->faker->unique()->regexify('\+233(20|50|24|55)\d{5}2'),
+            'email_verified_at' => now()->toDateTimeString(),
             'password' => static::$password ??= Hash::make('password'),
             'date_of_birth' => $this->faker->date('Y-m-d', '-18 years'),
             'ghana_card_id' => $this->faker->unique()->regexify('GHA-[0-9]{12}-1'),

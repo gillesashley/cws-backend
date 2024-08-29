@@ -24,7 +24,7 @@ class NotificationFactory extends Factory
             'user_id' => User::factory(),
             'campaign_message_id' => CampaignMessage::factory(),
             'title' => $this->faker->sentence,
-            'content' => $this->faker->paragraph,
+            'content' => 'seeded: '.$this->faker->paragraph,
             'is_read' => $this->faker->boolean,
         ];
     }

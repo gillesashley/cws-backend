@@ -5,12 +5,12 @@ namespace Database\Factories;
 use App\Models\Constituency;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CampaignMessage>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TargetedMessage>
  */
-class CampaignMessageFactory extends Factory
+class TargetedMessageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -28,16 +28,18 @@ class CampaignMessageFactory extends Factory
             'https://example.com/image5.jpg',
         ];
 
+
         return [
             'user_id' => User::factory(),
             'constituency_id' => Constituency::factory(),
-            'title' => 'seeded: '.$this->faker->sentence,
-            'slug' => Str::slug($title),
-            'content' => 'seeded: '.$this->faker->paragraphs(3, true),
+            'title' => 'seeded: ' . $this->faker->sentence,
+            // 'slug' => Str::slug($title),
+            'content' => 'seeded: ' . $this->faker->paragraphs(3, true),
             'image_url' => $this->faker->randomElement($imageUrls),
-            'reads' => $this->faker->numberBetween(0, 1000),
-            'likes_count' => 0,
-            'shares_count' => 0,
+            'type' => ['sms', 'whatsapp', 'all'][random_int(0, 2)],
+            'recipients_count' => 0,
+            'success_count' => 0,
+            'failure_count' => 0,
         ];
     }
 }

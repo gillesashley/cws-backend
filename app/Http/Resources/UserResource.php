@@ -38,6 +38,9 @@ class UserResource extends JsonResource
             'area' => $this->area,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'token' => $this->when(auth()->id() === $this->id && $request->isMethod('PUT') && $request->is('profile'), function () {
+                return $this->createToken('auth_token')->plainTextToken;
+            }),
         ];
     }
 }

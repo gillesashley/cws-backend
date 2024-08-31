@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PointTransactionResource;
+use App\Models\Point;
 use App\Models\PointTransaction;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
@@ -71,7 +72,7 @@ class PointTransactionController extends Controller
 
         $pointTransaction = PointTransaction::create($validatedData + [
             'user_id' => $request->user()->id,
-            'point_id' => PointTransaction::firstOrCreate(['user_id' => auth()->id()])->id,
+            'point_id' => Point::firstOrCreate(['user_id' => auth()->id()])->id,
             'points' => intval(30 * pow(0.70, $readCounts))
         ]);
 

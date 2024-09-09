@@ -127,7 +127,6 @@
             {{ $users->links('vendor.pagination.syn-ui') }}
         </div>
     </div>
-    </div>
 
     @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
     @include('admin.users.edit', ['regions' => $regions, 'constituencies' => $constituencies])

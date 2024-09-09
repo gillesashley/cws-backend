@@ -739,9 +739,7 @@
             <tr>
                 <th>Title</th>
                 <th>Content</th>
-                <th>Recipients</th>
                 <th>Success</th>
-                <th>Failure</th>
                 <th>Created At</th>
             </tr>
         </thead>
@@ -750,9 +748,7 @@
                 <tr>
                     <td>{{ $message->title }}</td>
                     <td>{{ $message->content }}</td>
-                    <td>{{ $message->recipients_count }}</td>
                     <td>{{ $message->success_count }}</td>
-                    <td>{{ $message->failure_count }}</td>
                     <td>{{ $message->created_at->format('Y-m-d H:i') }}</td>
                 </tr>
             @endforeach
@@ -761,4 +757,5 @@
 
     {{ $messages->links() }}
     </div>
+</div>
 @endsection

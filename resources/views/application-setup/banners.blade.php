@@ -54,5 +54,22 @@
     </div>
 </div>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Banner</th>
+            <th>Constituency</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
 </div>
+
 @endsection('content')

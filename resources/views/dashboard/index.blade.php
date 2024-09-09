@@ -177,71 +177,7 @@
           </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-xl-3">
-          <div class="col d-flex">
-            <div class="card radius-10 w-100">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <h6 class="mb-0">Constituency Ranking</h6>
-                  <div class="dropdown options ms-auto">
-                    <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                      <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon>
-                    </div>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                      <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                      <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="chart-container4">
-                  <canvas id="chart6" style="display: block; box-sizing: border-box; height: 350px; width: 917px;" width="1834" height="700"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col d-flex">
-            <div class="card radius-10 w-100">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <h6 class="mb-0">Daily Engagements</h6>
-                  <div class="dropdown options ms-auto">
-                    <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                      <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon>
-                    </div>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="javascript:;">Action</a></li>
-                      <li><a class="dropdown-item" href="javascript:;">Another action</a></li>
-                      <li><a class="dropdown-item" href="javascript:;">Something else here</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="chart-container4">
-                  <canvas id="chart7" style="display: block; box-sizing: border-box; height: 350px; width: 917px;" width="1834" height="700"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col d-flex">
-            <div class="card radius-10 overflow-hidden w-100">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <h6 class="mb-0">Shared Posts & Points</h6>
-                  <div class="dropdown options ms-auto">
-                    <div class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                      <ion-icon name="ellipsis-horizontal-sharp" role="img" class="md hydrated" aria-label="ellipsis horizontal sharp"></ion-icon>
-                    </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-    
-
-    
+              
     </div><!--end row-->
 
 

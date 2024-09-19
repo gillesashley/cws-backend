@@ -77,33 +77,33 @@
             </a>
         </li>
 
-        <li class="menu-label">Advertisements</li>
-        <li>
+        {{-- <li class="menu-label">Advertisements</li> --}}
+        {{-- <li>
             <a href="#">
                 <div class="parent-icon"><ion-icon name="document-text-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Private</div>
             </a>
-        </li>
-        <li>
+        </li> --}}
+        {{-- <li>
             <a href="#">
                 <div class="parent-icon"><ion-icon name="link-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Adsense</div>
             </a>
-        </li>
+        </li> --}}
 
         <li class="menu-label">Administration</li>
-        <li>
+        {{-- <li>
             <a href="{{ route('admin.admin-access.index') }}">
                 <div class="parent-icon"><ion-icon name="lock-closed-sharp"></ion-icon>
                 </div>
                 <div class="menu-title">Admin Access Control</div>
             </a>
-        </li>
+        </li> --}}
         <li>
             <a
-                href="{{ route('admin.users.index') . '?' . implode('&', ['filter[region_id]=' . auth()->user()->region_id, 'filter[constituency_id]=' . auth()->user()->constituency_id]) }}">
+                href="{{ route('admin.users.index') .'?' .implode('&', ['filter[region_id]=' .!!auth()->user()->isAnyAdmin(['region_admin', 'constituency_admin']) && auth()->user()->region_id,'filter[constituency_id]=' .!!auth()->user()->isAnyAdmin(['region_admin']) && auth()->user()->constituency_id]) }}">
                 <div class="parent-icon"><ion-icon name="people"></ion-icon>
                 </div>
                 <div class="menu-title">All Users</div>

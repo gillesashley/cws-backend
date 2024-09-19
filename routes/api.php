@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('/users', UserController::class);
     Route::post('change-password', [UserController::class, 'changePassword']);
     Route::get('/user-profile', [UserController::class, 'profile']);
+    Route::patch('/user-profile', [UserController::class, 'update']);
     Route::get('/user-balance', [UserController::class, 'getBalance']);
 
     Route::apiResource('campaign-messages', CampaignMessageController::class);

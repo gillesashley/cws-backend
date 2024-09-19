@@ -135,8 +135,9 @@ class User extends Authenticatable
         return $this->role === 'application_admin';
     }
 
-    public function isAnyAdmin()
+    public function isAnyAdmin($roles = ['constituency_admin', 'regional_admin', 'national_admin', 'application_admin'])
     {
-        return in_array($this->role, ['constituency_admin', 'regional_admin', 'national_admin', 'application_admin']);
+        return in_array($this->role, $roles);
     }
+
 }

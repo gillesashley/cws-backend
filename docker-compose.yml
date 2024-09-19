@@ -27,10 +27,10 @@ services:
       - DOCKER_API_URL=http://nginx:80/api
     depends_on:
       - db
+      - fixperms
 
     entrypoint: |
       sh -c "
-        chmod -R 775  /var/www/storage /var/www/bootstrap/
         npm run dev &1> /dev/null && php-fpm
       "
     deploy:
@@ -42,6 +42,17 @@ services:
         reservations:
           cpus: '0.01'
           memory: 128M
+
+  fixperms:
+    <<: *app
+    depends_on: []
+    user: root
+    restart: "no"
+    entrypoint: |
+      sh -c "
+        chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+        chmod -R ugao+rw .
+      "
 
   queue:
     <<: *app

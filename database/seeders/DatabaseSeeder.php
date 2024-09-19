@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
 
         if (User::query()->where('role', 'application_admin')->doesntExist()) {
             $password = App::environment('production') ? \Faker\Factory::create()->word : 'password';
+            printf("\nadmin password: %s\n", $password);
 
             User::factory()->create(['email' => 'admin@example.com', 'password' => $password]);
         }

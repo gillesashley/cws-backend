@@ -4,7 +4,9 @@
 @section('content')
     {{-- Breadcrumb --}}
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">All Users</div>
+        <div class="breadcrumb-title pe-3">
+            All Users: {{ $users->total() }}
+        </div>
 
         <div class="ps-3">
             <nav aria-label="breadcrumb">
@@ -53,17 +55,20 @@
                 <form class="filter-role-opttionsp" name='filter-roles' action="{{ route('admin.users.index') }}">
                     @foreach (['user', 'constituency_admin', 'regional_admin', 'national_admin', 'application_admin'] as $key => $uRole)
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="userRoles[{{ $key }}]"
-                                id="userRoles[{{ $key }}]" value="{{ $uRole }}"  disabled
-                                checked={{ in_array($uRole, $userRoles ?? []) }}>
+                            <input class="form-check-input" type="checkbox" name="filter[role][]"
+                                id="userRoles[{{ $key }}]" value="{{ $uRole }}"
+                                {{ !!auth()->user()->isAnyAdmin(['application_admin']) && 'disable' }}
+                                {{ in_array($uRole, request()->input('filter.roles', [])) ? 'checked' : '' }}>
                             <label class="form-check-label text-capitalize"
                                 for="userRoles[{{ $key }}]">{{ str_replace('_', ' ', $uRole) }}
                             </label>
                         </div>
                     @endforeach
 
-
                     <button type="submit" class="btn btn-secondary btn-sm">Filter</button>
+                    <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+                    <button type="button" class="btn btn-secondary btn-sm"
+                        onclick="window.location.href='{{ route('admin.users.index') }}'">Clear</button>
                 </form>
             </div>
             <div class="fs-5 ms-auto dropdown">
@@ -118,6 +123,12 @@
                             </form>
 
                         </td>
+
+                        @include('admin.users.edit', [
+                            'regions' => $regions,
+                            'constituencies' => $constituencies,
+                            'user' => $user,
+                        ])
                     </tr>
                 @endforeach
             </tbody>
@@ -129,7 +140,6 @@
     </div>
 
     @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])
-    @include('admin.users.edit', ['regions' => $regions, 'constituencies' => $constituencies])
 @endsection
 
 @pushOnce('scripts')

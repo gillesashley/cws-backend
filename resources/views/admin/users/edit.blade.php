@@ -6,7 +6,7 @@
                 <h5 class="modal-title">Edit User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="editUserForm" method="POST" action="{{ route('admin.users.edit', ['user' => $user['id']]) }}">
+            <form id="editUserForm" method="POST" action="{{ route('admin.users.edit', ['user' => $user?->id]) }}">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">

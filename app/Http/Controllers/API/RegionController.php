@@ -14,6 +14,7 @@ class RegionController extends Controller
     {
         $regions = QueryBuilder::for(Region::class)
             ->allowedSorts(['name'])
+            ->allowedIncludes(['constituencies'])
             ->get();
 
         return RegionResource::collection($regions);

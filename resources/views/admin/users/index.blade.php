@@ -71,72 +71,77 @@
                         onclick="window.location.href='{{ route('admin.users.index') }}'">Clear</button>
                 </form>
             </div>
-            <div class="fs-5 ms-auto dropdown">
-                <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown">
-                    <i class="bi bi-three-dots"></i>
-                </div>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-        </div><br>
 
-
-        <table id="example" class="table-responsive table table-striped table-bordered align-middle mb-0"
-            style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Region</th>
-                    <th>Constituency</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $index => $user)
-                    <tr>
-                        <td>{{ $users->firstItem() + $index }}</td>
-                        <td>{{ $user['name'] }}</td>
-                        <td>{{ $user['email'] }}</td>
-                        <td>{{ $user['role'] }}</td>
-                        <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
-                        <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
-                        <td class="d-flex gap-2">
-                            <button type="button" class="btn btn-sm btn-primary edit-user-btn" data-bs-toggle="modal"
-                                data-bs-target="#editUserModal" data-user="{{ $user?->toJson() }}">
-                                Edit
-                            </button>
-
-                            <form action="{{ route('admin.users.destroy', ['user' => $user['id']]) }}" method="POST">
-                                @csrf
-                                {{ method_field('delete') }}
-                                <button type="button" class="btn btn-sm btn-danger delete-user-btn"
-                                    data-name="{{ $user->name }}">Delete</button>
-                            </form>
-
-                        </td>
-
-                        @include('admin.users.edit', [
-                            'regions' => $regions,
-                            'constituencies' => $constituencies,
-                            'user' => $user,
-                        ])
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <div class="mt-3">
-            {{ $users->links('vendor.pagination.syn-ui') }}
+            <div class="ms-auto"></div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                <i class="bi bi-plus-lg"></i> Add New User
+            </button>
         </div>
+        <div class="fs-5 ms-auto dropdown">
+            <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer" data-bs-toggle="dropdown">
+                <i class="bi bi-three-dots"></i>
+            </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+    </div><br>
+
+
+    <table id="example" class="table-responsive table table-striped table-bordered align-middle mb-0" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Region</th>
+                <th>Constituency</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($users as $index => $user)
+                <tr>
+                    <td>{{ $users->firstItem() + $index }}</td>
+                    <td>{{ $user['name'] }}</td>
+                    <td>{{ $user['email'] }}</td>
+                    <td>{{ $user['role'] }}</td>
+                    <td>{{ $user['region']['name'] ?? 'N/A' }}</td>
+                    <td>{{ $user['constituency']['name'] ?? 'N/A' }}</td>
+                    <td class="d-flex gap-2">
+                        <button type="button" class="btn btn-sm btn-primary edit-user-btn" data-bs-toggle="modal"
+                            data-bs-target="#editUserModal" data-user="{{ $user?->toJson() }}">
+                            Edit
+                        </button>
+
+                        <form action="{{ route('admin.users.destroy', ['user' => $user['id']]) }}" method="POST">
+                            @csrf
+                            {{ method_field('delete') }}
+                            <button type="button" class="btn btn-sm btn-danger delete-user-btn"
+                                data-name="{{ $user->name }}">Delete</button>
+                        </form>
+
+                    </td>
+
+                    @include('admin.users.edit', [
+                        'regions' => $regions,
+                        'constituencies' => $constituencies,
+                        'user' => $user,
+                    ])
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <div class="mt-3">
+        {{ $users->links('vendor.pagination.syn-ui') }}
+    </div>
     </div>
 
     @include('admin.users.create', ['regions' => $regions, 'constituencies' => $constituencies])

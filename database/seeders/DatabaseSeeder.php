@@ -40,10 +40,10 @@ class DatabaseSeeder extends Seeder
         Log::info('Environment: ' . APP::environment());
 
         if (User::query()->where('role', 'application_admin')->doesntExist()) {
-            $password = App::environment('production') ? \Faker\Factory::create()->word : 'password';
+            $password = 'password';
             printf("\nadmin password: %s\n", $password);
 
-            User::factory()->create(['email' => 'admin@example.com', 'password' => $password]);
+            User::factory()->create(['email' => 'admin@example.com', 'password' => Hash::make($password)]);
         }
 
         if (APP::environment('production')) {
@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
             LikesSeeder::class,
             FeedbackSeeder::class,
             ShareSeeder::class,
+            TransactionsSeeder::class
         ]);
 
         Advertisement::factory(20)->create();

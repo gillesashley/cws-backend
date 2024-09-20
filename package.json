@@ -15,7 +15,7 @@
         "db:refresh:dev": "npm run db:refresh",
         "queue":"php artisan queue:work",
         "queue:monitor":"php artisan queue:monitor default",
-        "opt:clearr:du": "php artisan optimize:clear && composer du"
+        "opt:clear:du": "php artisan optimize:clear && composer du"
     },
     "devDependencies": {
         "axios": "^1.6.4",

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->foreignId('bannerable_id')->nullable();
             $table->string('bannerable_type')->nullable();
             $table->timestamp('expires_at')->nullable();
+            $table->string('image_path')->nullable();
             $table->softDeletes();
         });
     }

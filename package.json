@@ -6,7 +6,7 @@
         "build": "vite build",
         "logs:laravel": "tail -f storage/logs/*",
         "logs:dc": "docker compose logs -f",
-        "dev:dc": "docker compose up ${service:-nginx queue}",
+        "dev:dc": "docker compose up ${service:-nginx",
         "dev:dc:dev": "service=dev npm run start:dc",
         "dev:dc:prod": "service=dev npm run start:dc",
         "dev:dc:profiler": "docker compose up -e PROFILER=true app",

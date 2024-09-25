@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\BannerResource;
+use App\Models\Banner;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class BannerController extends Controller
 {
@@ -11,7 +15,12 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        $res = QueryBuilder::for(Banner::class)
+            ->allowedFilters(['bannerable_type', 'bannerable_id'])
+            ->AllowedIncludes(['bannerable'])
+            ->get()
+        ;
+        return BannerResource::collection($res);
     }
 
     /**

@@ -25,4 +25,9 @@ class Constituency extends Model
     {
         return $this->hasMany(CampaignMessage::class);
     }
+
+    public function banners()
+    {
+        return $this->morphMany(Banner::class, 'bannerable');
+    }
 }

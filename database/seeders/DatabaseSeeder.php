@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
         Log::info("db:refresh [non-prod tables]");
 
         $this->call([
+            BannerSeeder::class,
             AdminUsersSeeder::class,
             ConstituencyAdminsSeeder::class,
             RegionAdminsSeeder::class,

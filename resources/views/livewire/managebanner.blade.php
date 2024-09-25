@@ -20,7 +20,15 @@ rules([
 with(['banners' => fn() => Banner::with('bannerable')->latest()->paginate(10)]);
 state(['open' => false, 'title' => '', 'description' => '', 'expires_at' => '', 'image' => '', 'id' => null]);
 
-$delete = fn(Banner $banner) => $banner->delete();
+$delete = function (Banner $banner) {
+    try {
+        if ($banner->image_path) {
+            Storage::delete($banner->image_path);
+        }
+        $banner->delete();
+    } catch (Exception $ex) {
+    }
+};
 
 $toggleModal = fn($state = false) => ($this->open = $state);
 
@@ -31,10 +39,11 @@ $saveBanner = function () {
     $validatedData = $this->validate();
 
     if ($this->image) {
-        $validatedData['image_url'] = Storage::url($this->image->store('banners', 'public'));
+        $path = $this->image->store('banners', 'public');
+        $validatedData['image_url'] = Storage::url($path);
     }
 
-    Banner::updateOrCreate(['id' => $this->id], $validatedData);
+    Banner::updateOrCreate(['id' => $this->id, 'image_path' => $path], $validatedData);
 
     $this->reset(['title', 'description', 'image', 'expires_at', 'id']);
     $this->open = false;

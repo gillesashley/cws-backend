@@ -15,4 +15,9 @@ class Region extends Model
     {
         return $this->hasMany(Constituency::class);
     }
+
+    public function banners()
+    {
+        return $this->morphMany(Banner::class, 'bannerable');
+    }
 }

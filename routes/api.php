@@ -13,6 +13,7 @@ use App\Http\Controllers\API\PointTransactionController;
 use App\Http\Controllers\API\RewardWithdrawalController;
 use App\Http\Controllers\API\ShareController;
 use App\Http\Controllers\API\RegionController;
+use App\Http\Controllers\API\BannerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,4 +62,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/analytics', [AnalyticsController::class, 'index']);
 
     Route::post('/validate-registration', [AuthController::class, 'validateRegistration']);
+
+    Route::get('/banners', [BannerController::class, 'index']);
 });

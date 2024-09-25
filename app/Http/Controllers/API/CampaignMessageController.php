@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedInclude;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class CampaignMessageController extends Controller
@@ -26,11 +27,18 @@ class CampaignMessageController extends Controller
                 AllowedFilter::exact('constituency_id'),
                 AllowedFilter::callback('regional', fn(Builder $q) => $q
                     ->where('constituency_id', '!=', auth()->user()->constituency_id)
-                    ->whereRelation('region','id', auth()->user()->region_id)),
+                    ->whereRelation('region', 'id', auth()->user()->region_id)),
                 AllowedFilter::callback('national', fn(Builder $q) => $q->whereRelation('contituency', 'region_id', '!=', auth()->user()->region_id))
             ])
             ->allowedSorts(['created_at', 'likes_count', 'shares_count'])
-            ->allowedIncludes(['user', 'constituency', 'region'])
+            ->allowedIncludes([
+                'user',
+                'constituency',
+                'region',
+                'likes',
+                // AllowedInclude::callback('user_liked', fn($q) => $q->with('likes', fn($q) => $q->where('user_id', auth()->id())), 'likes')
+                AllowedInclude::relationship('user_liked', 'likes')
+            ])
             ->paginate(10)
             ->appends(request()->query());
 

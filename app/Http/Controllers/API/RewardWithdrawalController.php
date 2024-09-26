@@ -63,7 +63,7 @@ class RewardWithdrawalController extends Controller
 
         // Check if user has enough points
         $userPoints = Point::where('user_id', $user->id)->first();
-        if (!$userPoints || $userPoints->balance < $amount * 50) { // Assuming 1 GHS = 50 points
+        if (!$userPoints || $userPoints->balance < $amount ) { // Assuming 1 GHS = 50 points
             return response()->json(['message' => 'Insufficient points for withdrawal'], 400);
         }
 

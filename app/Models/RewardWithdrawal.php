@@ -13,6 +13,10 @@ class RewardWithdrawal extends Model
         'user_id', 'amount', 'status', 'rejection_reason'
     ];
 
+    protected $casts = [
+        'amount' => 'float',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

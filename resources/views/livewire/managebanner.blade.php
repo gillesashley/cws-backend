@@ -2,9 +2,12 @@
 
 namespace App\Livewire;
 
-use function Livewire\Volt\{with, usesPagination, state, usesFileUploads, rules};
+use function Livewire\Volt\{with, usesPagination, state, usesFileUploads, rules, computed, updated};
 use App\Models\Banner;
+use App\Models\Constituency;
+use App\Models\Region;
 use Livewire\Attributes\Validate;
+
 use Illuminate\Support\Facades\Storage;
 
 usesPagination();
@@ -15,10 +18,47 @@ rules([
     'description' => 'nullable|string',
     'image' => 'nullable|image|max:1024',
     'expires_at' => 'nullable|date',
+    'region_id' => 'sometimes|exists:regions,id',
+    'constituency_id' => 'sometimes:region_id|exists:constituencies,id',
+    'bannerable_type' => 'sometimes|in:null,Constituency,Region,Nation',
+    // 'bannerable_id' => [
+    //     'required_with:bannerable_type',
+    //     function ($attribute, $value, $fail) {
+    //         if ($this->bannerable_type && $this->bannerable_type !== 'null') {
+    //             $modelClass = 'App\\Models\\' . $this->bannerable_type;
+    //             if (!class_exists($modelClass) || !$modelClass::find($value)) {
+    //                 $fail("The selected {$attribute} is invalid.");
+    //             }
+    //         }
+    //     },
+    // ],
 ]);
 
 with(['banners' => fn() => Banner::with('bannerable')->latest()->paginate(10)]);
-state(['open' => false, 'title' => '', 'description' => '', 'expires_at' => '', 'image' => '', 'id' => null]);
+state(['open' => false, 'title' => '', 'description' => '', 'expires_at' => '', 'image' => '', 'id' => null, 'bannerable_id' => null]);
+state(['bannerable_type' => null, 'region_id' => null, 'constituency_id' => null])->url();
+
+$cbannerable_type = computed(fn() => $this->bannerable_type);
+
+$bannerables = computed(function () {
+    \Log::info('bannerable_type update fired' . $this->cbannerable_type);
+
+    $bannerable_type = $this->bannerable_type;
+    $isBannerable = $this->bannerable_type && !in_array($this->bannerable_type !== 'null', ['', null]);
+    \Log::info(compact('isBannerable', 'bannerable_type'));
+
+    if (!$isBannerable) {
+        return collect();
+    }
+    $modelClass = 'App\\Models\\' . $this->bannerable_type;
+    if (class_exists($modelClass)) {
+        return $modelClass::all();
+    }
+});
+
+$regions = computed(fn() => in_array($this->bannerable_type, ['Region', 'Constituency']) ? Region::all() : []);
+
+$constituencies = computed(fn() => $this->bannerable_type === 'Constituency' ? Constituency::where('region_id', $this->region_id)->get() : []);
 
 $delete = function (Banner $banner) {
     try {
@@ -35,17 +75,34 @@ $toggleModal = fn($state = false) => ($this->open = $state);
 $toggleOpen = fn() => $this->toggleModal(true);
 $closeModal = fn() => $this->toggleModal(false);
 
+updated([
+    'bannerable_type' => function () {
+        $this->region_id = null;
+        $this->constituency_id = null;
+    },
+]);
+
+updated(['region_id' => fn() => ($this->constituency_id = null)]);
+
 $saveBanner = function () {
     $validatedData = $this->validate();
 
     if ($this->image) {
         $path = $this->image->store('banners', 'public');
-        $validatedData['image_url'] = Storage::url($path);
+        $validatedData['image_url'] = asset(Storage::url($path));
     }
 
-    Banner::updateOrCreate(['id' => $this->id, 'image_path' => $path], $validatedData);
+    $bannerable_id = $validatedData['constituency_id'] ?? $validatedData['region_id'];
 
-    $this->reset(['title', 'description', 'image', 'expires_at', 'id']);
+    $bannerable_type = sprintf('%s%s', $this->bannerable_type ? '\\App\\Models\\' : null, $this->bannerable_type);
+
+    $data = ['image_path' => $path] + compact('bannerable_id', 'bannerable_type') + $validatedData;
+
+    \Log::info('data log', compact('data'));
+    \Log::info('validatedData log', compact('validatedData'));
+    Banner::updateOrCreate(['id' => $this->id], $data);
+
+    $this->reset(['title', 'description', 'image', 'expires_at', 'id', 'bannerable_type', 'bannerable_id', 'region_id', 'constituency_id']);
     $this->open = false;
     // $this->emit('bannerSaved');
 };
@@ -63,11 +120,66 @@ $saveBanner = function () {
             </div>
 
             @if ($this->open)
-                <div x-show="open"
+                <div
                     class="position-absolute overflow-hidden radius-10 shadow mt-2 fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
                     <div class="bg-white p-3 rounded-lg shadow-lg w-1/2">
                         <h2 class="text-xl mb-4" x-text="editMode ? 'Edit Banner' : 'Create Banner'"></h2>
                         <form wire:submit.prevent="saveBanner">
+
+                            <div class="mb-4">
+                                <label for="bannerable_type" class="block text-sm font-medium text-gray-700">Bannerable
+                                    Type</label>
+                                <select id="bannerable_type" wire:model.live="bannerable_type"
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                    <option value="">Select Type</option>
+                                    <option value="">Nation</option>
+                                    <option value="Region">Region</option>
+                                    <option value="Constituency">Constituency</option>
+                                </select>
+                                @error('bannerable_type')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-4">
+                                <label for="region_id" class="block text-sm font-medium text-gray-700">
+                                    Choose Region</label>
+
+                                <select id="region_id" wire:model.live="region_id"
+                                    {{ !in_array($bannerable_type, ['Region', 'Constituency']) ? 'disabled' : '' }}
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                    <option value="">Select</option>
+                                    @foreach ($this->regions as $bannerable)
+                                        <option wire:key='{{ $bannerable->id }}' value="{{ $bannerable->id }}">
+                                            {{ $bannerable->name }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" id="bannerable_id" wire:model="bannerable_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"> --}}
+                                @error('bannerable_id')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="constituency_id" class="block text-sm font-medium text-gray-700">
+                                    Choose Constituency</label>
+
+                                <select id="constituency_id" wire:model.live="constituency_id"
+                                    {{ $bannerable_type !== 'Constituency' ? 'disabled' : '' }}
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                    <option value="">Select</option>
+                                    @foreach ($this->constituencies as $bannerable)
+                                        <option wire:key='{{ $bannerable->id }}' value="{{ $bannerable->id }}">
+                                            {{ $bannerable->name }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" id="bannerable_id" wire:model="bannerable_id" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"> --}}
+                                @error('bannerable_id')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div class="mb-4">
                                 <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                                 <input type="text" id="title" wire:model="title"

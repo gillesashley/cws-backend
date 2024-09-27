@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BannerResource;
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class BannerController extends Controller
@@ -16,9 +17,11 @@ class BannerController extends Controller
     public function index()
     {
         $res = QueryBuilder::for(Banner::class)
-            ->allowedFilters(['bannerable_type', 'bannerable_id'])
+            ->allowedFilters(['bannerable_type', AllowedFilter::exact('bannerable_id')])
             ->AllowedIncludes(['bannerable'])
-            ->get()
+            ->latest()
+            ->paginate(10)
+            ->appends(request()->query())
         ;
         return BannerResource::collection($res);
     }

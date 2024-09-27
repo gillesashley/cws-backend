@@ -38,7 +38,7 @@ class BannerSeeder extends Seeder
             );
 
 
-        Banner::factory(10)->make(['bannerable_type'=>'\\App\\Models\\National'])->chunk(10)->each(fn($chunk, $c) => [Banner::insert($chunk->toArray()), printf("\ seed national banners {$c} * 50")]);
+        Banner::factory(10)->make()->chunk(10)->each(fn($chunk, $c) => [Banner::insert($chunk->toArray()), printf("\ seed national banners {$c} * 50")]);
 
     }
 }

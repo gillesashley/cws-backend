@@ -21,26 +21,69 @@
                         </div><br>
                         <div class="form-group">
                             <label for="media">Media (Optional)</label>
-                            <input type="file" name="media[]" id="media" class="form-control-file"
-                                accept="image/*,video/*" multiple>
+                            <input type="file" name="image" id="image" class="form-control-file"
+                                accept="image/*" multiple>
                         </div><br>
 
-                        {{-- <div class="form-group">
-                    <label>Recipients</label>
-                    @foreach ($constituencyMembers as $member)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="recipients[]" value="{{ $member->id }}"
-                                id="member{{ $member->id }}">
-                            <label class="form-check-label" for="member{{ $member->id }}">
-                                {{ $member->name }} ({{ $member->phone }})
-                            </label>
+                        <div class="form-group">
+                            <label for="region_id">Region</label>
+                            <select name="region_id" id="region_id" class="form-control" required
+                                onchange="renderConstituencies(event)">
+                                <option value="">Select Region</option>
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}"
+                                        {{ old('region_id') == $region->id ? 'selected' : '' }}>
+                                        {{ $region->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-                    @endforeach
-                </div><br> --}}
+
+                        <div>
+                            <label for="constituency_id">Constituency</label>
+                            <select name="constituency_id" id="constituency_id" class="form-control" required>
+                                <option value="">Select Constituency</option>
+
+                            </select>
+                        </div><br>
+
+
 
                         <button type="submit" class="btn btn-primary">Send Campaign Message</button>
                     </form>
                 </div>
             </div>
         </div>
+
+        <script>
+            const regions = @json($regions);
+            console.log({
+                regions
+            });
+
+            function makeOption(value, textContent) {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = textContent;
+                return option;
+            }
+
+            function renderConstituencies(event) {
+                const region = regions.find(r => +r.id === +event.target.value)
+                const constSelect = document.querySelector('select#constituency_id')
+
+                while (constSelect.firstChild) {
+                    constSelect.removeChild(constSelect.firstChild);
+                }
+
+                constSelect.appendChild(makeOption('', 'Select'));
+
+                region.constituencies.forEach(constituency => {
+
+                    constSelect.appendChild(makeOption(constituency.id, constituency.name));
+                });
+
+
+            }
+        </script>
     @endsection

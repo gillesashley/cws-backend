@@ -21,6 +21,7 @@ class CampaignMessageController extends Controller
     public function index()
     {
         $messages = QueryBuilder::for(CampaignMessage::class)
+            ->defaultSort(['-created_at'])
             ->allowedFilters([
 
                 AllowedFilter::exact('user_id'),

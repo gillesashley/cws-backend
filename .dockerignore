@@ -3,3 +3,6 @@
 ./storage/log/
 storage/backup_db/
 public/*
+.composer/
+.config/
+.npm/

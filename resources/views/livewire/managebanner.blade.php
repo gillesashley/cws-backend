@@ -21,17 +21,6 @@ rules([
     'region_id' => 'sometimes|exists:regions,id',
     'constituency_id' => 'sometimes:region_id|exists:constituencies,id',
     'bannerable_type' => 'sometimes|in:null,Constituency,Region,Nation',
-    // 'bannerable_id' => [
-    //     'required_with:bannerable_type',
-    //     function ($attribute, $value, $fail) {
-    //         if ($this->bannerable_type && $this->bannerable_type !== 'null') {
-    //             $modelClass = 'App\\Models\\' . $this->bannerable_type;
-    //             if (!class_exists($modelClass) || !$modelClass::find($value)) {
-    //                 $fail("The selected {$attribute} is invalid.");
-    //             }
-    //         }
-    //     },
-    // ],
 ]);
 
 with(['banners' => fn() => Banner::with('bannerable')->latest()->paginate(10)]);
@@ -74,6 +63,18 @@ $toggleModal = fn($state = false) => ($this->open = $state);
 
 $toggleOpen = fn() => $this->toggleModal(true);
 $closeModal = fn() => $this->toggleModal(false);
+$editBanner = function (Banner $banner) {
+    $this->id = $banner->id;
+    $this->title = $banner->title;
+    $this->description = $banner->description;
+    $this->expires_at = $banner->expires_at;
+    $this->bannerable_type = $banner->bannerable_type ? class_basename($banner->bannerable_type) : null;
+    $this->region_id = $banner->bannerable_type === 'App\Models\Region' ? $banner->bannerable_id : null;
+    $this->constituency_id = $banner->bannerable_type === 'App\Models\Constituency' ? $banner->bannerable_id : null;
+    $this->bannerable_id = $banner->bannerable_id;
+    $this->image = null; // Reset image input
+    $this->open = true;
+};
 
 updated([
     'bannerable_type' => function () {

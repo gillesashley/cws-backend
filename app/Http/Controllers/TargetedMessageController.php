@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CampaignMessage;
+use App\Models\Region;
 use App\Models\TargetedMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Str;
 use Twilio\Rest\Client as TwilioClient;
 
 class TargetedMessageController extends Controller
@@ -24,12 +27,12 @@ class TargetedMessageController extends Controller
 
     public function allIndex()
     {
-        return view('targeted-messages.all.index', ['messages' => TargetedMessage::paginate()]);
+        return view('targeted-messages.all.index', ['messages' => TargetedMessage::latest()->paginate()]);
     }
 
     public function allCreate()
     {
-        return view('targeted-messages.all.create', ['messages' => TargetedMessage::paginate()]);
+        return view('targeted-messages.all.create', ['messages' => TargetedMessage::latest()->paginate(), 'regions' => Region::with('constituencies')->get()]);
     }
 
     public function allStore(Request $request)
@@ -153,6 +156,7 @@ class TargetedMessageController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string|max:160',
+            'image' => 'sometimes'
             // 'recipients' => 'required|array',
             // 'recipients.*' => 'exists:users,id',
         ]);
@@ -161,12 +165,19 @@ class TargetedMessageController extends Controller
         $user = User::where('email', auth()->user()?->email ?? session('user')->email)->firstorfail();
         $recipients = self::getRecipients(auth()->user());
 
+        $image_url = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('campaign_images', 'public');
+            $image_url = asset(Storage::url($imagePath));
+        }
+
         $targetedMessage = TargetedMessage::create([
             'user_id' => $user->id,
             'constituency_id' => $user->constituency_id,
             'title' => $request->title,
             'content' => $request->content,
             'type' => $type,
+            'image_url' => $image_url,
             'recipients_count' => count($recipients),
         ]);
 
@@ -184,6 +195,21 @@ class TargetedMessageController extends Controller
         }
 
         Log::info("success", compact('successCount', 'failureCount'));
+
+        $campaignData = $request->validate([
+            'constituency_id' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'image' => 'sometimes',
+        ]);
+
+
+
+        CampaignMessage::create($campaignData + [
+            'user_id' => auth()->id(),
+            'slug' => Str::slug($campaignData['title']),
+            'image_url' => $image_url
+        ]);
 
         $targetedMessage->update([
             'success_count' => $successCount,

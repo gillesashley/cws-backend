@@ -17,7 +17,7 @@ class BannerController extends Controller
     public function index()
     {
         $res = QueryBuilder::for(Banner::class)
-            ->allowedFilters(['bannerable_type', AllowedFilter::exact('bannerable_id')])
+            ->allowedFilters([AllowedFilter::partial('bannerable_type')->nullable(), AllowedFilter::exact('bannerable_id')->nullable()])
             ->AllowedIncludes(['bannerable'])
             ->latest()
             ->paginate(10)

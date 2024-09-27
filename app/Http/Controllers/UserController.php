@@ -46,13 +46,7 @@ class UserController extends Controller
     public function store(Request $request): RedirectResponse
     {
 
-        // password',
-        //     'date_of_birth',
-        //     'ghana_card_id',
-        //     'ghana_card_image_path',
-        //     'constituency_id',
-        //     'region_id',
-        //     'area',
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

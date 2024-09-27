@@ -28,7 +28,8 @@ class CampaignMessageResource extends JsonResource
             'constituency' => new ConstituencyResource($this->whenLoaded('constituency')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user_liked' => $this->user_liked
+            'user_liked' => $this->user_liked,
+            'image_url' => $this->image_url
         ];
     }
 }

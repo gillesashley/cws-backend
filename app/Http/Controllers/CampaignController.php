@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -21,7 +22,7 @@ class CampaignController extends Controller
 
     public function create()
     {
-        return view('admin.campaigns.create');
+        return view('admin.campaigns.create', ['regions' => Region::with('constituencies')->all()]);
     }
 
     public function store(Request $request)

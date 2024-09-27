@@ -24,8 +24,8 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|max:255',
-            'email' => ['sometimes', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user->id)],
-            'phone' => ['sometimes', 'string', 'max:20', Rule::unique('users')->ignore($this->user->id)],
+            'email' => ['sometimes', 'string', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
+            'phone' => ['sometimes', 'string', 'max:20', Rule::unique('users')->ignore(auth()->id())],
             'date_of_birth' => 'sometimes|date',
             'constituency_id' => 'sometimes|exists:constituencies,id',
             'area' => 'sometimes|string|max:255',

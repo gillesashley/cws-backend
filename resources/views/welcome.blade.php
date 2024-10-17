@@ -292,7 +292,7 @@
                     <div class="col-lg-4">
                         <div class="step__box">
                             <div class="image">
-                                <img src="{{ asset('assets-landing/images/phone-01.png') }}" alt="image">
+                                <img src="{{ asset('assets-landing/images/phone-03.png') }}" alt="image">
                             </div>
                             <div class="content">
                                 <h3>EASY TO<span>Register.</span></h3>
@@ -304,7 +304,7 @@
                     <div class="col-lg-4">
                         <div class="step__box">
                             <div class="image">
-                                <img src="{{ asset('assets-landing/images/phone-02.png') }}" alt="image">
+                                <img src="{{ asset('assets-landing/images/phone-05.png') }}" alt="image">
                             </div>
                             <div class="content">
                                 <h3>SIMPLE TO<span>Campaign.</span></h3>
@@ -316,7 +316,7 @@
                     <div class="col-lg-4">
                         <div class="step__box">
                             <div class="image">
-                                <img src="{{ asset('assets-landing/images/phone-03.png') }}" alt="image">
+                                <img src="{{ asset('assets-landing/images/phone-06.png') }}" alt="image">
                             </div>
                             <div class="content">
                                 <h3>FUN TO<span>Earn.</span></h3>
@@ -564,7 +564,7 @@
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
                         <div class="questions-img">
-                            <img src="{{ asset('assets-landing/images/phone-01.png') }}" alt="image">
+                            <img src="{{ asset('assets-landing/images/phone-04.png') }}" alt="image">
                         </div>
                     </div>
                 </div>
@@ -601,6 +601,12 @@
                     </div>
                     <div class="swiper-slide screenshot-slide">
                         <img src="{{ asset('assets-landing/images/phone-05.png') }}" alt="image">
+                    </div>
+                    <div class="swiper-slide screenshot-slide">
+                        <img src="{{ asset('assets-landing/images/phone-06.png') }}" alt="image">
+                    </div>
+                    <div class="swiper-slide screenshot-slide">
+                        <img src="{{ asset('assets-landing/images/phone-07.png') }}" alt="image">
                     </div>
                 </div>
             </div>
